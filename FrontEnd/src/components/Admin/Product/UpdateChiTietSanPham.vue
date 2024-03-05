@@ -347,7 +347,7 @@ const formatDate = (dateTime) => {
                                 </div>
                                 <small class="p-error">{{ trongLuongError }}</small>
                             </div>
-                            <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
+                            <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
                                         <Dropdown id="dropdown" :options="dataMauSac" v-model="selectedMauSac" optionLabel="ten" :class="{ 'p-invalid': mauSacError }" @change="onMauSacChange()"> </Dropdown>
@@ -356,9 +356,9 @@ const formatDate = (dateTime) => {
                                     <TableMauSac :tableId="'TableMauSac'" :rightGhId="'right_ghMauSac'" :tableClass="'TableMauSac'" :rightGhClass="'right_ghMauSac'" />
                                 </div>
                                 <small class="p-error">{{ mauSacError }}</small>
-                            </div>
+                            </div> -->
 
-                            <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
+                            <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
                                         <Dropdown id="dropdown" :options="dataSize" v-model="selectedSize" optionLabel="ten" :class="{ 'p-invalid': sizeError }" @change="onSizeChange"> </Dropdown>
@@ -367,7 +367,7 @@ const formatDate = (dateTime) => {
                                     <TableSize :tableId="'TableMauSac'" :rightGhId="'right_ghMauSac'" :tableClass="'TableMauSac'" :rightGhClass="'right_ghMauSac'" />
                                 </div>
                                 <small class="p-error">{{ sizeError }}</small>
-                            </div>
+                            </div> -->
                             <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">

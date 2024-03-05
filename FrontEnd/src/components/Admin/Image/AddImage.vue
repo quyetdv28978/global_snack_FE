@@ -42,15 +42,14 @@ const onSubmit = handleSubmit(async (values) => {
     submitted.value = true;
     const form = {
         idSP: props.myProp,
-        anh: values.imagesProduct
+        anh: values.imagesProduct.substring(values.imagesProduct.lastIndexOf("\\") + 1)
     }
+    console.log(form);
     const data = await productStore.addImg(form, props.myProp);
     emit('addImg:myProp', data)
     reset();
     toast.add({ severity: 'success', summary: 'Success Message', detail: 'Thêm thành công', life: 3000 });
     productDialog.value = false;
-
-
 });
 
 const reset = () => {

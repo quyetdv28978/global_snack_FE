@@ -11,7 +11,7 @@ import ProgressSpinner from 'primevue/progressspinner';
 import ExcelJS from 'exceljs';
 import { format } from 'date-fns';
 
-const column = ['STT', 'Sản phẩm', 'Vật liệu', 'Trọng lượng', 'Giá bán', 'Màu sắc', 'Size', 'Số lượng', 'Ảnh màu sắc 01 ', 'Ảnh chính', 'Ảnh 1', 'Quai đeo', 'Đệm lót', 'Mô tả sản phẩm', 'Loại sản phẩm', 'Thương hiệu'];
+const column = ['STT', 'Sản phẩm', 'Vật liệu', 'Trọng lượng', 'Giá bán',  'Số lượng', 'Ảnh màu sắc 01 ', 'Ảnh chính', 'Ảnh 1', 'Quai đeo', 'Đệm lót', 'Mô tả sản phẩm', 'Loại sản phẩm', 'Thương hiệu'];
 
 const generateExcel = () => {
     const workbook = new ExcelJS.Workbook();

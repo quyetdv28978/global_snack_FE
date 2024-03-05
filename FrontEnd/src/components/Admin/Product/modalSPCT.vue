@@ -279,7 +279,7 @@ const formatDate = (dateTime) => {
 
                 <Column field="code" header="Ảnh" :sortable="true" headerStyle="width:14%; min-width:8rem;">
                     <template #body="slotProps">
-                        <span class="p-column-title">Tên Màu Sắc</span>
+                        <span class="p-column-title">Trọng lượng</span>
                         <img :src="slotProps.data.anh" :alt="i" class="shadow-2" width="50" />
                     </template>
                 </Column>
@@ -353,18 +353,18 @@ const formatDate = (dateTime) => {
                         <img :src="slotProps.data.anh" :alt="i" class="shadow-2" width="50" />
                     </template>
                 </Column>
-                <Column field="tenMauSac" header="Màu Sắc" :sortable="true" headerStyle="width:14%; min-width:6rem;">
+                <!-- <Column field="tenMauSac" header="Màu Sắc" :sortable="true" headerStyle="width:14%; min-width:6rem;">
                     <template #body="slotProps">
-                        <span class="p-column-title">Màu Sắc</span>
+                        <span class="p-column-title">Trọng lượng</span>
                         {{ slotProps.data.tenMauSac }}
                     </template>
                 </Column>
-                <Column field="tenSize" header="Size" :sortable="true" headerStyle="width:14%; min-width:6rem;">
+                <Column field="tenSize" header="Size2" :sortable="true" headerStyle="width:14%; min-width:6rem;">
                     <template #body="slotProps">
-                        <span class="p-column-title">Size</span>
+                        <span class="p-column-title">Size2</span>
                         {{ slotProps.data.tenSize === null ? "chưa có" : slotProps.data.tenSize }}
                     </template>
-                </Column>
+                </Column> -->
                 <Column field="soLuongTon" header="Số Lượng" :sortable="true" headerStyle="width:14%; min-width:8rem;">
                     <template #body="slotProps">
                         <span class="p-column-title">Số Lượng</span>

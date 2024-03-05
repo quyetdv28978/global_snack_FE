@@ -42,7 +42,7 @@ const onSubmit = handleSubmit(async (values) => {
     submitted.value = true;
     const form = {
         idSP: props.idProduct,
-        anh: values.anh
+        anh: values.anh.substring(values.anh.lastIndexOf("\\") + 1)
     }
     const data = await productStore.editImg(form, props.myProp.id);
     emit('updateImg:myProp', data)

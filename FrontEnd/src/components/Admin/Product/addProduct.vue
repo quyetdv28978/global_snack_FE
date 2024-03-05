@@ -102,7 +102,6 @@ const onSubmit = handleSubmit(async (values) => {
             // Hiển thị thông báo lỗi hoặc xử lý theo nhu cầu của bạn
             toast.add({ severity: 'error', summary: 'Error', detail: 'sản phẩm đã tồn tại', life: 3000 });
         } else {
-
             for (let i = 0; i < values.giaBan.length; i++) {
                 let giaBan = values.giaBan[i];
                 //   let giaNhap = values.giaNhap[i];

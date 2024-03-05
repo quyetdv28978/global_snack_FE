@@ -119,7 +119,7 @@ const updateProduct = () => {
         ngaySinh: ngaySinh.value,
         gioiTinh: gioiTinh.value,
         diaChi: diaChi.value,
-        image: image.value,
+        image: image.value.substring(image.value.lastIndexOf("\\") + 1),
     };
     schema
         .validate(form)

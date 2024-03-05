@@ -76,11 +76,11 @@ const hideDialog = () => {
 
 const onSubmit = handleSubmit(async (values) => {
     try {
-        // console.log(values)
+        values.anh = values.anh.substring(values.anh.lastIndexOf("\\") + 1)
         await productStore.edit(values);
         toast.add({ severity: 'success', summary: 'Success Message', detail: 'update thành công', life: 3000 });
         productDialog.value = false;
-        reset();
+        // reset();
     } catch (error) {
         console.error('Lỗi xử lý dữ liệu:', error);
     }
