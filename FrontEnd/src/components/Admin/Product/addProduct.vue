@@ -8,23 +8,28 @@ import TableThuongHieu from './DataTableThuongHieu.vue';
 import TableMauSac from './DataTableMauSac.vue';
 import TablevatLieu from './DataTableVatLieu.vue';
 import TableTrongLuong from './DataTableTrongLuong.vue';
+import TableLoSanPham from './DataTableLoSanPham.vue';
 import { ProductStore } from '@/service/Admin/product/product.api';
 import { useToast } from 'primevue/usetoast';
 import { useCounterStore } from '@/service/Admin/ThuongHieu/ThuongHieuService.js';
 import { SizeStore } from '@/service/Admin/Size/SizeService';
 import { useLoaiService } from '@/service/Admin/Loai/LoaiService';
 import { TrongLuongStore } from '@/service/Admin/TrongLuong/TrongLuong.api';
-// import { TrongLuongStore } from '@/service/Admin/TrongLuong/TrongLuong.api';
+import { useLoSanPhamService } from '@/service/Admin/LoSanPham/LoSanPhamServiceAPI';
 import { VatLieuStore } from '@/service/Admin/VatLieu/VatLieu.api';
+// import DataTableLoSanPham from './DataTableLoSanPham.vue';
+
+
 
 const toast = useToast();
 const productStore = ProductStore();
 const thuongHieuService = useCounterStore();
 const sizeStore = SizeStore();
-const mauSacStore = TrongLuongStore();
+// const mauSacStore = TrongLuongStore();
 const loaiStore = useLoaiService();
-// const trongLuongStore = TrongLuongStore();
+const trongLuongStore = TrongLuongStore();
 const vatLieuStore = VatLieuStore();
+const loSanPhamStore = useLoSanPhamService();
 
 const schema = yup.object().shape({
     ten: yup
@@ -77,9 +82,10 @@ const { value: GiaBan, errorMessage: giaBanError } = useField('giaBan');
 const { value: Loai, errorMessage: loaiError } = useField('loai');
 const { value: ThuongHieu, errorMessage: thuongHieuError } = useField('thuongHieu');
 const { value: vatLieu, errorMessage: vatLieuError } = useField('vatLieu');
-const { value: idMauSac, errorMessage: mauSacError } = useField('idMauSac');
+const { value: loSanPham, errorMessage: loSanPhamError } = useField('loSanPham');
+// const { value: idMauSac, errorMessage: mauSacError } = useField('idMauSac');
 // const { value: DemLot, errorMessage: demLotError } = useField('demLot');
-const { value: Size, errorMessage: SizeError } = useField('idSize');
+// const { value: Size, errorMessage: SizeError } = useField('idSize');
 const { value: SoLuongSize, errorMessage: soLuongSizeError } = useField('soLuongSize');
 const { value: TrongLuong, errorMessage: trongLuongError } = useField('trongLuong');
 const { value: imgMauSac, errorMessage: ImgMauSacError } = useField('imgMauSac');
@@ -173,6 +179,7 @@ const selectedCity = ref(null);
 const selectedLoai = ref(null);
 const selectedMauSac = ref(null);
 const selectedvatLieu = ref(null);
+const selectedLoSanPham = ref(null);
 const selectedTrongLuong = ref(null);
 const selectedSizes = ref(null);
 
@@ -189,25 +196,25 @@ const loadDataThuongHieu = async () => {
     // ThuongHieu.value =  dataThuongHieu.value.ten;
 };
 
-const dataSize = ref([]);
+// const dataSize = ref([]);
 
-//load data size tất cả
-const loadDataSize = async () => {
-    await sizeStore.fetchDataByStatus(1);
-    dataSize.value = sizeStore.dataByStatus1;
-};
+// //load data size tất cả
+// const loadDataSize = async () => {
+//     await sizeStore.fetchDataByStatus(1);
+//     dataSize.value = sizeStore.dataByStatus1;
+// };
 
-const dataMauSac = ref([]);
-const loadDataMauSac = async () => {
-    await mauSacStore.fetchDataByStatus(1);
-    dataMauSac.value = mauSacStore.dataByStatus1;
-    const lstMau = dataMauSac.value;
-    // Tạo mảng mới với thông tin về size và màu sắc
-    for (const [key, product] of lstMau.entries()) {
-        lstMau[key]['size'] = null;
-    }
-    dataMauSac.value = lstMau;
-};
+// const dataMauSac = ref([]);
+// const loadDataMauSac = async () => {
+//     await mauSacStore.fetchDataByStatus(1);
+//     dataMauSac.value = mauSacStore.dataByStatus1;
+//     const lstMau = dataMauSac.value;
+//     // Tạo mảng mới với thông tin về size và màu sắc
+//     for (const [key, product] of lstMau.entries()) {
+//         lstMau[key]['size'] = null;
+//     }
+//     dataMauSac.value = lstMau;
+// };
 
 const dataLoai = ref([]);
 const loadDataLoai = async () => {
@@ -228,13 +235,21 @@ const loadDataVatLieu = async () => {
     dataVatLieu.value = vatLieuStore.dataByStatus1;
 };
 
+const dataLoSanPham = ref([]);
+const loadDataLoSanPham = async () => {
+    await loSanPhamStore.fetchDataByStatus(1);
+    console.log(loSanPhamStore);
+    dataLoSanPham.value = loSanPhamStore.dataByStatus1;
+};
+
 onMounted(() => {
     loadDataThuongHieu();
-    loadDataSize();
-    loadDataMauSac();
+    // loadDataSize();
+    // loadDataMauSac();
     loadDataLoai();
     loadDataTrongLuong();
     loadDataVatLieu();
+    loadDataLoSanPham();
 });
 
 const reset = () => {
@@ -250,6 +265,7 @@ const reset = () => {
     selectedCity.value = null;
     selectedTrongLuong.value = null;
     selectedvatLieu.value = null;
+    selectedLoSanPham.value = null;
     ImagesProduct.value = [];
     arrayImgMauSac.value = [];
     imageUrls.value = [];
@@ -375,7 +391,13 @@ const onvatLieuChange = () => {
         vatLieu.value = null;
     }
 };
-
+const onLoSanPhamChange = () => {
+    if (selectedLoSanPham.value) {
+        loSanPham.value = selectedLoSanPham.value.id;
+    } else {
+        loSanPham.value = null;
+    }
+};
 
 const arrayImgMauSac = ref([]);
 function onFileInputImageMauSac(event) {
@@ -548,15 +570,15 @@ const openNew = () => {
                                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                         <div style="display: flex">
                                             <span class="p-float-label" style="width: 239px">
-                                                <MultiSelect v-model="selectedMauSac" :options="dataMauSac"
+                                                <MultiSelect v-model="selectedTrongLuong" :options="dataTrongLuong"
                                                     optionLabel="value" :filter="false" :maxSelectedLabels="3"
-                                                    :class="{ 'p-invalid': mauSacError }" @change="onMauSacChange">
+                                                    :class="{ 'p-invalid': TrongLuongError }" @change="onTrongLuongChange">
                                                 </MultiSelect>
                                                 <label for="multiselect">Trọng lượng</label>
                                             </span>
 
-                                            <TableMauSac :tableId="'TableMauSac'" :rightGhId="'right_ghMauSac'"
-                                                :tableClass="'TableMauSac'" :rightGhClass="'right_ghMauSac'" />
+                                            <TableTrongLuong :tableId="'TableTrongLuong'" :rightGhId="'right_ghMauSac'"
+                                                :tableClass="'TableTrongLuong'" :rightGhClass="'right_ghTrongLuong'" />
                                         </div>
                                         <small class="p-error">{{ mauSacError }}</small>
                                     </div>
@@ -574,7 +596,19 @@ const openNew = () => {
                                         <small class="p-error">{{ vatLieuError }}</small>
                                     </div>
 
-
+                                    <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
+                                        <div style="display: flex">
+                                            <span class="p-float-label" style="width: 239px">
+                                                <Dropdown id="dropdown" :options="dataLoSanPham" v-model="selectedLoSanPham"
+                                                    :class="{ 'p-invalid': loSanPhamError }" optionLabel="tenLo"
+                                                    @change="onLoSanPhamChangeChange"> </Dropdown>
+                                                <label for="dropdown">Lô sản phẩm</label>
+                                            </span>
+                                            <TableLoSanPham :tableId="'TableLoTrongLuong'" :rightGhId="'right_LoTrongLuong'"
+                                                :tableClass="'TableLoTrongLuong'" :rightGhClass="'right_LoTrongLuong'" />
+                                        </div>
+                                        <small class="p-error">{{ LoSanPhamError }}</small>
+                                    </div>
                                     <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                         <div style="display: flex">
                                             <span class="p-float-label" style="width: 239px">

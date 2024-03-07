@@ -45,14 +45,14 @@ const dsHDCho = computed(() => store.dsHDCho);
 const dsHDCT = computed(() => store.dsHDCT);
 const dsSP = computed(() => store.dsSP);
 const dsPTTT = computed(() => store.dsPTTT);
-const dsMauSac = computed(() => {
-  const arr = dsSP.value.map((sp) => sp.mauSac.ten);
-  return arr.filter((item, index) => arr.indexOf(item) === index);
-});
-const dsSize = computed(() => {
-  const arr = dsSP.value.map((sp) => sp.size.ten);
-  return arr.filter((item, index) => arr.indexOf(item) === index);
-});
+// const dsMauSac = computed(() => {
+//   const arr = dsSP.value.map((sp) => sp.mauSac.ten);
+//   return arr.filter((item, index) => arr.indexOf(item) === index);
+// });
+// const dsSize = computed(() => {
+//   const arr = dsSP.value.map((sp) => sp.size.ten);
+//   return arr.filter((item, index) => arr.indexOf(item) === index);
+// });
 const dsLoai = computed(() => {
   const arr = dsSP.value.map((sp) => sp.sanPham.loai.ten);
   return arr.filter((item, index) => arr.indexOf(item) === index);
@@ -520,8 +520,7 @@ const confirmHuyHD = (event, data) => {
       <tbody>
       <tr v-for="(hdct, itemObjKey) in dsHDCT">
         <td>{{ itemObjKey + 1 }}</td>
-        <td>{{ hdct.sanPhamChiTiet.sanPham.ten }} - {{ hdct.sanPhamChiTiet.mauSac.ten }} - size
-          {{ hdct.sanPhamChiTiet.size.ten }}
+        <td>{{ hdct.sanPhamChiTiet.sanPham.ten }} - {{ hdct.sanPhamChiTiet.trongLuong.value }}
         </td>
         <td>{{ hdct.soLuong }}</td>
         <td>{{ formatCurrency(hdct.donGia) }}</td>
@@ -654,7 +653,8 @@ const confirmHuyHD = (event, data) => {
             <Column field="sanPhamChiTiet.ma" header="Mã SP" style="width: 10%"></Column>
             <Column field="sanPhamChiTiet.sanPham.ten" header="Tên sản phẩm">
               <template #body="slotProps"> Mũ bảo hiểm {{ slotProps.data.sanPhamChiTiet.sanPham.ten }} -
-                {{ slotProps.data.sanPhamChiTiet.mauSac.ten }} - size {{ slotProps.data.sanPhamChiTiet.size.ten }}
+                {{ slotProps.data.sanPhamChiTiet.trongLuong.ten }}
+                 <!-- - size {{ slotProps.data.sanPhamChiTiet.size.ten }} -->
               </template>
             </Column>
             <Column header="Đơn giá" style="width: 12%" header-class="text-center">
@@ -750,7 +750,7 @@ const confirmHuyHD = (event, data) => {
         <div class="card" style="width: 100%">
           <DataTable :value="dsSP" v-model:filters="sanPhamFilter" dataKey="id" showGridlines scrollable
                      filterDisplay="menu"
-                     :globalFilterFields="['sanPham.ten', 'mauSac.ten', 'size.ten', 'sanPham.loai.ten', 'sanPham.thuongHieu.ten']"
+                     :globalFilterFields="['sanPham.ten', 'trongLuong.ten', 'sanPham.loai.ten', 'sanPham.thuongHieu.ten']"
                      scrollHeight="325px">
             <template #header>
               <div class="flex justify-content-between align-items-center">
@@ -766,16 +766,15 @@ const confirmHuyHD = (event, data) => {
             </template>
             <Column field="ma" header="Mã SP"></Column>
             <Column field="sanPham.ten" header="Tên sản phẩm">
-              <template #body="slotProps"> Mũ bảo hiểm {{ slotProps.data.sanPham.thuongHieu.ten }}
-                {{ slotProps.data.sanPham.ten }}
+              <template #body="slotProps"> {{ slotProps.data.sanPham.ten }}
               </template>
             </Column>
 
-            <Column header="Màu sắc" filterField="mauSac.ten" :showFilterMatchModes="false"
+            <Column header="Trọng lượng" filterField="trongLuong.value" :showFilterMatchModes="false"
                     :filterMenuStyle="{ width: '14rem' }">
               <template #body="{ data }">
                 <div class="flex align-items-center gap-2">
-                  <span>{{ data.mauSac.ten }}</span>
+                  <span>{{ data.trongLuong.value }}</span>
                 </div>
               </template>
               <template #filter="{ filterModel }">
@@ -796,7 +795,7 @@ const confirmHuyHD = (event, data) => {
                         @click="slotProps.filterCallback()"/>
               </template>
             </Column>
-            <Column header="Size" filterField="size.ten" :showFilterMatchModes="false"
+            <!-- <Column header="Size" filterField="size.ten" :showFilterMatchModes="false"
                     :filterMenuStyle="{ width: '14rem' }">
               <template #body="{ data }">
                 <div class="flex align-items-center gap-2">
@@ -820,7 +819,7 @@ const confirmHuyHD = (event, data) => {
                 <Button size="small" label="Huỷ" icon="pi pi-times" severity="danger" rounded
                         @click="slotProps.filterCallback()"/>
               </template>
-            </Column>
+            </Column> -->
             <Column filterField="sanPham.loai.ten" header="Loại" :showFilterMatchModes="false"
                     :filterMenuStyle="{ width: '14rem' }">
               <template #body="{ data }">

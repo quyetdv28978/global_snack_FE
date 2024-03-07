@@ -90,7 +90,7 @@ const addProduct = async () => {
         userName: userName.value,
         password: password.value,
         email: email.value,
-        role: props.myProp,
+        role: "USER",
         sdt: sdt.value,
         ngaySinh: ngaySinh.value,
         gioiTinh: gioiTinh.value,

@@ -766,7 +766,7 @@ const setChartDataSpCao = () => {
     const ten = [];
     const tongTien = [];
     for (const o of lstAdminThongKeSanPhamCaoResponses.value) {
-        ten.push(o.ma);
+        ten.push(o.ten);
         tongTien.push(o.tongTien);
     }
     return {
@@ -829,7 +829,7 @@ const setChartDataSpThap = () => {
     const ten = [];
     const tongTien = [];
     for (const o of lstAdminThongKeSanPhamThapResponses.value) {
-        ten.push(o.ma);
+        ten.push(o.ten);
         tongTien.push(o.tongTien);
     }
     return {
