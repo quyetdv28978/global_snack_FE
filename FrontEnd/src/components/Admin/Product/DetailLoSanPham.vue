@@ -62,9 +62,6 @@ const hideDialog = () => {
     productDialog.value = false;
 };
 
-
-
-
 const selectedCity = ref(null);
 const selectedLoai = ref(null);
 const selectedMauSac = ref(null);
@@ -73,10 +70,6 @@ const selectedTrongLuong = ref(null);
 const selectedSizes = ref(null);
 const array = ref([]);
 const arrayMauSac = ref([]);
-
-
-
-
 const arrayImgMauSac = ref([]);
 const ImagesProduct = ref([]);
 
@@ -99,18 +92,6 @@ const loadDataThuongHieu = async () => {
 
 const dataSize = ref([]);
 
-//load data size tất cả
-// const loadDataSize = async () => {
-//     await sizeStore.fetchData();
-//     dataSize.value = sizeStore.data;
-// };
-
-// const dataMauSac = ref([]);
-// const loadDataMauSac = async () => {
-//     await mauSacStore.fetchData();
-//     dataMauSac.value = mauSacStore.data;
-
-// };
 
 const dataLoai = ref([]);
 const loadDataLoai = async () => {
@@ -163,7 +144,7 @@ onBeforeMount(() => {
     loadDataLoai();
     loadDataTrongLuong();
     loadDataVatLieu();
-    console.log('list update: ', props.myProp);
+    console.log('list update: ', props);
 
 });
 
@@ -192,7 +173,7 @@ const editProduct = () => {
     }
 
     lstChiTietSP.value = props.myProp.sanPhamChiTiet;
-    // console.log(props.myProp)
+    console.log(props.myProp)
     product.value = { ...editProduct };
 
     productDialog.value = true;
@@ -231,8 +212,6 @@ const initFilters = () => {
 };
 
 
-
-
 const columns = ref([
     { field: 'giaSauGiam', header: 'Giá giảm giá' },
     { field: 'tenKM', header: 'Tên Khuyến Mãi' },
@@ -260,6 +239,7 @@ const dataTrangThai = ref([
 
 const loadDataTrangThai = () => {
     lstChiTietSP.value = props.myProp.sanPhamChiTiet;
+
     if (trangThaiselect.value.value == -1) {
         lstChiTietSP.value = props.myProp.sanPhamChiTiet;
         return lstChiTietSP.value;
@@ -276,13 +256,14 @@ const loadDataTrangThai = () => {
         lstChiTietSP.value = lstChiTietSP.value.filter(item => item.tenKM != null);
         return lstChiTietSP.value;
     }
+    
 }
 </script>
 
 
 <template>
     <Button icon="pi pi-eye" severity="secondary" class="p-button-rounded  mr-2" @click="editProduct()" />
-    <Dialog v-model:visible="productDialog" :style="{ width: '1050px' }" header="Xem Chi Tiết Sản Phẩm" :modal="true"
+    <Dialog v-model:visible="productDialog" :style="{ width: '1050px' }" header="Xem Chi Tiết Lô Sản Phẩm" :modal="true"
         class="p-fluid">
         <form @submit="onSubmit" style="margin-top: 30px;">
             <div class="p-fluid formgrid grid">
@@ -298,55 +279,6 @@ const loadDataTrangThai = () => {
                         <small class="p-error">{{ nameError }}</small>
                     </div>
 
-
-                    <!-- <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
-                        <label for="address">Quai Đeo</label>
-                        <div class="flex flex-wrap gap-3">
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient1" name="QuaiDeo" value="Vải"
-                                    :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient1" class="ml-2">Vải</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient2" name="QuaiDeo"
-                                    value="Quai đeo đặc biệt" :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient2" class="ml-2">Quai đeo đặc biệt</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient3" name="QuaiDeo" value="Da"
-                                    :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient3" class="ml-2" :class="{ 'p-invalid': equaiDeoError }">Da</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient3" name="QuaiDeo"
-                                    value="Polycarbonate" :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient3" class="ml-2"
-                                    :class="{ 'p-invalid': equaiDeoError }">Polycarbonate</label>
-                            </div>
-                        </div>
-                        <small class="p-error">{{ quaiDeoError }}</small>
-                    </div> -->
-                    <!-- <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
-                        <label for="address">Đệm lót</label>
-                        <div class="flex flex-wrap gap-3">
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="DemLot" inputId="ingredient1" name="pizza" value="Polycarbonate"
-                                    :class="{ 'p-invalid': demLotError }" />
-                                <label for="ingredient1" class="ml-2">Polycarbonate</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="DemLot" inputId="ingredient2" name="pizza" value="Vải"
-                                    :class="{ 'p-invalid': demLotError }" />
-                                <label for="ingredient2" class="ml-2">Vải</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="DemLot" inputId="ingredient4" name="pizza" value="Da"
-                                    :class="{ 'p-invalid': demLotError }" />
-                                <label for="ingredient4" class="ml-2">Da</label>
-                            </div>
-                        </div>
-                        <small class="p-error">{{ demLotError }}</small>
-                    </div> -->
                     <div class="field col-12 md:col-12" style="margin-bottom: 30px">
                         <label for="address">Trạng thái</label>
                         <div class="flex flex-wrap gap-3">
@@ -364,48 +296,7 @@ const loadDataTrangThai = () => {
                         </div>
                         <small class="p-error">{{ TrangThaiSacError }}</small>
                     </div>
-                    <div class="p-fluid formgrid grid">
-                        <div class="Field col-6 md:col-6" style="margin-bottom: 30px">
-                            <div style="display: flex">
-                                <span class="p-float-label" style="width: 239px">
-                                    <Dropdown id="dropdown" :options="dataLoai" v-model="selectedLoai" optionLabel="ten"
-                                        :class="{ 'p-invalid': loaiError }" @change="onloaiChange" disabled>
-                                    </Dropdown>
-                                    <label for="dropdown">Loại</label>
-                                </span>
-
-                            </div>
-
-                            <small class="p-error">{{ loaiError }}</small>
-                        </div>
-
-
-                        <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                            <div style="display: flex">
-                                <span class="p-float-label" style="width: 239px">
-                                    <Dropdown id="dropdown" :options="dataVatLieu" v-model="selectedvatLieu"
-                                        :class="{ 'p-invalid': vatLieuError }" optionLabel="ten" @change="onvatLieuChange"
-                                        disabled>
-                                    </Dropdown>
-                                    <label for="dropdown">Vật liệu</label>
-                                </span>
-
-                            </div>
-                            <small class="p-error">{{ vatLieuError }}</small>
-                        </div>
-
-                        <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                            <div style="display: flex">
-                                <span class="p-float-label" style="width: 239px">
-                                    <Dropdown id="dropdown" :options="dataThuongHieu" v-model="selectedCity" disabled
-                                        optionLabel="ten" @change="onCityChange" :class="{ 'p-invalid': thuongHieuError }">
-                                    </Dropdown>
-                                    <label for="dropdown">Thương Hiệu</label>
-                                </span>
-                            </div>
-                            <small class="p-error">{{ thuongHieuError }}</small>
-                        </div>
-                    </div>
+                  
                 </div>
                 <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                     <div class="p-fluid formgrid grid">
@@ -424,12 +315,6 @@ const loadDataTrangThai = () => {
                         </div>
                     </div>
 
-                    <div class="field col-12 md:col-12" style="margin-bottom: 30px; margin-top: 20px;">
-                        <label for="address">Mô tả</label>
-                        <Textarea id="address" rows="4" v-model="MoTa" :class="{ 'p-invalid': MoTaSacError }"
-                            disabled></Textarea>
-                        <small class="p-error">{{ MoTaSacError }}</small>
-                    </div>
                 </div>
 
                 <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
@@ -442,13 +327,9 @@ const loadDataTrangThai = () => {
                         <template #header>
 
                             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                                    <MultiSelect icon="pi pi-plus" :modelValue="selectedColumns" :options="columns"
-                                        optionLabel="header" @update:modelValue="onToggle" display="chip"
-                                        placeholder="Select Columns" />
-                                </div>
+                                
                                 <div style="display: flex;">
-                                    <h5 class="m-0" style="margin-right: 0px;">Chi Tiết Sản Phẩm </h5>
+                                    <h5 class="m-0" style="margin-right: 0px;">Chi Tiết Lô Sản Phẩm </h5>
                                 </div>
 
                                 <span class="block mt-2 md:mt-0 p-input-icon-left" style="width: 200px; left: 50px;">
@@ -488,6 +369,25 @@ const loadDataTrangThai = () => {
                             <template #body="slotProps">
                                 <span class="p-column-title">Ảnh</span>
                                 <img :src="slotProps.data.anh" :alt="i" class="shadow-2" width="50" />
+                            </template>
+                        </Column>
+                        <Column field="maLo" header="Mã lô" :sortable="true" headerStyle="width:14%; min-width:5rem;">
+                            <template #body="slotProps">
+                                <span class="p-column-title">Mã lô</span>
+                                {{ slotProps.data.maLo }}
+                            </template>
+                        </Column>
+                        <Column field="tenLo" header="Tên lô" :sortable="true" headerStyle="width:14%; min-width:5rem;">
+                            <template #body="slotProps">
+                                <span class="p-column-title">Tên lô</span>
+                                {{ slotProps.data.tenLo }}
+                            </template>
+                        </Column>
+
+                        <Column field="ngayHetHan" header="ngày hết hạn" :sortable="true" headerStyle="width:14%; min-width:5rem;">
+                            <template #body="slotProps">
+                                <span class="p-column-title">ngày hết hạn</span>
+                                {{ slotProps.data.ngayHetHan }}
                             </template>
                         </Column>
                       

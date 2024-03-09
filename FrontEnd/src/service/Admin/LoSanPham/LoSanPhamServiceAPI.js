@@ -34,6 +34,18 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
                 console.error('Error fetching users:', error);
             }
         },
+        //load data lo san pham theo san pham chi tiet
+        async fetchDataBySPCT(status) {
+            this.check = 1;
+            try {
+                const response = await axios.get(apiLoSanPham + '/by-san-pham-ct/' + status);
+                console.log(response.data);
+                    this.dataByStatus1 = response.data;
+                
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        },
         createMauSac(form) {
             axios.post(apiLoSanPham + '/add-lo', form).then((response) => {
                 if (this.check == 0) {
@@ -45,56 +57,6 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
                 }
             });
         },
-        // updateMauSac(id, form) {
-        //     axios.put(apiMauSac + '/update/' + id, form).then((response) => {
-        //         for (let i = 0; i < this.data.length; i++) {
-        //             if (id == this.data[i].id) {
-        //                 this.data[i].ten = form.ten;
-        //                 this.data[i].moTa = form.moTa;
-        //             }
-        //         }
-        //         for (let i = 0; i < this.dataByStatus1.length; i++) {
-        //             if (id == this.dataByStatus1[i].id) {
-        //                 this.dataByStatus1[i].ten = form.ten;
-        //                 this.dataByStatus1[i].moTa = form.moTa;
-        //             }
-        //         }
-        //     });
-        // },
-        // deleteMauSac(id) {
-        //     axios.put(apiMauSac + '/delete/' + id).then((response) => {
-        //         if (this.check == 0) {
-        //             for (let i = 0; i < this.data.length; i++) {
-        //                 if (id == this.data[i].id) {
-        //                     this.data[i].trangThai = 0;
-        //                 }
-        //             }
-        //             let index = -1;
-        //             for (let i = 0; i < this.dataByStatus1.length; i++) {
-        //                 if (id == this.dataByStatus1[i].id) {
-        //                     index = i;
-        //                 }
-        //             }
-        //             this.dataByStatus1.splice(index, 1);
-        //         } else {
-        //             if (this.data[0].trangThai != response.data.data.trangThai) {
-        //                 let index = -1;
-        //                 for (let i = 0; i < this.data.length; i++) {
-        //                     if (id == this.data[i].id) {
-        //                         index = i;
-        //                     }
-        //                 }
-        //                 this.data.splice(index, 1);
-        //                 let index2 = -1;
-        //                 for (let i = 0; i < this.dataByStatus1.length; i++) {
-        //                     if (id == this.dataByStatus1[i].id) {
-        //                         index2 = i;
-        //                     }
-        //                 }
-        //                 this.dataByStatus1.splice(index2, 1);
-        //             }
-        //         }
-        //     });
-        // }
+       
     }
 });

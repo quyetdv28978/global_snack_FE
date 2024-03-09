@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import axios from '@/service/Authentication/http.js';
 
 const apiSanPham = `${import.meta.env.VITE_BASE_API_ENDPOINT}/admin/san-pham`;
+const apiLoSanPham = `${import.meta.env.VITE_BASE_API_ENDPOINT}/admin/lo-san-pham`
 export const ProductStore = defineStore('product', {
   state: () => ({
     products: [],
@@ -71,10 +72,10 @@ export const ProductStore = defineStore('product', {
       }
     },
 
-    async checkDuplicateSPCT(idSize,idMau,idSP) {
+    async checkDuplicateSPCT(idTrongLuong,idSP) {
       try {
         // Gửi yêu cầu GET để kiểm tra tên sản phẩm
-        const response = await axios.put(apiSanPham+`/check-spct/${idSize}?idMau=${idMau}&idSP=${idSP}`); // Thay đổi URL dựa trên API của bạn
+        const response = await axios.get(apiSanPham+`/check-spct/${idTrongLuong}/${idSP}`); // Thay đổi URL dựa trên API của bạn
         const isDuplicate = response.data; // API trả về một giá trị boolean cho trùng lặp
         return !isDuplicate; // Trả về true nếu không trùng lặp, ngược lại trả về false
 
@@ -105,6 +106,7 @@ export const ProductStore = defineStore('product', {
       try {
         const response = await axios.put(apiSanPham+`/update-san-pham/${updatedProduct.id}`, updatedProduct); // Thay đổi URL và dữ liệu updatedProduct tùy theo API của bạn
         const index = this.products.findIndex(product => product.id === updatedProduct.id);
+        console.log(response.data);
         if (index !== -1) {
           let newProductData = this.products[index];
           newProductData = response.data;
@@ -121,9 +123,8 @@ export const ProductStore = defineStore('product', {
         const index = this.products.findIndex(product => product.id === productId);
         if (index !== -1) {
           let newProductData = this.products[index];
+          console.log(response.data);
           newProductData = response.data;
-        
-
           this.products[index] = newProductData;
         }
       } catch (error) {
@@ -173,6 +174,17 @@ export const ProductStore = defineStore('product', {
         return response.data;
       } catch (error) {
         console.error('Lỗi khi sửa sản phẩm:', error);
+      }
+    },
+
+    async addLoSanPhamSPCT(updatedProduct,id) {
+      try {
+        const response = await axios.post(apiLoSanPham + `/add-lo-san-pham/${id}`, updatedProduct); // Thay đổi URL và dữ liệu updatedProduct tùy theo API của bạn
+      //  await this.fetchAll();
+      console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.error('Lỗi khi them lo san pham:', error);
       }
     },
 

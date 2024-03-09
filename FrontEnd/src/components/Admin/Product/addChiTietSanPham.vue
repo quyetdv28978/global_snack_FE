@@ -3,21 +3,17 @@ import * as yup from 'yup';
 import { useForm, useField } from 'vee-validate';
 import { ref, onMounted, onBeforeMount, defineEmits } from 'vue';
 import { useToast } from 'primevue/usetoast';
-import { SizeStore } from '@/service/Admin/Size/SizeService';
 import { ProductStore } from '@/service/Admin/product/product.api';
 import { TrongLuongStore } from '@/service/Admin/TrongLuong/TrongLuong.api';
-import { useMauSacService } from '@/service/Admin/MauSac/MauSacService';
 import { khuyenMaiStore } from '@/service/Admin/KhuyenMai/KhuyenMaiService.js';
-import TableSize from '@/components/Admin/Product/DataTableSize.vue';
-import TableMauSac from './DataTableMauSac.vue';
 import TableTrongLuong from './DataTableTrongLuong.vue';
 import TableKhuyenMai from './DataTableKhuyenMai.vue';
+import DataTableLoSanPham from './DataTableLoSanPham.vue';
 
 
+// const loSanPhamStore = useLoSanPhamService();
 const trongLuongStore = TrongLuongStore();
 const khuyenmaiService = khuyenMaiStore();
-const mauSacStore = useMauSacService();
-const useSizeService = SizeStore();
 const productStore = ProductStore();
 const toast = useToast();
 const product = ref({});
@@ -37,7 +33,7 @@ const confirmAddProduct = () => {
 
 const schema = yup.object().shape({
     anh: yup.string().required('bạn cần chọn ảnh'),
-    soLuongTon: yup.number().required('số lượng không được để trống').typeError('Số lượng tồn phải là một số').min(1, 'Số lượng phải lớn hơn hoặc bằng 1').max(1000, 'số lượng quá lớn').nullable(),
+    // soLuongTon: yup.number().required('số lượng không được để trống').typeError('Số lượng tồn phải là một số').min(1, 'Số lượng phải lớn hơn hoặc bằng 1').max(1000, 'số lượng quá lớn').nullable(),
     giaBan: yup
         .number()
         .required('Giá bán không được để trống')
@@ -57,9 +53,7 @@ const schema = yup.object().shape({
         // }),
     // giaNhap: yup.number().required('Giá nhập không được để trống').min(50000, 'giá phải lớn hơn hoặc bằng 50.000 đ').max(10000000, 'Giá bán không lớn hơn  10.000.000 đ'),
     trongLuong: yup.string().required('vui lòng chọn trọng lượng sản phẩm'),
-    size: yup.number().required('vui lòng chọn size cho sản phẩm'),
-    mauSac: yup.number().required('vui lòng chọn màu sắc sản phẩm'),
-    trangThai: yup.number().required('vui lòng chọn trạng thái '),
+    // trangThai: yup.number().required('vui lòng chọn trạng thái '),
 });
 
 const { handleSubmit, resetForm } = useForm({
@@ -72,9 +66,8 @@ const { value: soluong, errorMessage: soLuongError } = useField('soLuongTon');
 const { value: GiaBan, errorMessage: giaBanError } = useField('giaBan');
 // const { value: GiaNhap, errorMessage: giaNhapError } = useField('giaNhap');
 const { value: TrongLuong, errorMessage: trongLuongError } = useField('trongLuong');
+const { value: tenLo, errorMessage: loSanPhamError } = useField('tenLo');
 const { value: idKhuyenMai, errorMessage: idKhuyenMaiError } = useField('idKhuyenMai');
-const { value: MauSac, errorMessage: mauSacError } = useField('mauSac');
-const { value: size, errorMessage: sizeError } = useField('size');
 const { value: TrangThai, errorMessage: TrangThaiSacError } = useField('trangThai');
 //add
 
@@ -84,6 +77,7 @@ const onSubmit = handleSubmit(async (values) => {
     if (values.idKhuyenMai == null || values.idKhuyenMai == '') {
         values.idKhuyenMai = '';
     }
+    console.log(values);
     const form = {
         idSP: props.idProduct,
         anh: values.anh,
@@ -92,14 +86,15 @@ const onSubmit = handleSubmit(async (values) => {
         // giaNhap: values.giaNhap,
         trongLuong: values.trongLuong,
         idKhuyenMai: values.idKhuyenMai,
-        mauSac: values.mauSac,
-        size: values.size,
         trangThai: values.trangThai,
+        tenLo: values.tenLo
     }
-    const check = await productStore.checkDuplicateSPCT(form.size, form.mauSac, props.idProduct);
+    const check = await productStore.checkDuplicateSPCT(form.trongLuong, props.idProduct);
+    // const check = false;
     if (check) {
         toast.add({ severity: 'error', summary: 'Error', detail: 'sản phẩm đã tồn tại', life: 3000 });
     } else {
+        console.log(form);
         const data = await productStore.addSPCT(form);
         emit('add:myProp', data)
         toast.add({ severity: 'success', summary: 'Success Message', detail: 'update thành công', life: 3000 });
@@ -108,12 +103,17 @@ const onSubmit = handleSubmit(async (values) => {
     }
 });
 
+// const selectedLoSanPham = ref(null);
+// const dataLoSanPham = ref([]);
+// const loadDataLoSanPham = async () => {
+//     await loSanPhamStore.fetchDataByStatus(1);
+//     dataLoSanPham.value = loSanPhamStore.dataByStatus1;
+// };
 const reset = () => {
     resetForm();
-    selectedSize.value = null;
     selectedKhuyenMai.value = null;
-    selectedMauSac.value = null;
     selectedTrongLuong.value = null;
+    // selectedLoSanPham.value = null;
 }
 
 // mở form
@@ -133,7 +133,7 @@ function onFileInputImage(event) {
         const objectURL = URL.createObjectURL(file);
         anhs.value = objectURL;
         // Gán giá trị cho phần tử có id là 'imagesChinh' (thay đổi id nếu cần)
-        const basePath = "D:\\imgDATN\\"; // Đường dẫn cố định
+        const basePath = ""; // Đường dẫn cố định
         const fileName = basePath + file.name;
         anh.value = fileName;
     }
@@ -145,48 +145,19 @@ const hideDialog = () => {
     submitted.value = false;
 };
 
-const selectedMauSac = ref(null);
-const selectedSize = ref(null);
+
 const selectedKhuyenMai = ref(null);
 //save
 const saveProduct = () => {
     addProductDialog.value = true;
 };
-const dataSize = ref([]);
-const loadDataSize = async () => {
-    await useSizeService.fetchData();
-    dataSize.value = useSizeService.dataByStatus1;
-};
-const dataMauSac = ref([]);
-const loadDataMauSac = async () => {
-    await mauSacStore.fetchDataByStatus(1);
-    dataMauSac.value = mauSacStore.dataByStatus1;
-    const lstMau = dataMauSac.value;
-    dataMauSac.value = lstMau;
-};
 
-const onMauSacChange = () => {
-    if (selectedMauSac.value) {
-        MauSac.value = selectedMauSac.value.id;
-    } else {
-        MauSac.value = null;
-    }
-};
-
-const onSizeChange = () => {
-    if (selectedSize.value) {
-        size.value = selectedSize.value.id;
-    } else {
-        size.value = null;
-    }
-};
 
 
 onMounted(() => {
-    loadDataSize();
     loadDataTrongLuong();
-    loadDataMauSac();
     loadDataKhuyenmai();
+    // loadDataLoSanPham();
 });
 
 const khuyenmais = ref([]);
@@ -214,6 +185,15 @@ const onTrongLuongChange = () => {
     }
 };
 
+// const onLoSanPhamChange = () => {
+//     if (selectedLoSanPham.value) {
+//         tenLo.value = selectedLoSanPham.value.id;
+//         //    console.log(TrongLuong.value)
+//     } else {
+//         tenLo.value = null;
+//     }
+// };
+
 const onTrongLuongKhuyenMai = () => {
     if (selectedKhuyenMai.value) {
         idKhuyenMai.value = selectedKhuyenMai.value.id;
@@ -223,12 +203,14 @@ const onTrongLuongKhuyenMai = () => {
     }
 };
 
+
+
 const getStatusLabel = (trangThai) => {
     switch (trangThai) {
-        case 0:
+        case 1:
             return '- Còn hạn';
 
-        case 1:
+        case 0:
             return '- Hết hạn';
 
         case 2:
@@ -252,23 +234,7 @@ const getStatusLabel = (trangThai) => {
             <form @submit="onSubmit">
                 <div class="p-fluid formgrid grid">
                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                        <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
-                            <span class="p-float-label">
-                                <InputNumber id="soluong" v-model="soluong" :class="{ 'p-invalid': soLuongError }">
-                                </InputNumber>
-                                <label for="SoLuongTon">Số lượng tồn</label>
-                            </span>
-                            <small class="p-error">{{ soLuongError }}</small>
-                        </div>
-<!-- 
-                        <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
-                            <span class="p-float-label">
-                                <InputNumber id="Field" v-model="GiaNhap" :class="{ 'p-invalid': giaNhapError }">
-                                </InputNumber>
-                                <label for="Field">Giá Nhập</label>
-                            </span>
-                            <small class="p-error">{{ giaNhapError }}</small>
-                        </div> -->
+                    
                         <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                             <span class="p-float-label">
                                 <InputNumber id="number-input" name="GiaBan" v-model="GiaBan"
@@ -277,22 +243,7 @@ const getStatusLabel = (trangThai) => {
                             </span>
                             <small class="p-error">{{ giaBanError }}</small>
                         </div>
-                        <div class="field col-12 md:col-12" style="margin-bottom: 30px">
-                                    <label for="address">Trạng thái</label>
-                                    <div class="flex flex-wrap gap-3">
-                                        <div class="flex align-items-center">
-                                            <RadioButton v-model="TrangThai" inputId="ingredient1" name="pizza" value="1"
-                                                :class="{ 'p-invalid': TrangThaiSacError }" />
-                                            <label for="ingredient1" class="ml-2">Sẵn sàng để bán</label>
-                                        </div>
-                                        <div class="flex align-items-center">
-                                            <RadioButton v-model="TrangThai" inputId="ingredient2" name="pizza" value="3"
-                                                :class="{ 'p-invalid': TrangThaiSacError }" />
-                                            <label for="ingredient2" class="ml-2">tồn kho</label>
-                                        </div>
-                                    </div>
-                                    <small class="p-error">{{ TrangThaiSacError }}</small>
-                                </div>
+                    
                     </div>
                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                         <div class="Field col-12 md:col-12"
@@ -325,34 +276,9 @@ const getStatusLabel = (trangThai) => {
                                 </div>
                                 <small class="p-error">{{ trongLuongError }}</small>
                             </div>
-                            <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                <div style="display: flex">
-                                    <span class="p-float-label" style="width: 239px">
-                                        <Dropdown id="dropdown" :options="dataMauSac" v-model="selectedMauSac"
-                                            optionLabel="ten" :class="{ 'p-invalid': mauSacError }"
-                                            @change=" onMauSacChange()">
-                                        </Dropdown>
-                                        <label for="dropdown">Màu Sắc</label>
-                                    </span>
-                                    <TableMauSac :tableId="'TableMauSac'" :rightGhId="'right_ghMauSac'"
-                                        :tableClass="'TableMauSac'" :rightGhClass="'right_ghMauSac'" />
-                                </div>
-                                <small class="p-error">{{ mauSacError }}</small>
-                            </div>
+                           
 
-                            <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                <div style="display: flex">
-                                    <span class="p-float-label" style="width: 239px">
-                                        <Dropdown id="dropdown" :options="dataSize" v-model="selectedSize" optionLabel="ten"
-                                            :class="{ 'p-invalid': sizeError }" @change="onSizeChange">
-                                        </Dropdown>
-                                        <label for="dropdown">Size</label>
-                                    </span>
-                                    <TableSize :tableId="'TableMauSac'" :rightGhId="'right_ghMauSac'"
-                                        :tableClass="'TableMauSac'" :rightGhClass="'right_ghMauSac'" />
-                                </div>
-                                <small class="p-error">{{ sizeError }}</small>
-                            </div>
+              
                             <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
@@ -367,6 +293,22 @@ const getStatusLabel = (trangThai) => {
                                 </div>
 
                             </div>
+
+                            <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
+                                <div style="display: flex">
+                                    <span class="p-float-label" style="width: 239px">
+                                        <Dropdown id="dropdown" :options="dataLoSanPham" v-model="selectedLoSanPham"
+                                        :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan}  ${getStatusLabel(option.trangThai)}`"
+                                        @change="onLoSanPhamChange" 
+                                        >
+                                        </Dropdown>
+                                        <label for="dropdown">Lô sản phẩm</label>
+                                    </span>
+                                    <DataTableLoSanPham :tableId="'TableLoSanPham'" :rightGhId="'right_ghLoSanPham'"
+                                        :tableClass="'TableLoSanPham'" :rightGhClass="'right_ghLoSanPham'" />
+                                </div>
+
+                            </div> -->
                         </div>
                     </div>
 

@@ -3,13 +3,16 @@
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from 'primevue/usetoast';
 import AddSanPhamChiTiet from './addChiTietSanPham.vue';
-import UpdateSanPhamChiTiet from './UpdateChiTietSanPham.vue';
 import { ProductStore } from '@/service/Admin/product/product.api';
 import { reactive, ref, computed, onMounted, onBeforeMount } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
 import AddImage from '@/components/Admin/Image/AddImage.vue';
 import UpdateImage from '@/components/Admin/Image/UpdateImage.vue';
+import updateLoSanPham from './updateLoSanPham.vue';
+
 import { format } from 'date-fns';
+import UpdateChiTietSanPham from "./UpdateChiTietSanPham.vue";
+
 const props = defineProps({
     myProp: {}
 });
@@ -58,6 +61,7 @@ const formatCurrency = (value) => {
 };
 
 const loadDataTrangThai = () => {
+    console.log(props.myProp);
     lstChiTietSP.value = props.myProp.sanPhamChiTiet;
     if (trangThaiselect.value.value == -1) {
         lstChiTietSP.value = props.myProp.sanPhamChiTiet;
@@ -353,30 +357,14 @@ const formatDate = (dateTime) => {
                         <img :src="slotProps.data.anh" :alt="i" class="shadow-2" width="50" />
                     </template>
                 </Column>
-                <!-- <Column field="tenMauSac" header="Màu Sắc" :sortable="true" headerStyle="width:14%; min-width:6rem;">
-                    <template #body="slotProps">
-                        <span class="p-column-title">Trọng lượng</span>
-                        {{ slotProps.data.tenMauSac }}
-                    </template>
-                </Column>
-                <Column field="tenSize" header="Size2" :sortable="true" headerStyle="width:14%; min-width:6rem;">
-                    <template #body="slotProps">
-                        <span class="p-column-title">Size2</span>
-                        {{ slotProps.data.tenSize === null ? "chưa có" : slotProps.data.tenSize }}
-                    </template>
-                </Column> -->
+               
                 <Column field="soLuongTon" header="Số Lượng" :sortable="true" headerStyle="width:14%; min-width:8rem;">
                     <template #body="slotProps">
                         <span class="p-column-title">Số Lượng</span>
                         {{ slotProps.data.soLuongTon }}
                     </template>
                 </Column>
-                <!-- <Column field="giaNhap" header="Giá Nhập" :sortable="true" headerStyle="width:14%; min-width:8rem;">
-                    <template #body="slotProps">
-                        <span class="p-column-title">Số Lượng</span>
-                        {{ formatCurrency(slotProps.data.giaNhap) }}
-                    </template>
-                </Column> -->
+                
                 <Column field="giaBan" header="Giá Bán" :sortable="true" headerStyle="width:14%; min-width:8rem;">
                     <template #body="slotProps">
                         <span class="p-column-title">Số Lượng</span>
@@ -420,8 +408,8 @@ const formatDate = (dateTime) => {
                 </Column>
                 <Column header="Action" headerStyle="min-width:10rem;">
                     <template #body="slotProps">
-                        <UpdateSanPhamChiTiet :my-prop="slotProps.data" @update:myProp="updateMyProp"
-                            :idProduct="idProduct"></UpdateSanPhamChiTiet>
+                        <updateLoSanPham :my-prop="slotProps.data" @update:myProp="updateMyProp"
+                            :idProduct="idProduct"></updateLoSanPham>
                         <ConfirmPopup></ConfirmPopup>
                         <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2"
                             @click="confirm2($event, slotProps.data.id)" v-if="slotProps.data.trangThai !== 0" />

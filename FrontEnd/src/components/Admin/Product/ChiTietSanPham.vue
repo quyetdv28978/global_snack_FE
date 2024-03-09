@@ -10,6 +10,7 @@ import ModalSPCT from './modalSPCT.vue';
 import ProgressSpinner from 'primevue/progressspinner';
 import ExcelJS from 'exceljs';
 import { format } from 'date-fns';
+import detailLoSanPham from './DetailLoSanPham.vue';
 
 const column = ['STT', 'Sản phẩm', 'Vật liệu', 'Trọng lượng', 'Giá bán',  'Số lượng', 'Ảnh màu sắc 01 ', 'Ảnh chính', 'Ảnh 1', 'Quai đeo', 'Đệm lót', 'Mô tả sản phẩm', 'Loại sản phẩm', 'Thương hiệu'];
 
@@ -78,6 +79,7 @@ const loadProducts = async () => {
     visibledatatable.value = false;
     await productStore.fetchAll(); // Gọi hàm fetchAll từ Store
     products.value = productStore.products;
+    console.log(productStore.products);
     showSpinner.value = false;
     visibledatatable.value = true;
 };
@@ -147,7 +149,7 @@ const confirmKhoiPhucProduct = (id) => {
 };
 
 const deleteProduct = (id) => {
-    productStore.delete(idDelete.value);
+    productStore.delete(idDelete.value);    
     products.value = productStore.products;
     toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Xoá thành công', life: 3000 });
     deleteProductDialog.value = false;
@@ -454,6 +456,7 @@ const formatDate = (dateTime) => {
                                 <Detail :my-prop="slotProps.data"></Detail>
                                 <UpdateProduct :my-prop="slotProps.data"></UpdateProduct>
                                 <ModalSPCT :my-prop="slotProps.data"></ModalSPCT>
+                                <detailLoSanPham :my-prop="slotProps.data"></detailLoSanPham>
                                 <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2"
                                     @click="confirmDeleteProduct(slotProps.data.id)"
                                     v-if="slotProps.data.trangThai != 0 && slotProps.data.soLuongTon > 0" />

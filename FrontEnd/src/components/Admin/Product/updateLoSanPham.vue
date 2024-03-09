@@ -4,21 +4,19 @@ import * as yup from 'yup';
 import { useForm, useField } from 'vee-validate';
 import { ref, onMounted, defineEmits, onBeforeMount } from 'vue';
 import { useToast } from 'primevue/usetoast';
-import { SizeStore } from '@/service/Admin/Size/SizeService';
 import { ProductStore } from '@/service/Admin/product/product.api';
-import TableSize from '@/components/Admin/Product/DataTableSize.vue';
+import { useLoSanPhamService } from '@/service/Admin/LoSanPham/LoSanPhamServiceAPI';
 import { TrongLuongStore } from '@/service/Admin/TrongLuong/TrongLuong.api';
-import { useMauSacService } from '@/service/Admin/MauSac/MauSacService';
 import { khuyenMaiStore } from '@/service/Admin/KhuyenMai/KhuyenMaiService.js';
-import TableMauSac from './DataTableMauSac.vue';
 import TableTrongLuong from './DataTableTrongLuong.vue';
 import TableKhuyenMai from './DataTableKhuyenMai.vue';
+import DataTableLoSanPham from './DataTableLoSanPham.vue';
 
+
+const loSanPhamStore = useLoSanPhamService();
 const trongLuongStore = TrongLuongStore();
 const khuyenmaiService = khuyenMaiStore();
-const mauSacStore = useMauSacService();
 const productStore = ProductStore();
-const useSizeService = SizeStore();
 const toast = useToast();
 const product = ref({});
 const submitted = ref(false);
@@ -37,27 +35,14 @@ const confirmAddProduct = () => {
 };
 const schema = yup.object().shape({
     anh: yup.string().required('bạn cần chọn ảnh'),
-    soLuongTon: yup.number().required('số lượng không được để trống').typeError('Số lượng tồn phải là một số').min(1, 'Số lượng phải lớn hơn hoặc bằng 1').max(1000, 'số lượng quá lớn').nullable(),
+    // soLuongTon: yup.number().required('số lượng không được để trống').typeError('Số lượng tồn phải là một số').min(1, 'Số lượng phải lớn hơn hoặc bằng 1').max(1000, 'số lượng quá lớn').nullable(),
     giaBan: yup
         .number()
         .required('Giá bán không được để trống')
         .min(50000, 'giá phải lớn hơn hoặc bằng 50.000 đ')
         .max(10000000, 'Giá bán không lớn hơn 10.000.000 đ'),
-        // .when(['giaNhap'], (giaBan, schema) => {
-        //     return schema.test({
-        //         test: function (value) {
-        //             const giaNhap = this.resolve(yup.ref('giaNhap'));
-        //             if (value < giaNhap) {
-        //                 toast.add({ severity: 'error', summary: 'Error ', detail: 'Giá Nhập không được nhỏ hơn giá bán', life: 3000 });
-        //             }
-        //             return true;
-        //         },
-        //         message: 'Giá bán phải nhỏ hơn giá nhập'
-        //     });
-        // }),
-    // giaNhap: yup.number().required('Giá nhập không được để trống').min(50000, 'giá phải lớn hơn hoặc bằng 50.000 đ').max(10000000, 'Giá bán không lớn hơn  10.000.000 đ'),
-    // trongLuong: yup.string().required('vui lòng chọn trọng lượng sản phẩm'),
-    trangThai: yup.number().required('vui lòng chọn trạng thái ')
+        //    trongLuong: yup.string().required('vui lòng chọn trọng lượng sản phẩm'),
+    // trangThai: yup.number().required('vui lòng chọn trạng thái ')
 });
 
 const { handleSubmit, resetForm } = useForm({
@@ -68,12 +53,10 @@ const { value: idSP, errorMessage: idError } = useField('idSP');
 const { value: anh, errorMessage: anhError } = useField('anh');
 const { value: soluong, errorMessage: soLuongError } = useField('soLuongTon');
 const { value: GiaBan, errorMessage: giaBanError } = useField('giaBan');
-// const { value: GiaNhap, errorMessage: giaNhapError } = useField('giaNhap');
+const { value: tenLo, errorMessage: loSanPhamError } = useField('tenLo');
 const { value: TrongLuong, errorMessage: trongLuongError } = useField('trongLuong');
 const { value: idKhuyenMai, errorMessage: idKhuyenMaiError } = useField('idKhuyenMai');
-const { value: MauSac, errorMessage: mauSacError } = useField('mauSac');
-const { value: size, errorMessage: sizeError } = useField('size');
-const { value: TrangThai, errorMessage: TrangThaiSacError } = useField('trangThai');
+
 
 const emit = defineEmits(['update:myProp']);
 const onSubmit = handleSubmit(async (values) => {
@@ -86,14 +69,13 @@ const onSubmit = handleSubmit(async (values) => {
         anh: values.anh,
         soLuongTon: values.soLuongTon,
         giaBan: values.giaBan,
-     //   giaNhap: values.giaNhap,
         trongLuong: values.trongLuong,
         idKhuyenMai: values.idKhuyenMai,
-        mauSac: values.mauSac,
-        size: values.size,
-        trangThai: values.trangThai
+        trangThai: values.trangThai,
+        tenLo: values.tenLo
     };
-    let data = await productStore.editSPCT(form, props.myProp.id);
+    console.log(form);
+    let data = await productStore.addLoSanPhamSPCT(form, props.myProp.id);
     emit('update:myProp', data);
 
     toast.add({ severity: 'success', summary: 'Success Message', detail: 'update thành công', life: 3000 });
@@ -104,22 +86,26 @@ const onSubmit = handleSubmit(async (values) => {
 const reset = () => {
     resetForm();
     anh.value = props.myProp.anh;
-    selectedSize.value = null;
     selectedKhuyenMai.value = null;
-    selectedMauSac.value = null;
     selectedTrongLuong.value = null;
+    selectedLoSanPham.value = null;
 };
 
-const selectedMauSac = ref(null);
-const selectedSize = ref(null);
 const selectedKhuyenMai = ref(null);
+
+const selectedLoSanPham = ref(null);
+const dataLoSanPham = ref([]);
+const loadDataLoSanPham = async () => {
+    await loSanPhamStore.fetchDataBySPCT(props.myProp.id);
+    dataLoSanPham.value = loSanPhamStore.dataByStatus1;
+};
 // mở form
 const openNew = () => {
     product.value = {};
     submitted.value = false;
     productDialog.value = true;
     anh.value = props.myProp.anh;
-    soluong.value = props.myProp.soLuongTon;
+    // soluong.value = props.myProp.soLuongTon;
     GiaBan.value = props.myProp.giaBan;
   //  GiaNhap.value = props.myProp.giaNhap;
     TrangThai.value = props.myProp.trangThai.toString();
@@ -151,57 +137,20 @@ const saveProduct = () => {
     addProductDialog.value = true;
 };
 
-const dataSize = ref([]);
-const loadDataSize = async () => {
-    await useSizeService.fetchData();
-    dataSize.value = useSizeService.dataByStatus1;
-
-    const selectedSizes = dataSize.value.find((item) => item.ten === props.myProp.tenSize);
-    selectedSize.value = selectedSizes;
-    if (selectedSize.value) {
-        size.value = selectedSize.value.id;
+const onLoSanPhamChange = () => {
+    if (selectedLoSanPham.value) {
+        tenLo.value = selectedLoSanPham.value.id;
+        //    console.log(TrongLuong.value)
     } else {
-        size.value = null;
-    }
-};
-const dataMauSac = ref([]);
-const loadDataMauSac = async () => {
-    await mauSacStore.fetchDataByStatus(1);
-    dataMauSac.value = mauSacStore.dataByStatus1;
-    const lstMau = dataMauSac.value;
-    dataMauSac.value = lstMau;
-
-
-    const selectedMau = dataMauSac.value.find((item) => item.ten === props.myProp.tenMauSac);
-    selectedMauSac.value = selectedMau;
-    if (selectedMauSac.value) {
-        MauSac.value = selectedMauSac.value.id;
-    } else {
-        MauSac.value = null;
+        tenLo.value = null;
     }
 };
 
-const onMauSacChange = () => {
-    if (selectedMauSac.value) {
-        MauSac.value = selectedMauSac.value.id;
-    } else {
-        MauSac.value = null;
-    }
-};
-
-const onSizeChange = () => {
-    if (selectedSize.value) {
-        size.value = selectedSize.value.id;
-    } else {
-        size.value = null;
-    }
-};
 
 onBeforeMount(() => {
-     loadDataSize();
     loadDataTrongLuong();
-    loadDataMauSac();
     loadDataKhuyenmai();
+    loadDataLoSanPham();
 });
 
 const khuyenmais = ref([]);
@@ -236,15 +185,6 @@ const loadDataTrongLuong = async () => {
     }
 };
 
-const onTrongLuongChange = () => {
-    if (selectedTrongLuong.value) {
-        TrongLuong.value = selectedTrongLuong.value.id;
-        //    console.log(TrongLuong.value)
-    } else {
-        TrongLuong.value = null;
-    }
-};
-
 const onTrongLuongKhuyenMai = () => {
     if (selectedKhuyenMai.value) {
         idKhuyenMai.value = selectedKhuyenMai.value.id;
@@ -255,17 +195,17 @@ const onTrongLuongKhuyenMai = () => {
 
 const getStatusLabel = (trangThai) => {
     switch (trangThai) {
-        case 0:
-            return '- Còn hạn';
-
         case 1:
-            return '- Hết hạn';
+            return '- Đang sử dụng';
+
+        case 0:
+            return '- Chưa sử dụng';
 
         case 2:
-            return '- Chưa hoạt động';
+            return '- Tồn kho';
 
         case 3:
-            return '- Hết khuyến mại  ';
+            return '- Hết hạn  ';
 
         default:
             return '';
@@ -282,26 +222,20 @@ const formatDate = (dateTime) => {
 <template>
     <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="openNew" />
 
-    <Dialog v-model:visible="productDialog" :style="{ width: '700px' }" header="Sửa sản phẩm chi tiết" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="productDialog" :style="{ width: '700px' }" header="Thêm lô sản phẩm" :modal="true" class="p-fluid">
         <div class="card">
             <form @submit="onSubmit">
                 <div class="p-fluid formgrid grid">
                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                         <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                             <span class="p-float-label">
-                                <InputNumber id="soluong" v-model="soluong" :class="{ 'p-invalid': soLuongError }" readonly> </InputNumber>
+                                <InputNumber id="soluong" name = "soluong" v-model="soluong"  :class="{ 'p-invalid': soLuongError }"> </InputNumber>
                                 <label for="SoLuongTon">Số lượng tồn</label>
                             </span>
                             <small class="p-error">{{ soLuongError }}</small>
                         </div>
 
-                        <!-- <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
-                            <span class="p-float-label">
-                                <InputNumber id="Field" v-model="GiaNhap" :class="{ 'p-invalid': giaNhapError }"> </InputNumber>
-                                <label for="Field">Giá Nhập</label>
-                            </span>
-                            <small class="p-error">{{ giaNhapError }}</small>
-                        </div> -->
+                    
                         <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                             <span class="p-float-label">
                                 <InputNumber id="number-input" name="GiaBan" v-model="GiaBan" :class="{ 'p-invalid': giaBanError }" readonly></InputNumber>
@@ -309,20 +243,7 @@ const formatDate = (dateTime) => {
                             </span>
                             <small class="p-error">{{ giaBanError }}</small>
                         </div>
-                        <div class="field col-12 md:col-12" style="margin-bottom: 30px">
-                            <label for="address">Trạng thái</label>
-                            <div class="flex flex-wrap gap-3">
-                                <div class="flex align-items-center">
-                                    <RadioButton v-model="TrangThai" inputId="ingredient1" name="pizza" value="1" :class="{ 'p-invalid': TrangThaiSacError }" />
-                                    <label for="ingredient1" class="ml-2">Sẵn sàng để bán</label>
-                                </div>
-                                <div class="flex align-items-center">
-                                    <RadioButton v-model="TrangThai" inputId="ingredient2" name="pizza" value="3" :class="{ 'p-invalid': TrangThaiSacError }" />
-                                    <label for="ingredient2" class="ml-2">tồn kho</label>
-                                </div>
-                            </div>
-                            <small class="p-error">{{ TrangThaiSacError }}</small>
-                        </div>
+                       
                     </div>
                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                         <div class="Field col-12 md:col-12" style="margin-bottom: 30px; margin-left: 0px; height: 200px; margin-top: 60px; display: inline-flex; justify-content: center; align-items: center; display: block">
@@ -337,37 +258,18 @@ const formatDate = (dateTime) => {
                     </div>
                     <div class="Field col-12 md:col-12" style="margin-bottom: 30px; margin-top: 20px">
                         <div class="p-fluid formgrid grid">
-                            <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
+                            <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
-                                        <Dropdown id="dropdown" :options="dataTrongLuong" v-model="selectedTrongLuong" optionLabel="value" :class="{ 'p-invalid': trongLuongError }" @change="onTrongLuongChange"> </Dropdown>
-                                        <label for="dropdown">Trọng Lượng</label>
+                                        <Dropdown id="dropdown" :options="dataLoSanPham" v-model="selectedLoSanPham"
+                                        :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan}  ${getStatusLabel(option.trangThai)}`"                                          :class="{ 'p-invalid': trongLuongError }" @change="onLoSanPhamChange"> </Dropdown>
+                                        <label for="dropdown">Lô Sản phẩm</label>
                                     </span>
-                                    <TableTrongLuong :tableId="'TableTrongLuong'" :rightGhId="'right_ghTrongLuong'" :tableClass="'TableTrongLuong'" :rightGhClass="'right_ghTrongLuong'" />
+                                    <DataTableLoSanPham :tableId="'TableLoSanPham'" :rightGhId="'right_ghLoSanPham'" :tableClass="'TableLoSanPham'" :rightGhClass="'right_ghLoSanPham'" />
                                 </div>
-                                <small class="p-error">{{ trongLuongError }}</small>
-                            </div> -->
-                            <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                <div style="display: flex">
-                                    <span class="p-float-label" style="width: 239px">
-                                        <Dropdown id="dropdown" :options="dataMauSac" v-model="selectedMauSac" optionLabel="ten" :class="{ 'p-invalid': mauSacError }" @change="onMauSacChange()"> </Dropdown>
-                                        <label for="dropdown">Màu Sắc</label>
-                                    </span>
-                                    <TableMauSac :tableId="'TableMauSac'" :rightGhId="'right_ghMauSac'" :tableClass="'TableMauSac'" :rightGhClass="'right_ghMauSac'" />
-                                </div>
-                                <small class="p-error">{{ mauSacError }}</small>
-                            </div> -->
-
-                            <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                <div style="display: flex">
-                                    <span class="p-float-label" style="width: 239px">
-                                        <Dropdown id="dropdown" :options="dataSize" v-model="selectedSize" optionLabel="ten" :class="{ 'p-invalid': sizeError }" @change="onSizeChange"> </Dropdown>
-                                        <label for="dropdown">Size</label>
-                                    </span>
-                                    <TableSize :tableId="'TableMauSac'" :rightGhId="'right_ghMauSac'" :tableClass="'TableMauSac'" :rightGhClass="'right_ghMauSac'" />
-                                </div>
-                                <small class="p-error">{{ sizeError }}</small>
-                            </div> -->
+                                <small class="p-error">{{ LoSanPhamError }}</small>
+                            </div>
+                          
                             <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
