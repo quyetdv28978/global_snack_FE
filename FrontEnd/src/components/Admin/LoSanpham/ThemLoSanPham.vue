@@ -28,10 +28,6 @@ const { value: ma, errorMessage: maError } = useField('ma');
 const { value: ngayHetHan, errorMessage: ngayHetHanError } = useField('ngayHetHan');
 const onSubmit = handleSubmit(async (values) => {
     try {
-        // console.log('Dữ liệu đã gửi:', values);
-
-        // Sau khi xử lý, đặt lại biểu mẫu
-        // reset();
     } catch (error) {
         console.error('Lỗi xử lý dữ liệu:', error);
     }

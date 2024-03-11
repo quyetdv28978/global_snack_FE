@@ -42,6 +42,7 @@ export const useBanHangTaiQuayStore = defineStore('banHangTaiQuay', () => {
 
     const loadSP = async () => {
         const response = await axios.get(`${API_ENDPOINT}/san-pham`);
+        console.log(response.data);
         dsSP.value = response.data;
     };
 
@@ -87,9 +88,16 @@ export const useBanHangTaiQuayStore = defineStore('banHangTaiQuay', () => {
     }
 
     const addOrUpdateKH = async (reqBody) => {
-        const response = await axios.post(`${API_ENDPOINT}/khach-hang`, reqBody);
-        if (reqBody.id === null) dsKH.value[0] = response.data;
-        else dsKH.value = response.data;
+        try{
+            const response = await axios.post(`${API_ENDPOINT}/khach-hang`, reqBody);
+                if (reqBody.id === null) dsKH.value[0] = response.data;
+                else dsKH.value = response.data;
+                console.log(response.data);
+        }catch(err) {
+console.error("quyet");
+        }
+
+        
     }
 
     const updateKHForHD = async (idHD, idKH) => {

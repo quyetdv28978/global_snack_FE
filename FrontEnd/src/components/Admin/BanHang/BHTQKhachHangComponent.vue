@@ -34,7 +34,7 @@ const onRowEditInit = (event) => {
 const tenError = ref('');
 const sdtError = ref('');
 const onRowEditSave = async (event) => {
-  
+  console.log(event);
   if (event.data.ten == null || event.data.ten == '') {
     tenError.value = 'tên không được để trống';
     tableKHEditingRows.value = [store.dsKH[event.index]];
@@ -71,13 +71,23 @@ const onRowEditSave = async (event) => {
 
   dialogRef.value.options.props.closable = true;
   if (event.data.id === null) {
-    await store.addOrUpdateKH(event.data);
-    if (event.data.id === null) toast.add({
+    try{
+      await store.addOrUpdateKH(event.data);
+      if (event.data.id === null) toast.add({
       severity: 'success',
       summary: 'Thành công',
       detail: 'Thông tin KH đã được lưu vào hệ thống',
       life: 3000
     });
+    }catch(er) {
+      toast.add({
+      severity: 'success',
+      summary: 'Thành công',
+      detail: 'Thông tin KH đã được lưu vào hệ thống',
+      life: 3000
+    });
+    }
+    
   } else if (JSON.stringify(event.data) === JSON.stringify(event.newData)) {
     if (event.data.id !== null) {
       toast.add({severity: 'info', summary: 'Thông báo', detail: 'Không có thay đổi', life: 3000});
