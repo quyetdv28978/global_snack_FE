@@ -173,7 +173,6 @@ const openPosition = (pos) => {
 
 const closePosition = () => {
     visible.value = false;
-    // loadProducts();
 };
 
 const setNameFile = ref('');

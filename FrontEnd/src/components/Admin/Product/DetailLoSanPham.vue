@@ -7,7 +7,7 @@ import TableLoai from './DataTableLoai.vue';
 import TableThuongHieu from './DataTableThuongHieu.vue';
 import TableMauSac from './DataTableMauSac.vue';
 import TablevatLieu from './DataTableVatLieu.vue';
-import TableTrongLuong from './DataTableTrongLuong.vue';
+import ChooseLoSanPham from './ChooseLoSanPham.vue';
 import { ProductStore } from '@/service/Admin/product/product.api';
 import { useToast } from 'primevue/usetoast';
 import { useCounterStore } from '@/service/Admin/ThuongHieu/ThuongHieuService.js';
@@ -35,20 +35,16 @@ const { value: name, errorMessage: nameError } = useField('ten');
 const { value: soluong, errorMessage: soLuongError } = useField('soLuongTon');
 const { value: GiaBan, errorMessage: giaBanError } = useField('giaBan');
 const { value: GiaNhap, errorMessage: giaNhapError } = useField('giaNhap');
-// const { value: QuaiDeo, errorMessage: quaiDeoError } = useField('quaiDeo');
 const { value: Loai, errorMessage: loaiError } = useField('loai');
 const { value: ThuongHieu, errorMessage: thuongHieuError } = useField('thuongHieu');
 const { value: vatLieu, errorMessage: vatLieuError } = useField('vatLieu');
-const { value: idMauSac, errorMessage: mauSacError } = useField('idMauSac');
-// const { value: DemLot, errorMessage: demLotError } = useField('demLot');
-const { value: Size, errorMessage: SizeError } = useField('idSize');
-const { value: SoLuongSize, errorMessage: soLuongSizeError } = useField('soLuongSize');
 const { value: TrongLuong, errorMessage: trongLuongError } = useField('trongLuong');
-const { value: imgMauSac, errorMessage: ImgMauSacError } = useField('imgMauSac');
 const { value: TrangThai, errorMessage: TrangThaiSacError } = useField('trangThai');
 const { value: MoTa, errorMessage: MoTaSacError } = useField('moTa');
 const { value: imagesProduct, errorMessage: imagesProductError } = useField('imagesProduct');
 const { value: imagesChinh, errorMessage: imagestError } = useField('anh');
+
+const visibledatatable = ref(false);
 
 const isOpen = ref(true);
 
@@ -64,13 +60,8 @@ const hideDialog = () => {
 
 const selectedCity = ref(null);
 const selectedLoai = ref(null);
-const selectedMauSac = ref(null);
 const selectedvatLieu = ref(null);
 const selectedTrongLuong = ref(null);
-const selectedSizes = ref(null);
-const array = ref([]);
-const arrayMauSac = ref([]);
-const arrayImgMauSac = ref([]);
 const ImagesProduct = ref([]);
 
 const dataThuongHieu = ref([]);
@@ -78,12 +69,9 @@ const dataThuongHieu = ref([]);
 const loadDataThuongHieu = async () => {
     await thuongHieuService.fetchData();
     dataThuongHieu.value = thuongHieuService.data;
-    // ThuongHieu.value =  dataThuongHieu.value.ten;
-
     const selectedThuongHieu = dataThuongHieu.value.find((item) => item.ten === props.myProp.thuongHieu);
     selectedCity.value = selectedThuongHieu;
     if (selectedCity.value) {
-        //   console.log(selectedCity.value)
         ThuongHieu.value = selectedCity.value.id;
     } else {
         ThuongHieu.value = null;
@@ -101,7 +89,6 @@ const loadDataLoai = async () => {
     const selectedLoais = dataLoai.value.find((item) => item.ten === props.myProp.loai);
     selectedLoai.value = selectedLoais;
     if (selectedLoai.value) {
-        //    console.log(selectedLoai.value)
         Loai.value = selectedLoai.value.id;
     } else {
         Loai.value = null;
@@ -127,7 +114,8 @@ const dataVatLieu = ref([]);
 const loadDataVatLieu = async () => {
     await vatLieuStore.fetchAll();
     dataVatLieu.value = vatLieuStore.data;
-
+    visibledatatable.value = false
+    visibledatatable.value = true
     const selectedVatLieus = dataVatLieu.value.find((item) => item.ten === props.myProp.vatLieu);
     selectedvatLieu.value = selectedVatLieus;
     if (selectedvatLieu.value) {
@@ -138,9 +126,8 @@ const loadDataVatLieu = async () => {
 };
 
 onBeforeMount(() => {
+    visibledatatable.value = true
     loadDataThuongHieu();
-    // loadDataSize();
-    // loadDataMauSac();
     loadDataLoai();
     loadDataTrongLuong();
     loadDataVatLieu();
@@ -156,15 +143,10 @@ const editProduct = () => {
     name.value = props.myProp.ten;
     soluong.value = props.myProp.soLuongTon;
     GiaBan.value = props.myProp.giaBan;
-    // QuaiDeo.value = props.myProp.quaiDeo;
     GiaNhap.value = props.myProp.giaNhap;
-    // DemLot.value = props.myProp.demLot;
     TrangThai.value = props.myProp.trangThai.toString();
     MoTa.value = props.myProp.moTa;
     imagesChinh.value = props.myProp.anh;
-    //  selectedLoai.value = props.myProp.loai;
-
-    //   console.log(dataTrongLuong.value)
 
     arrayImage.value = props.myProp.img;
     for (const img of arrayImage.value) {
@@ -319,6 +301,7 @@ const loadDataTrangThai = () => {
 
                 <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                     <DataTable ref="dt" :value="lstChiTietSP" v-model:selection="selectedProducts" dataKey="id"
+                    v-if="visibledatatable"
                         :paginator="true" :rows="5" :filters="filters"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                         :rowsPerPageOptions="[5, 10, 25]"
@@ -424,7 +407,12 @@ const loadDataTrangThai = () => {
                                     <Tag :value="getStatusLabelKhuyenMai(slotProps.data.tenKM).text"
                                         :severity="getStatusLabelKhuyenMai(slotProps.data.tenKM).severity" />
                                 </div>
-
+                            </template>
+                        </Column>
+                        <Column header="Action" headerStyle="min-width:10rem;">
+                            <template #body="slotProps">
+                                <ChooseLoSanPham :my-prop="slotProps.data"></ChooseLoSanPham>
+                              
                             </template>
                         </Column>
                     </DataTable>

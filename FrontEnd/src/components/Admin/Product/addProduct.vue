@@ -32,31 +32,17 @@ const vatLieuStore = VatLieuStore();
 const loSanPhamStore = useLoSanPhamService();
 
 const schema = yup.object().shape({
-    // value: yup
-    // .string()
-    // .required('Trọng lượng không được để trống')
-    //     .min(4, 'Trọng lượng phải có ít nhất 4 ký tự')
-    //     .matches(/^[a-zA-Z0-9đĐáÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬêÊếẾềỀểỂễỄệỆôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢùÙúÚụỤủỦũŨưỨỨửỬữỮựỰýÝỳỲỷỶỹỸỵỴ\s\-]*$/, 'Tên không được chứa kí tự đặc biệt!')
-    //     .test('no-spaces', 'Trọng lượng không được chứa khoảng trắng', value => value && !/\s/.test(value)),
-    ten: yup
+      ten: yup
         .string()
         .required('Tên sản phẩm không được để trống')
         .min(4, 'Tên sản phẩm phải có ít nhất 4 ký tự')
         .matches(/^[a-zA-Z0-9đĐáÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬêÊếẾềỀểỂễỄệỆôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢùÙúÚụỤủỦũŨưỨỨửỬữỮựỰýÝỳỲỷỶỹỸỵỴ\s\-]*$/, 'Tên không được chứa kí tự đặc biệt!')
         .test('no-spaces', 'Tên không được chứa khoảng trắng', value => value && !/\s/.test(value)),
-    // giaBan: yup
-    //     .number()
-    //     .required('Giá bán không được để trống'),
-        // .min(50000, 'giá phải lớn hơn hoặc bằng 50.000 đ')
-        // .max(10000000, 'Giá bán không lớn hơn 10.000.000 đ'),
-
+ 
     loai: yup.number().required('loại sản phẩm không được để trống'),
     thuongHieu: yup.number().required('vui lòng chọn Thương hiệu sản phẩm '),
     vatLieu: yup.number().required(' vui lòng chọn Vật liệu sản phẩm '),
-    // soLuongSize: yup.number().required(' vui lòng nhập số lượng').typeError('Số lượng size phải là một số').min(1, 'Số lượng phải lớn hơn hoặc bằng 1').nullable(),
-    // trongLuong: yup.string().re  quired('vui lòng chọn trọng lượng sản phẩm'),
-    // imgMauSac: yup.array().required('vui lòng chọn ảnh Trọng lượng sản phẩm'),
-    moTa: yup.string().required('Vui lòng điền mô tả sản phẩm').min(10, 'Mô tả sản phẩm phải có ít nhất 10 ký tự')
+     moTa: yup.string().required('Vui lòng điền mô tả sản phẩm').min(10, 'Mô tả sản phẩm phải có ít nhất 10 ký tự')
     .test('no-spaces', 'Tên không được chứa khoảng trắng', value => value && !/\s/.test(value)),
     anh: yup.string().required('vui lòng chọn ảnh chính cho sản phẩm')
 });
@@ -143,11 +129,7 @@ const formatPrice = (value) => {
 
 const selectedCity = ref(null);
 const selectedLoai = ref(null);
-// const selectedMauSac = ref(null);
 const selectedvatLieu = ref(null);
-// const selectedLoSanPham = ref(null);
-// const selectedTrongLuong = ref(null);
-// const selectedSizes = ref(null);
 
 const array = ref([]);
 const arrayGiaNhap = ref([]);
@@ -159,28 +141,7 @@ const dataThuongHieu = ref([]);
 const loadDataThuongHieu = async () => {
     await thuongHieuService.fetchDataByStatus(1);
     dataThuongHieu.value = thuongHieuService.dataByStatus1;
-    // ThuongHieu.value =  dataThuongHieu.value.ten;
 };
-
-// const dataSize = ref([]);
-
-// //load data size tất cả
-// const loadDataSize = async () => {
-//     await sizeStore.fetchDataByStatus(1);
-//     dataSize.value = sizeStore.dataByStatus1;
-// };
-
-// const dataMauSac = ref([]);
-// const loadDataMauSac = async () => {
-//     await mauSacStore.fetchDataByStatus(1);
-//     dataMauSac.value = mauSacStore.dataByStatus1;
-//     const lstMau = dataMauSac.value;
-//     // Tạo mảng mới với thông tin về size và màu sắc
-//     for (const [key, product] of lstMau.entries()) {
-//         lstMau[key]['size'] = null;
-//     }
-//     dataMauSac.value = lstMau;
-// };
 
 const dataLoai = ref([]);
 const loadDataLoai = async () => {
@@ -193,11 +154,6 @@ const dataTrongLuong = ref([]);
 const loadDataTrongLuong = async () => {
     await trongLuongStore.fetchDataByStatus(1);
     dataTrongLuong.value = trongLuongStore.dataByStatus1;
-    // const lstMau = dataTrongLuong.value;
-    // for (const [key, product] of lstMau.entries()) {
-    //     lstMau[key]['size'] = null;
-    // }
-    // dataTrongLuong.value = lstMau;
 };
 
 const dataVatLieu = ref([]);
@@ -205,21 +161,11 @@ const loadDataVatLieu = async () => {
     await vatLieuStore.fetchDataByStatus(1);
     dataVatLieu.value = vatLieuStore.dataByStatus1;
 };
-
-// const dataLoSanPham = ref([]);
-// const loadDataLoSanPham = async () => {
-//     await loSanPhamStore.fetchDataByStatus(1);
-//     dataLoSanPham.value = loSanPhamStore.dataByStatus1;
-// };
-
 onMounted(() => {
     loadDataThuongHieu();
-    // loadDataSize();
-    // loadDataMauSac();
     loadDataLoai();
     loadDataTrongLuong();
     loadDataVatLieu();
-    // loadDataLoSanPham();
 });
 
 const reset = () => {
@@ -228,16 +174,10 @@ const reset = () => {
     array.value = [];
     arrayGiaBan.value = [];
     arrayGiaNhap.value = [];
-    // arrayMauSac.value = [];
-    // selectedSizes.value = null;
-    // selectedMauSac.value = null;
     selectedLoai.value = null;
     selectedCity.value = null;
-    // selectedTrongLuong.value = null;
     selectedvatLieu.value = null;
-    // selectedLoSanPham.value = null;
     ImagesProduct.value = [];
-    // arrayImgMauSac.value = [];
     imageUrls.value = [];
     anh.value = 'https://cdn-icons-png.flaticon.com/512/2956/2956744.png';
 };
@@ -276,19 +216,6 @@ const onCityChange = () => {
         ThuongHieu.value = null;
     }
 };
-// let oldMauLength = ref(null);
-// let oldMauSacLength = oldMauLength.value;
-// const onTrongLuongChange = () => {
-//     console.log(selectedTrongLuong.value);
-//     if (selectedTrongLuong.value) {
-//         const selectedIds = selectedTrongLuong.value.map((item) => item.id);
-//         TrongLuong.value = selectedIds.join(',').split(',').map(Number);
-//         selectedTrongLuong.value = [...new Set(selectedTrongLuong.value)];
-//         oldMauLength.value = selectedTrongLuong.value.length;
-//     } else {
-//         TrongLuong.value = null;
-//     }
-// };
 
 const onLoSanPhamChange = () => {
     if (selectedLoSanPham.value) {
@@ -306,66 +233,6 @@ const onloaiChange = () => {
         Loai.value = null;
     }
 };
-// let oldMauLength = ref(null);
-// let oldMauSacLength = oldMauLength.value;
-// const onMauSacChange = () => {
-//     if (selectedMauSac.value.length > 0) {
-//         const selectedIds = selectedMauSac.value.map((item) => item.id);
-//         idMauSac.value = selectedIds.join(',').split(',').map(Number);
-//         selectedMauSac.value = [...new Set(selectedMauSac.value)];
-//         oldMauLength.value = selectedMauSac.value.length;
-//         // console.log(selectedMauSac.value)
-//     } else {
-//         idMauSac.value = null;
-//     }
-// };
-
-// let oldSizeLength = ref(null);
-// const onSizeChange = () => {
-//     if (selectedSizes.value.length > 0) {
-//         const selectedIds = selectedSizes.value.map((item) => item.id);
-//         Size.value = selectedIds.join(',').split(',').map(Number);
-//         oldSizeLength.value = selectedSizes.value.length;
-
-//     } else {
-//         Size.value = null;
-//     }
-// };
-
-// let old = oldMauLength.value * oldSizeLength.value;
-
-
-// watch([selectedSizes, oldMauLength], ([newDataSize, newDataMau]) => {
-//     //  console.log(oldMauLength)
-//     if (selectedSizes.value == null || selectedSizes.value == 0 || selectedSizes.value == '' || selectedMauSac.value == null || selectedMauSac.value == '') {
-
-//     } else if (selectedSizes.value && selectedMauSac.value && oldMauLength.value) {
-//         let mauSacLength = oldMauLength.value;
-//         let sizeLength = selectedSizes.value.length;
-//         let check = sizeLength * mauSacLength;
-
-//         // Lưu giá trị ban đầu của selectedMauSac.value
-//         let originalMauSac = selectedMauSac.value.slice(0, mauSacLength);
-
-//         // Nối mảng với chính nó cho đến khi đạt đủ số lượng phần tử
-//         while (selectedMauSac.value.length < check) {
-
-//             selectedMauSac.value = selectedMauSac.value.concat(selectedMauSac.value);
-
-//         }
-
-//         // Cắt mảng để chỉ giữ lại số lượng phần tử theo check
-//         selectedMauSac.value = selectedMauSac.value.slice(0, check);
-
-//         //  console.log(' sele  ', selectedMauSac.value);
-//         // console.log(' selectedSizesWithColors  ', combinedArray);
-
-//     } else {
-//         console.log('One of the values is null or undefined');
-//     }
-// });
-
-
 
 const onvatLieuChange = () => {
     if (selectedvatLieu.value) {
@@ -419,9 +286,7 @@ function onFileInputImageProduct(event) {
 
     }
     ImagesProduct.value = imageUrls.value;
-    // console.log(ImagesProduct.value)
     imagesProduct.value = ImagesProduct.value.join(',').replace(/^,/, '').split(',');
-    //  console.log('anh phu: ', imagesProduct.value)
 }
 
 const product = ref({});
@@ -483,21 +348,7 @@ const openNew = () => {
 
                                         <small class="p-error">{{ thuongHieuError }}</small>
                                     </div>
-                                    <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                        <div style="display: flex">
-                                            <span class="p-float-label" style="width: 239px">
-                                                <MultiSelect v-model="selectedTrongLuong" :options="dataTrongLuong"
-                                                    optionLabel="value" :filter="false" :maxSelectedLabels="3"
-                                                    :class="{ 'p-invalid': TrongLuongError }" @change="onTrongLuongChange">
-                                                </MultiSelect>
-                                                <label for="multiselect">Trọng lượng</label>
-                                            </span>
-
-                                            <TableTrongLuong :tableId="'TableTrongLuong'" :rightGhId="'right_ghMauSac'"
-                                                :tableClass="'TableTrongLuong'" :rightGhClass="'right_ghTrongLuong'" />
-                                        </div>
-                                        <small class="p-error">{{ trongLuongError }}</small>
-                                    </div> -->
+                                  
                                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                         <div style="display: flex">
                                             <span class="p-float-label" style="width: 239px">
@@ -511,48 +362,7 @@ const openNew = () => {
                                         </div>
                                         <small class="p-error">{{ vatLieuError }}</small>
                                     </div>
-<!-- 
-                                    <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                        <div style="display: flex">
-                                            <span class="p-float-label" style="width: 239px">
-                                                <Dropdown id="dropdown" :options="dataLoSanPham" v-model="selectedLoSanPham"
-                                                    :class="{ 'p-invalid': loSanPhamError }" optionLabel="tenLo"
-                                                    @change="onLoSanPhamChange"> </Dropdown>
-                                                <label for="dropdown">Lô sản phẩm</label>
-                                            </span>
-                                            <TableLoSanPham :tableId="'TableLoTrongLuong'" :rightGhId="'right_LoTrongLuong'"
-                                                :tableClass="'TableLoTrongLuong'" :rightGhClass="'right_LoTrongLuong'" />
-                                        </div>
-                                        <small class="p-error">{{ LoSanPhamError }}</small>
-                                    </div> -->
-                                    <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                        <div style="display: flex">
-                                            <span class="p-float-label" style="width: 239px">
-                                                <Dropdown id="dropdown" :options="dataTrongLuong"
-                                                    v-model="selectedTrongLuong" optionLabel="value"
-                                                    :class="{ 'p-invalid': trongLuongError }" @change="onTrongLuongChange">
-                                                </Dropdown>
-                                                <label for="dropdown">Trọng Lượng</label>
-                                            </span>
-                                            <TableTrongLuong :tableId="'TableTrongLuong'" :rightGhId="'right_ghTrongLuong'"
-                                                :tableClass="'TableTrongLuong'" :rightGhClass="'right_ghTrongLuong'" />
-                                        </div>
-                                        <small class="p-error">{{ trongLuongError }}</small>
-                                    </div> -->
-                                    <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                        <div style="display: flex">
-                                            <span class="p-float-label" style="width: 150px">
-                                                <MultiSelect v-model="selectedSizes" :options="dataSize" optionLabel="ten"
-                                                    :filter="false" :maxSelectedLabels="3"
-                                                    :class="{ 'p-invalid': SizeError }" @change="onSizeChange">
-                                                </MultiSelect>
-                                                <label for="multiselect">Size</label>
-                                            </span>
-                                            <TableSize :tableId="'TableMauSac'" :rightGhId="'right_ghMauSac'"
-                                                :tableClass="'TableMauSac'" :rightGhClass="'right_ghMauSac'" />
-                                        </div>
-                                        <small class="p-error">{{ SizeError }}</small>
-                                    </div> -->
+
                                 </div>
                                 <div class="field col-12 md:col-12" style="margin-bottom: 30px">
                                     <label for="address">Mô tả</label>
@@ -587,82 +397,9 @@ const openNew = () => {
                                 </div>
                                 <div class="field col-12 md:col-12">
 
-                                    <!-- <div style="background: rgb(255, 255, 255); width: 450px ;  display: flex;">
-                                        <div style="background: rgb(255, 255, 255); width: 20% ; height: 100%;">
-                                            <div v-for="(mau, index) in selectedTrongLuong" :key="index"
-                                                style="margin-top: 40px; margin-bottom: 50px; margin-left: 70px;">
-                                                <label :for="`input-${mau.id}`"
-                                                    style="margin-right: 5px; margin-left: 0px; margin-top: 0px; margin-bottom: 0;">{{
-                                                        mau.value }}</label>
-                          
-                                            </div>
-                                        </div>
-
-                                    </div> -->
-
                                     <small class="p-error">{{ ImgMauSacError }}</small>
                                 </div>
 
-                                <!-- <div class="field col-12 md:col-12">
-
-                                    <div style="background: rgb(255, 255, 255); width: 450px ;  display: flex;">
-                                        <div style="width:75px">
-                                            <p>Số lượng :</p>
-                                        </div>
-                                        <div style="width: 100%; height: 100%; display: flex; flex-wrap: wrap">
-
-                                            <div style=" width: 80% ; height: 100%;">
-                                                <div style="display: flex; flex-wrap: wrap">
-                                                    <div
-                                                        style="margin-top: 5px">
-                                                        <label
-                                                            style="margin-right: 10px; margin-left: 10px">
-                                                                Trọng lượng:<span v-if="TrongLuong.value !== null"> - {{ TrongLuong.value
-    }}</span></label>
-     <FileUpload mode="basic" name="demo[]" accept="image/*"
-                                                    :maxFileSize="1000000" @input="onFileInputImageMauSac" />
-                                                    <br>
-
-                                                        <input type="number" :id="`input-${TrongLuong.value.id}`" v-model="array[TrongLuong.value]"
-                                                            @change="handleInputChange(TrongLuong.id)"
-                                                            :class="{ 'p-invalid': soLuongSizeError }"
-                                                            style="height: 20px; width: 80px;border-radius: 5px ; border: 1px solid;" />
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <small class="p-error">{{ soLuongSizeError }}</small>
-                                </div>
-                                <div class="field col-12 md:col-12">
-
-                                    <div style="background: rgb(255, 255, 255); width: 450px ;  display: flex;">
-                                        <div style="width: 75px">
-                                            <p>Giá Bán:</p>
-                                        </div>
-
-                                        <div style="background: rgb(255, 255, 255); width: 80% ; height: 100%; display: ;">
-
-                                            <div style="display: flex; flex-wrap: wrap">
-
-                                                <div 
-                                                    style="margin-top: 5px; ">
-                                                    <label 
-                                                        style="margin-right: 10px; margin-left: 10px">{{ mau.ten }}</label>
-                                                    <input type="number"
-                                                        v-model="arrayGiaBan[index]"
-                                                        @change="handleInputChangeGiaBan(mau.id)"
-                                                        :class="{ 'p-invalid': giaBanError }"
-                                                        style="height: 20px; width: 80px;border-radius: 5px ; border: 1px solid;" />
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <small class="p-error">{{ giaBanError }}</small>
-                                </div> -->
                             </div>
 
                             <div style="width: 1000px; text-align: center">

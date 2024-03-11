@@ -45,14 +45,7 @@ const dsHDCho = computed(() => store.dsHDCho);
 const dsHDCT = computed(() => store.dsHDCT);
 const dsSP = computed(() => store.dsSP);
 const dsPTTT = computed(() => store.dsPTTT);
-// const dsMauSac = computed(() => {
-//   const arr = dsSP.value.map((sp) => sp.mauSac.ten);
-//   return arr.filter((item, index) => arr.indexOf(item) === index);
-// });
-// const dsSize = computed(() => {
-//   const arr = dsSP.value.map((sp) => sp.size.ten);
-//   return arr.filter((item, index) => arr.indexOf(item) === index);
-// });
+
 const dsLoai = computed(() => {
   const arr = dsSP.value.map((sp) => sp.sanPham.loai.ten);
   return arr.filter((item, index) => arr.indexOf(item) === index);
@@ -325,16 +318,7 @@ const onDialog = () => {
     });
     return;
   }
-  // if (userID.value == null || userID.value == '' || userID.value === 1) {
-  //   soLuongError.value = '';
-  //   toast.add({
-  //     severity: 'error',
-  //     summary: 'Không thể thực hiện',
-  //     detail: 'Vui lòng chọn khách hàng',
-  //     life: 3000
-  //   });
-  //   return;
-  // }
+
   addDialog.value = true;
 }
 

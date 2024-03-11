@@ -34,7 +34,7 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
                 console.error('Error fetching users:', error);
             }
         },
-        //load data lo san pham theo san pham chi tiet
+        //load data lo san pham theo san pham chi tiet hoặc lô rổng
         async fetchDataBySPCT(status) {
             this.check = 1;
             try {
@@ -46,7 +46,19 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
                 console.error('Error fetching users:', error);
             }
         },
-        createMauSac(form) {
+        // load data lo san pham theo san pham chi tiet
+        async fetchDataBySPCTNotNull(status) {
+            this.check = 1;
+            try {
+                const response = await axios.get(apiLoSanPham + '/by-san-pham-ct-not-null/' + status);
+                console.log(response.data);
+                    this.dataByStatus1 = response.data;
+                
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        },
+        async createMauSac(form) {
             axios.post(apiLoSanPham + '/add-lo', form).then((response) => {
                 if (this.check == 0) {
                     this.data.unshift(response.data);
@@ -57,6 +69,17 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
                 }
             });
         },
-       
+        async updateLoSanPham(idlsp, idctsp) {
+            axios.put(apiLoSanPham + `/update-lo-san-pham-by-idctsp/${idlsp}/${idctsp}`).then((response) => {
+                const index = this.dataByStatus1.findIndex(product => product.id === idctsp);
+                console.log(this.dataByStatus1);
+                if (index !== -1) {
+                    let newProductData = this.dataByStatus1[index];
+                    newProductData = response.dataByStatus1;
+                    this.dataByStatus1[index] = newProductData;
+                    console.log(newProductData);
+                }
+            });
+        }
     }
 });
