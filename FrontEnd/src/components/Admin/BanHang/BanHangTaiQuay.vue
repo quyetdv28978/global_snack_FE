@@ -76,7 +76,6 @@ const taoHDCho = async () => {
   loading.value = !loading.value;
   await store.taoHDCho(idNV);
   loading.value = !loading.value;
-  console.log(dsHDCho.value[0]);
   selectedHoaDon.value = dsHDCho.value[0];
   userID.value = 1;
 }
@@ -584,9 +583,8 @@ const confirmHuyHD = (event, data) => {
             <Column header="Khách hàng">
               <template #body="slotProps">
                 <div class="flex justify-content-between align-items-center">
-                  <!-- <span :class="[slotProps.data.user.ten === 'Khách hàng lẻ' ? 'text-red-500 font-semibold' : null]">
-                    {{ slotProps.data.user.ten }}
-                  </span> -->
+                  <span :class="[slotProps.data.user===null ? 'text-red-500 font-semibold' : null]">
+                   {{ slotProps.data.user===null ? "Khong co user" : slotProps.data.user.ten }}                  </span>
                   <i class="pi pi-user-edit hover:text-cyan-600" style="font-size: 1.2rem;"
                      @click="showKhachHangDialog"></i>
                   <DynamicDialog/>

@@ -79,6 +79,13 @@ const addProduct = () => {
         clearForm();
     }
     addProductDialog.value = false;
+    loadDataLoSanPham
+
+};
+
+const loadDataLoSanPham = async () => {
+    await loSanPhamStore.fetchDataBySPCT(props.myProp.id);
+    dataLoSanPham.value = loSanPhamStore.dataByStatus1;
 };
 const clearForm = () => {
     ten.value = '';
