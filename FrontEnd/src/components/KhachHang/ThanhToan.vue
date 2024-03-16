@@ -154,17 +154,14 @@ const sendMessage = () => {
 const dataHoaDon = ref([]);
 const stringVNpay = ref();
 const thanhtoan = async () => {
+    console.log("laskjflkashflkasjflsndf");
     const token = localStorage.getItem('token');
     const userName = await tokenService.getUserNameByToken(token);
-
     const user = await userKHService.getUserByUsername(userName);
-
     if(user.sdt == null) {
-    
         updateSDTDialog.value = true;
         return;
     }
-
 
     const forms = dataGHCT.value.map((item) => {
         return {
@@ -173,7 +170,6 @@ const thanhtoan = async () => {
             donGia: tongThanhToan.value
         };
     });
-console.log(forms);
     if (selectedVoucher.value.id == null && selectedVoucher.value.id === '') {
         selectedVoucher.value.id = null;
     }
@@ -186,8 +182,9 @@ console.log(forms);
         idVoucher: selectedVoucher.value.id ? selectedVoucher.value.id : null,
         listHDCT: forms
     };
-
     const formString = JSON.stringify(form);
+
+console.log(phuongThucThanhToan.value);
 
     if (parseInt(phuongThucThanhToan.value) == 2) {
         const data = {
@@ -199,7 +196,6 @@ console.log(forms);
         };
 
         localStorage.setItem('myForm', formString);
-        console.log(data);
         await vnpayService.thanhToanVnPay(data);
         stringVNpay.value = vnpayService.vnpay;
 
@@ -537,8 +533,8 @@ const showError = computed(() => {
                                 <Button label="Áp dụng" severity="warning" />
                             </div> -->
                             <br />
-                            <span> <input type="checkbox" id="agreeCheckbox" /> Tôi đã đọc và đồng ý với điều khoản và điều
-                                kiện của website * </span>
+                            <!-- <span> <input type="checkbox" id="agreeCheckbox" /> Tôi đã đọc và đồng ý với điều khoản và điều
+                                kiện của website * </span> -->
                             <br />
                             <Button label="Đặt hàng" severity="danger" :disabled="diaChiMacDinh == ''" @click="thanhtoan" />
                             <br />

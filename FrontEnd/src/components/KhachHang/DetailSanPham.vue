@@ -551,7 +551,7 @@ const menu = ref();
                             <div class="rounded-content-list">
                                 <div v-for="(mauSacs, index) in dataMauSac" :key="index" class="rounded-content" @click="selectMauSac(mauSacs)" :class="{ selected: isMauSacSelected(mauSacs), disabled: isMauSacDisbled(mauSacs) }">
                                     <img class="rounded-image" :src='mauSacs.anh' alt="Hình ảnh" />
-                                    <a class="rounded-text">{{ mauSacs.ten }}</a>
+                                    <a class="rounded-text">{{ mauSacs.value }}</a>
                                 </div>
                             </div>
                             <br />
