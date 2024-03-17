@@ -557,10 +557,15 @@ const confirmHuyHD = (event, data) => {
     <div class="row">
       <div class="col-9" style="margin-top: -20px; height: 340px;">
         <div class="card gap-3" style="height: 100%;">
-          <DataTable :value="dsHDCho" dataKey="id" v-model:selection="selectedHoaDon" tableStyle="height: 200px" selectionMode="single"
-                     @rowSelect="tableHoaDonRowSelected"
+          <DataTable :value="dsHDCho" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 50rem" dataKey="id"  v-model:selection="selectedHoaDon"
+          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"    
+          currentPageReportTemplate="{first} to {last} of {totalRecords}"
+          @rowSelect="tableHoaDonRowSelected"
                      scrollable scrollHeight="205px"
                      showGridlines>
+                     <!-- <DataTable :value="dsHDCho" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 50rem"
+        paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+        currentPageReportTemplate="{first} to {last} of {totalRecords}"> -->
             <template #header>
               <div class="flex justify-content-between align-items-center">
                 <h5 class="m-0">Hóa đơn chờ</h5>
@@ -602,7 +607,7 @@ const confirmHuyHD = (event, data) => {
         </div>
       </div>
       <div class="col-3" style="margin-top: -20px;  width: 350px;  height: 340px;">
-        <div class=" card " style=" width: 100%; height: 100%;">
+        <!-- <div class=" card " style=" width: 100%; height: 100%;">
           <div style=" width: 290px; height:500px;">
             <div style="margin-left: 10px; margin-top: 0px;">
               <div v-show="checkedSwitch == true" style="width: 100%; height: 220px;">
@@ -610,12 +615,12 @@ const confirmHuyHD = (event, data) => {
                 <p>{{ error }}</p>
               </div>
             </div>
-          </div>
-          <div class="flex" style="width: 200px; height: 100px; margin-top: 10px; margin-left: 70px;">
+          </div> -->
+          <!-- <div class="flex" style="width: 200px; height: 100px; margin-top: 10px; margin-left: 70px;">
             <label style="font-weight: 600; font-size: 17px; margin-right: 20px;">Bật/tắt: </label>
             <InputSwitch v-model="checkedSwitch"/>
-          </div>
-        </div>
+          </div> -->
+        <!-- </div> -->
       </div>
       <div class="Field col-12 md:col-9" style="margin-top: -15px; height: 340px; margin-bottom: 10px;">
         <div class="card" style="width: 100% ; height: 100%;">
@@ -635,7 +640,7 @@ const confirmHuyHD = (event, data) => {
             </template>
             <Column field="sanPhamChiTiet.ma" header="Mã SP" style="width: 10%"></Column>
             <Column field="sanPhamChiTiet.sanPham.ten" header="Tên sản phẩm">
-              <template #body="slotProps"> Mũ bảo hiểm {{ slotProps.data.sanPhamChiTiet.sanPham.ten }} -
+              <template #body="slotProps">{{ slotProps.data.sanPhamChiTiet.sanPham.ten }} -
                 {{ slotProps.data.sanPhamChiTiet.trongLuong.ten }}
                  <!-- - size {{ slotProps.data.sanPhamChiTiet.size.ten }} -->
               </template>
