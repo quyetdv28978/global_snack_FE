@@ -27,6 +27,7 @@ export const useBanHangTaiQuayStore = defineStore('banHangTaiQuay', () => {
 
     const huyHDCho = async (idHoaDon) => {
         const response = await axios.delete(`${API_ENDPOINT}/hoa-don/${idHoaDon}`);
+
         dsSP.value = response.data;
         dsHDCho.value = dsHDCho.value.filter(hdCho => hdCho.id !== idHoaDon);
     }
@@ -94,7 +95,6 @@ export const useBanHangTaiQuayStore = defineStore('banHangTaiQuay', () => {
                 else dsKH.value = response.data;
                 console.log(response.data);
         }catch(err) {
-console.error("quyet");
         }
 
         

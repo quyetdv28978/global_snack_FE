@@ -105,18 +105,9 @@ const initFilters = () => {
 };
 
 const columns = ref([
-    { field: 'quaiDeo', header: 'Quai đeo' },
-    { field: 'demLot', header: 'Đệm lót' },
     { field: 'ngaySua', header: 'Ngày sửa' },
     { field: 'ngayTao', header: 'Ngày tạo' },
     { field: 'moTa', header: 'Mô Tả' }
-    // { field: 'soLuongTon', header: 'Số lượng' },
-    // { field: 'trongLuong', header: 'Trọng Lượng' },
-    // { field: 'giaSauGiam', header: 'Giá giảm giá' },
-    // { field: 'tenKM', header: 'Tên Khuyến Mãi' },
-    // { field: 'thoiGianBatDau', header: 'Thời gian bắt đầu' },
-    // { field: 'thoiGianKetThuc', header: 'Thời gian kết thúc' },
-    // { field: 'giaTriGiam', header: 'Giá Trị (%)' },
 ]);
 
 // hàm để tắt/mở cột
@@ -357,11 +348,6 @@ const formatDate = (dateTime) => {
                         responsiveLayout="scroll" showGridlines>
                         <template #header>
                             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                                    <MultiSelect icon="pi pi-plus" :modelValue="selectedColumns" :options="columns"
-                                        optionLabel="header" @update:modelValue="onToggle" display="chip"
-                                        placeholder="Select Columns" />
-                                </div>
                                 <div style="display: flex">
                                     <h5 class="m-0" style="margin-right: 20px">Sản Phẩm</h5>
                                 </div>

@@ -182,10 +182,7 @@ const tinhThanhTien = (soLuong, donGia) => {
         responsiveLayout="scroll">
         <template #header>
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                    <MultiSelect icon="pi pi-plus" placeholder="Select Columns" :modelValue="selectedColumns"
-                        :options="columns" optionLabel="header" @update:modelValue="onToggle" display="chip" />
-                </div>
+
                 <span class="p-input-icon-left" style="margin-left: 20px">
                     <i class="pi pi-search" />
                     <InputText v-model="filters1['global'].value" placeholder="Search..."
@@ -223,18 +220,7 @@ const tinhThanhTien = (soLuong, donGia) => {
                 {{ slotProps.data.tenSP }}
             </template>
         </Column>
-        <Column field="tenMauSac" header="Màu sắc" :sortable="true" headerStyle="width:14%; min-width:7rem;">
-            <template #body="slotProps">
-                <span class="p-column-title">tenMauSac</span>
-                {{ slotProps.data.tenMauSac }}
-            </template>
-        </Column>
-        <Column field="tenSize" header="Size" :sortable="true" headerStyle="width:14%; min-width:7rem;">
-            <template #body="slotProps">
-                <span class="p-column-title">tenSize</span>
-                {{ slotProps.data.tenSize }}
-            </template>
-        </Column>
+
         <Column field="soLuong" header="Số lượng" :sortable="true" headerStyle="width:14%; min-width:7rem;">
             <template #body="slotProps">
                 <span class="p-column-title">soLuong</span>

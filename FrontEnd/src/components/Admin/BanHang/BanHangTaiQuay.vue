@@ -8,7 +8,7 @@ import {useToast} from 'primevue/usetoast';
 import {BHTQHoaDonModel} from '@/model/BHTQHoaDonModel';
 import {FilterMatchMode} from 'primevue/api';
 import EmptyCartLottie from '@/assets/animation/empty-cart.json';
-import AnimatedLogo from '@/assets/animation/animated-logo-2.json';
+// import AnimatedLogo from '@/assets/animation/animated-logo-2.json';
 import {LottieAnimation} from 'lottie-web-vue';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
@@ -167,6 +167,7 @@ const userID = ref(null);
 const dataOverlay = ref();
 const addChonHoaDonDialog = ref(false);
 const tableHoaDonRowSelected = async (event) => {
+  console.log("hahaha");
   localStorage.setItem("selectedHDId", event.data.id);
   khExportPdf.value = {ten: event.data.user.ten, sdt: event.data.user.sdt}
   userID.value = event.data.user.id;
@@ -441,6 +442,7 @@ const confirmHuyHD = (event, data) => {
     acceptClass: 'p-button-danger p-button-sm',
     rejectLabel: 'Không',
     accept: async () => {
+      console.log("haha");
       await huyHDCho(data);
     },
     reject: () => {}
@@ -449,12 +451,6 @@ const confirmHuyHD = (event, data) => {
 </script>
 
 <template>
-  <Loading v-model:active="uiBlock" :can-cancel="false" :is-full-page="true" :background-color="bgColor" :opacity="1"
-           :lock-scroll="true">
-    <template #default>
-      <LottieAnimation class="w-5 m-auto" :animation-data="AnimatedLogo" :loop="true" :auto-play="true" :speed="1"/>
-    </template>
-  </Loading>
   <Toast/>
   <ConfirmPopup/>
   <ConfirmDialog group="xuatFileHD">
@@ -472,7 +468,10 @@ const confirmHuyHD = (event, data) => {
       </div>
     </template>
   </ConfirmDialog>
+
+  <!-- In hóa đơn -->
   <div id="sales-invoice" hidden>
+    
     <table style="width: 100%; font-size: 0.8rem">
       <tr style="border: 1px solid white">
         <td rowspan="3"><img :src="logoImageSrc" alt="" style="width: 8em;"></td>
@@ -486,7 +485,7 @@ const confirmHuyHD = (event, data) => {
       </tr>
     </table>
 
-    <span style="text-align: center; font-weight: bold; font-size: 1.3rem">HOÁ ĐƠN BÁN HÀNG</span>
+    <span style="text-align: center; font-weight: bold; font-size: 1.3rem">HOÁ ĐƠN BÁN HÀNG 2</span>
     <span style="text-align: center; font-size: 0.9rem;">Mã: {{ selectedHoaDon ? selectedHoaDon.ma : null }}</span>
     <b style="margin-top: 1rem;">Tên khách hàng: {{ khExportPdf ? khExportPdf.ten : null }}</b>
     <b style="margin-top: 0.5rem;">Số điện thoại: {{ khExportPdf ? khExportPdf.sdt : null }}</b>
@@ -553,14 +552,61 @@ const confirmHuyHD = (event, data) => {
     </div>
     <i style="text-align: center; margin-top: 2rem;">Cảm ơn quý khách đã mua hàng tại VNK, hẹn gặp lại quý khách!</i>
   </div>
+    <!-- End In hóa đơn -->
+
   <div class="card">
     <div class="row">
+      <div class="col-3" style="width: 350px; height: 340px;">
+        <!-- Table thanh toan  -->
+        <div class="card" style="height:100%; margin-top: 0px;  margin-left: 0px; ">
+          <h3>Thanh toán</h3>
+          <div style="display: flex; margin-bottom: 10px; margin-top: 10px;">
+            <div>
+              <h6>Mã hóa đơn: </h6>
+            </div>
+            <div style="margin-left: 80px;">
+              <h6 v-if="selectedHoaDon">{{ selectedHoaDon.ma }}</h6>
+            </div>
+
+          </div>
+          <div class="flex" style=" margin-bottom: 10px;">
+            <div>
+              <h6>Tổng tiền hàng: </h6>
+            </div>
+            <div style="margin-left: 60px;">
+              <h6 class="text-primary">{{ formatCurrency(tinhTien(dsHDCT).tongTienHang) }}</h6>
+            </div>
+
+          </div>
+          <div class="flex" style=" margin-bottom: 10px;">
+            <div>
+              <h6>Tổng chiết khấu:</h6>
+            </div>
+            <div style="margin-left: 55px;">
+              <h6 class="text-primary">{{ formatCurrency(tinhTien(dsHDCT).tongChietKhau) }}</h6>
+            </div>
+
+          </div>
+          <div class="flex" style=" margin-bottom: 20px;">
+            <div>
+              <h6>Thành tiền:</h6>
+            </div>
+            <div style="margin-left: 90px;">
+              <h6 class="text-orange-500">{{ formatCurrency(thanhTien) }}</h6>
+            </div>
+
+          </div>
+          <Button label="Thanh toán"  raised @click="onDialog"/>
+
+        </div>
+        <!-- End table thanh toan -->
+      </div>
+
+      <!-- Table hoa don cho -->
       <div class="col-9" style="margin-top: -20px; height: 340px;">
         <div class="card gap-3" style="height: 100%;">
-          <DataTable :value="dsHDCho" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 50rem" dataKey="id"  v-model:selection="selectedHoaDon"
-          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"    
-          currentPageReportTemplate="{first} to {last} of {totalRecords}"
-          @rowSelect="tableHoaDonRowSelected"
+          <DataTable :value="dsHDCho" dataKey="id" v-model:selection="selectedHoaDon" tableStyle="height: 200px" selectionMode="single"
+                     @rowSelect="tableHoaDonRowSelected"
                      scrollable scrollHeight="205px"
                      showGridlines>
                      <!-- <DataTable :value="dsHDCho" paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 50rem"
@@ -606,7 +652,9 @@ const confirmHuyHD = (event, data) => {
           <!-- <Paginator :rows="5" :totalRecords="120"></Paginator> -->
         </div>
       </div>
-      <div class="col-3" style="margin-top: -20px;  width: 350px;  height: 340px;">
+      <!-- End table hoa don cho -->
+      
+      <!-- <div class="col-3" style="margin-top: -20px;  width: 350px;  height: 340px;"> -->
         <!-- <div class=" card " style=" width: 100%; height: 100%;">
           <div style=" width: 290px; height:500px;">
             <div style="margin-left: 10px; margin-top: 0px;">
@@ -621,8 +669,10 @@ const confirmHuyHD = (event, data) => {
             <InputSwitch v-model="checkedSwitch"/>
           </div> -->
         <!-- </div> -->
-      </div>
-      <div class="Field col-12 md:col-9" style="margin-top: -15px; height: 340px; margin-bottom: 10px;">
+      <!-- </div> -->
+
+      <!-- Table gio hang -->
+      <div class="Field col-12 md:col-9" style="margin-top: -15px; height: 340px; width:100%; margin-bottom: 10px;">
         <div class="card" style="width: 100% ; height: 100%;">
           <DataTable :value="dsHDCT" tableStyle="height: 200px" dataKey="id" scrollable scrollHeight="205px"
                      showGridlines>
@@ -633,8 +683,6 @@ const confirmHuyHD = (event, data) => {
             </template>
             <template #empty>
               <div class="flex flex-column justify-content-center align-items-center">
-                <LottieAnimation class="w-1" :animation-data="EmptyCartLottie" :loop="true" :auto-play="true"
-                                 :speed="0.8"/>
                 <h6>Không có dữ liệu.</h6>
               </div>
             </template>
@@ -665,8 +713,8 @@ const confirmHuyHD = (event, data) => {
                              @blur="onBlurSLSPCuaHDCT($event, slotProps.data)"
                              inputId="horizontal-buttons" showButtons
                              buttonLayout="horizontal" inputClass="w-4rem text-center"
-                             decrementButtonClass="p-button-danger"
-                             incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+                             decrementButtonClass="p-button"
+                             incrementButtonClass="p-button" incrementButtonIcon="pi pi-plus"
                              decrementButtonIcon="pi pi-minus"/>
               </template>
             </Column>
@@ -691,49 +739,9 @@ const confirmHuyHD = (event, data) => {
           </OverlayPanel>
         </div>
       </div>
-      <div class="col-3" style="width: 350px; height: 340px;">
-        <div class="card" style="height:100%; margin-top: 0px;  margin-left: 0px; ">
-          <h3>Thanh toán</h3>
-          <div style="display: flex; margin-bottom: 10px; margin-top: 10px;">
-            <div>
-              <h6>Mã hóa đơn: </h6>
-            </div>
-            <div style="margin-left: 80px;">
-              <h6 v-if="selectedHoaDon">{{ selectedHoaDon.ma }}</h6>
-            </div>
-
-          </div>
-          <div class="flex" style=" margin-bottom: 10px;">
-            <div>
-              <h6>Tổng tiền hàng: </h6>
-            </div>
-            <div style="margin-left: 60px;">
-              <h6 class="text-primary">{{ formatCurrency(tinhTien(dsHDCT).tongTienHang) }}</h6>
-            </div>
-
-          </div>
-          <div class="flex" style=" margin-bottom: 10px;">
-            <div>
-              <h6>Tổng chiết khấu:</h6>
-            </div>
-            <div style="margin-left: 55px;">
-              <h6 class="text-primary">{{ formatCurrency(tinhTien(dsHDCT).tongChietKhau) }}</h6>
-            </div>
-
-          </div>
-          <div class="flex" style=" margin-bottom: 20px;">
-            <div>
-              <h6>Thành tiền:</h6>
-            </div>
-            <div style="margin-left: 90px;">
-              <h6 class="text-orange-500">{{ formatCurrency(thanhTien) }}</h6>
-            </div>
-
-          </div>
-          <Button label="Thanh toán" severity="warning" raised @click="onDialog"/>
-
-        </div>
-      </div>
+      <!-- End table gio hang -->
+ 
+      <!-- Table san pham -->
       <div class="Field col-12 md:col-12" style="">
         <div class="card" style="width: 100%">
           <DataTable :value="dsSP" v-model:filters="sanPhamFilter" dataKey="id" showGridlines scrollable
@@ -748,8 +756,6 @@ const confirmHuyHD = (event, data) => {
                   <InputText class="w-20rem" v-model="sanPhamFilter['global'].value"
                              placeholder="Tìm kiếm theo từ khoá..."/>
                 </span>
-                <Button size="small" severity="secondary" icon="pi pi-filter-slash" label="Xoá bộ lọc" outlined
-                        @click="clearSanPhamFilter"/>
               </div>
             </template>
             <Column field="ma" header="Mã SP"></Column>
@@ -883,6 +889,7 @@ const confirmHuyHD = (event, data) => {
           </DataTable>
         </div>
       </div>
+      <!-- End table san pham -->
     </div>
   </div>
 

@@ -180,84 +180,6 @@ const generateExcel = () => {
     });
 };
 
-const excel = ref({});
-const handImportExcel = async (event) => {
-    showProgressSpinner.value = true;
-    dis.value = false;
-    const selectedFile = event.target.files[0];
-    setNameFile.value = event.target.files[0].name;
-    //  console.log(selectedFile)
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-
-    try {
-        await khuyenmaiService.uploadFile(formData);
-        excel.value = khuyenmaiService.excels;
-     //   console.log(excel.value)
-        let hasError = false;
-     //   for (const o of excel.value) {
-            for (const data of excel.value.responseList) {
-                if (data.importMessageTen !== null && data.importMessageTen !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageTen, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageThoiGianBatDau !== null && data.importMessageThoiGianBatDau !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageThoiGianBatDau, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageThoiGianKetThuc !== null && data.importMessageThoiGianKetThuc !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageThoiGianKetThuc, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageMoTa !== null && data.importMessageMoTa !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageMoTa, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageGiamToiDa !== null && data.importMessageGiamToiDa !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageGiamToiDa, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageGiaTriGiam !== null && data.importMessageGiaTriGiam !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageGiaTriGiam, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageKieuGiamGia !== null && data.importMessageKieuGiamGia !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageKieuGiamGia, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                }
-                if (hasError) {
-                break;
-            }
-            }
-          
-      //  }
-        if (!hasError) {
-            showProgressSpinner.value = false;
-            dis.value = true;
-            toast.add({ severity: 'success', summary: 'Success Message', detail: 'Import thành công', life: 3000 });
-            loadDataKhuyenmai();
-        }
-    } catch (error) {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'lỗi ', life: 10000 });
-        showProgressSpinner.value = false;
-        dis.value = true;
-    }
-};
 </script>
 <template>
     <div class="grid">
@@ -268,13 +190,10 @@ const handImportExcel = async (event) => {
                     <template v-slot:start>
                         <div class="my-2">
                             <AddKhuyenMai />
-                            <DeleteKhuyenMai :selectedKhuyenMai="selectedKhuyenMai" />
                         </div>
                     </template>
 
-                    <template v-slot:end>
-                        <Button label="Import excel" icon="pi pi-download" @click="openPosition('top')" style="min-width: 10rem" severity="secondary" rounded />
-                    </template>
+
                 </Toolbar>
 
                 <DataTable
@@ -293,7 +212,6 @@ const handImportExcel = async (event) => {
                 >
                     <template #header>
                         <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                            <MultiSelect icon="pi pi-plus" placeholder="Select Columns" :modelValue="selectedColumns" :options="columns" optionLabel="header" @update:modelValue="onToggle" display="tag" />
                             <Dropdown v-model="selectedStatus" :options="statuses" :optionLabel="(option) => option.label" placeholder="Trạng thái" class="p-column-filter" style="min-width: 12rem" :showClear="true">
                                 <template #option="slotProps">
                                     <Tag :value="getStatusLabel(slotProps.option.value).text" :severity="getStatusLabel(slotProps.option.value).severity" />
