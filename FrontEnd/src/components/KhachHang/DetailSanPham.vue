@@ -537,6 +537,7 @@ const menu = ref();
 
                             <div class="gb" style="display: flex">
                                 <h2 s v-if="dataListSPCT.giaBan > 0 || dataListSPCT.giaBan == null">
+                                <h2 s v-if="dataListSPCT.giaBan > 0 || dataListSPCT.giaBan == null">
                                     <!-- <p tyle="color: rgb(0, 0, 0)">{{ formatCurrency(dataListSPCT.giaBan) !== '' ? formatCurrency(dataListSPCT.giaBan) : 'Hết hàng' }}</p> -->
                                     <p class="text-red-500" s tyle="text-decoration: line-through" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
                                     <p class="text-red-500" v-else-if="formatCurrency(dataListSPCT.giaBan) !== ''">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
