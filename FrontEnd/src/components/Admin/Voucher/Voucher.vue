@@ -128,120 +128,6 @@ const handRemovefile = () => {
     setNameFile.value = '';
 };
 
-const column = ['STT', 'Tên', 'Thời gian bắt đầu', 'Thời gian kết thúc', 'Giảm tối đa', 'Giá trị giảm(%)', 'Số lượng', 'Mô tả'];
-
-const generateExcel = () => {
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet('Sheet 1');
-
-    const columnWidths = [5, 20, 20, 20, 15, 15, 10, 10];
-    worksheet.columns = column.map((col, index) => ({
-        header: col,
-        key: col,
-        width: columnWidths[index]
-    }));
-
-    const headerRow = worksheet.getRow(1);
-    headerRow.eachCell((cell) => {
-        cell.fill = {
-            type: 'pattern',
-            pattern: 'solid',
-            fgColor: { argb: 'FFFF00' }
-        };
-        cell.font = {
-            bold: true
-        };
-    });
-
-    // Tạo và tải file Excel
-    workbook.xlsx.writeBuffer().then((buffer) => {
-        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Voucher.xlsx'; // Tên file Excel khi tải về
-        a.click();
-        window.URL.revokeObjectURL(url);
-    });
-};
-
-const excel = ref({});
-const handImportExcel = async (event) => {
-    showProgressSpinner.value = true;
-    dis.value = false;
-    const selectedFile = event.target.files[0];
-    setNameFile.value = event.target.files[0].name;
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-
-    try {
-        await VoucherService.uploadFile(formData);
-        excel.value = VoucherService.excels;
-        console.log(excel.value);
-        let hasError = false;
-      //  for (const o of excel.value) {
-            for (const data of excel.value.responseList) {
-                if (data.importMessageTen !== null && data.importMessageTen !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageTen, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageThoiGianBatDau !== null && data.importMessageThoiGianBatDau !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageThoiGianBatDau, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageThoiGianKetThuc !== null && data.importMessageThoiGianKetThuc !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageThoiGianKetThuc, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageMoTa !== null && data.importMessageMoTa !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageMoTa, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageGiamToiDa !== null && data.importMessageGiamToiDa !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageGiamToiDa, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageGiaTriGiam !== null && data.importMessageGiaTriGiam !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageGiaTriGiam, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageSoLuong !== null && data.importMessageSoLuong !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageSoLuong, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                }
-                if (hasError) {
-                break;
-            }
-            }
-          
-      //  }
-        if (!hasError) {
-            showProgressSpinner.value = false;
-            dis.value = true;
-            toast.add({ severity: 'success', summary: 'Success Message', detail: 'Import thành công', life: 3000 });
-            loadDatavoucher();
-        }
-    } catch (error) {
-        toast.add({ severity: 'error', summary: 'Error', detail: 'lỗi ', life: 10000 });
-        showProgressSpinner.value = false;
-        dis.value = true;
-    }
-};
 </script>
 
 <template>
@@ -253,12 +139,7 @@ const handImportExcel = async (event) => {
                     <template v-slot:start>
                         <div class="my-2">
                             <AddVoucher />
-                            <DeleteVoucher :selectedVoucher="selectedVoucher" />
                         </div>
-                    </template>
-
-                    <template v-slot:end>
-                        <Button label="Import excel" icon="pi pi-download" @click="openPosition('top')" style="min-width: 10rem" severity="secondary" rounded />
                     </template>
                 </Toolbar>
 
@@ -353,7 +234,7 @@ const handImportExcel = async (event) => {
                         </template>
                     </Column> -->
 
-                    <Column headerStyle="min-width:10rem;">
+                    <Column headerStyle="min-width:13rem;">
                         <template #body="slotProps">
                             <UpdateVoucher :my-prop="slotProps.data" />
                             <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2" @click="confirmDeleteVoucher(slotProps.data)" />

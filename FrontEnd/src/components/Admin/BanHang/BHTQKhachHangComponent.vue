@@ -98,7 +98,9 @@ const onRowEditSave = async (event) => {
     }
   } else {
     try {
+      console.log(event.data);
       await store.addOrUpdateKH(event.data);
+
       if (event.data.id === null) toast.add({
         severity: 'success',
         summary: 'Thành công',

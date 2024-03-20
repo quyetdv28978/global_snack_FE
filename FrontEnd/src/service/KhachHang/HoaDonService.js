@@ -9,7 +9,9 @@ export const checkoutStore = defineStore('checkOut', {
     }),
     actions: {
          async checkout(form){
+            console.log(form);
             const response = await axios.post(api, form)
+            console.log(response.data);
             this.checkOut =  response.data;
          }
        

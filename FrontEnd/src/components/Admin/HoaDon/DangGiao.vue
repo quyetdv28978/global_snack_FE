@@ -257,7 +257,6 @@ watch(phuongThucThanhToan, (newVal) => {
         <template #header>
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                 <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                    <MultiSelect icon="pi pi-plus" placeholder="Select Columns" :modelValue="selectedColumns" :options="columns" optionLabel="header" @update:modelValue="onToggle" display="chip" />
                     <Dropdown v-model="phuongThucThanhToan" :options="dataPhuongThucThanhToan" optionLabel="label" placeholder="Phương thức thanh toán" class="w-full md:w-14rem" style="margin-left: 20px" />
                 </div>
                 <span class="p-input-icon-left" style="margin-left: 20px">

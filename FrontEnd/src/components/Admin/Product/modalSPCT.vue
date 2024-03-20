@@ -171,7 +171,6 @@ const deleteSPCT = async (idSPCT) => {
         }
         toast.add({ severity: 'info', summary: 'Delete', detail: 'xóa thành công', life: 3000 });
     } catch (error) {
-        console.error('Lỗi xóa màu sắc:', error);
     }
 };
 
@@ -188,7 +187,6 @@ const khoiPhucSPCT = async (idSPCT, soLuong) => {
         }
         toast.add({ severity: 'info', summary: 'Khôi phục', detail: 'Khôi phục thành công', life: 3000 });
     } catch (error) {
-        console.error('Lỗi xóa màu sắc:', error);
     }
 };
 
@@ -228,7 +226,6 @@ const deleteImg = async (id) => {
         arrayImage.value = arrayImage.value.filter(element => element.id !== id);
         toast.add({ severity: 'info', summary: 'Delete', detail: 'xóa thành công', life: 3000 });
     } catch (error) {
-        console.error('Lỗi xóa màu sắc:', error);
     }
 };
 
@@ -309,23 +306,14 @@ const formatDate = (dateTime) => {
                 <template #header>
 
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                            <MultiSelect icon="pi pi-plus" :modelValue="selectedColumns" :options="columns"
-                                optionLabel="header" @update:modelValue="onToggle" display="chip"
-                                placeholder="Select Columns" />
-                        </div>
+
                         <div style="display: flex;">
                             <h5 class="m-0" style="margin-right: 20px;">Chi Tiết Sản Phẩm </h5>
                         </div>
-                        <span class="block mt-2 md:mt-0 p-input-icon-left" style="width: 200px; left: 50px;">
-                            <i class="pi pi-search" />
-                            <InputText v-model="filters['global'].value" placeholder="Search..." />
-
-                        </span>
+        
                         <Dropdown v-model="trangThaiselect" :options="dataTrangThai" optionLabel="label"
                             :optionLabel="(option) => option.label" placeholder="Tất cả" class="w-full md:w-14rem"
-                            style="margin-left: 20px" @change="loadDataTrangThai()">
-
+                            style="margin-left: 500px" @change="loadDataTrangThai()">
                         </Dropdown>
 
                         <AddSanPhamChiTiet @add:my-prop="addMyProp" :idProduct="idProduct">

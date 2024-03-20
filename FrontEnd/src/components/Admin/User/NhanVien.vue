@@ -131,9 +131,6 @@ const onToggle = (val) => {
             >
                 <template #header>
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center" style="width: 50px">
-                            <MultiSelect icon="pi pi-plus" :modelValue="selectedColumns" :options="columns" optionLabel="header" @update:modelValue="onToggle" display="chip" placeholder="Select Columns" />
-                        </div>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search" />
                             <InputText v-model="filters['global'].value" placeholder="Search..." />
