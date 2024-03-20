@@ -67,101 +67,6 @@ onMounted(() => {
     loadDataTreEm();
 });
 
-const banner1 = '/src/assets/images/banner.jpg';
-// const thumbnails = [
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'NÓN 3/4'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2020/11/rona-luxury-den-bong.jpg',
-//         name: 'NÓN NỬA ĐẦU'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2021/11/XH02-den-4-1-e1637381735829-1.jpg',
-//         name: 'NÓN FULLFACE',
-//         price: '320,000 ₫'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2020/12/mu-xe-dap-Balder-superkid-khung-long-do-2.jpg',
-//         name: 'NÓN TRẺ EM',
-//         price: '320,000 ₫'
-//     }
-//     // Thêm các đối tượng khác nếu cần
-// ];
-
-// const thumbnailsSP = [
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'ROC R43 Frozen Xanh',
-//         price: '320,000 ₫'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'ROC R43 Frozen Xanh',
-//         price: '320,000 ₫'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'ROC R43 Frozen Xanh',
-//         price: '320,000 ₫'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'ROC R43 Frozen Xanh',
-//         price: '320,000 ₫'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'ROC R43 Frozen Xanh',
-//         price: '320,000 ₫'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'ROC R43 Frozen Xanh',
-//         price: '320,000 ₫'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'ROC R43 Frozen Xanh abc',
-//         price: '320,000 ₫'
-//     },
-
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'ROC R43 Frozen Xanh',
-//         price: '320,000 ₫'
-//     },
-//     {
-//         imageUrl: 'https://nontrum.vn/wp-content/uploads/2019/10/non-balder-vang-1-e1583121638578.jpg',
-//         name: 'ROC R43 Frozen Xanh',
-//         price: '320,000 ₫'
-//     }
-//     // Thêm các đối tượng khác nếu cần
-// ];
-//sp hot
-const banner2 =
-    'https://scontent.xx.fbcdn.net/v/t1.15752-9/384494576_212944041799990_6536877871085600694_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_ohc=CBKQdqsgXOwAX8fYuuX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdREjH2b3LqpYhiC0dFqK-EDrJwPhnwR0pxyUQxipcou9w&oe=6572841E';
-const banner3 =
-    'https://scontent.xx.fbcdn.net/v/t1.15752-9/384495534_246446494627006_6844178457291330656_n.png?_nc_cat=107&ccb=1-7&_nc_sid=510075&_nc_ohc=cO2KzVhSOtgAX9CX4lV&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdT-I5MJyt7UQ5wMxpWJf93pktpDOFy0SmdrK6cxujiHjQ&oe=6572A2D8';
-
-//sp mới
-const banner4 =
-    'https://scontent.xx.fbcdn.net/v/t1.15752-9/384494576_212944041799990_6536877871085600694_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_ohc=CBKQdqsgXOwAX8fYuuX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdREjH2b3LqpYhiC0dFqK-EDrJwPhnwR0pxyUQxipcou9w&oe=6572841E';
-const banner5 =
-    'https://scontent.xx.fbcdn.net/v/t1.15752-9/384495534_246446494627006_6844178457291330656_n.png?_nc_cat=107&ccb=1-7&_nc_sid=510075&_nc_ohc=cO2KzVhSOtgAX9CX4lV&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdT-I5MJyt7UQ5wMxpWJf93pktpDOFy0SmdrK6cxujiHjQ&oe=6572A2D8';
-
-// nón full
-const banner6 =
-    'https://scontent.xx.fbcdn.net/v/t1.15752-9/384494576_212944041799990_6536877871085600694_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_ohc=CBKQdqsgXOwAX8fYuuX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdREjH2b3LqpYhiC0dFqK-EDrJwPhnwR0pxyUQxipcou9w&oe=6572841E';
-const banner7 =
-    'https://scontent.xx.fbcdn.net/v/t1.15752-9/384495534_246446494627006_6844178457291330656_n.png?_nc_cat=107&ccb=1-7&_nc_sid=510075&_nc_ohc=cO2KzVhSOtgAX9CX4lV&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdT-I5MJyt7UQ5wMxpWJf93pktpDOFy0SmdrK6cxujiHjQ&oe=6572A2D8';
-// nón trẻ em
-const banner8 =
-    'https://scontent.xx.fbcdn.net/v/t1.15752-9/384494576_212944041799990_6536877871085600694_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_ohc=CBKQdqsgXOwAX8fYuuX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdREjH2b3LqpYhiC0dFqK-EDrJwPhnwR0pxyUQxipcou9w&oe=6572841E';
-const banner9 =
-    'https://scontent.xx.fbcdn.net/v/t1.15752-9/384495534_246446494627006_6844178457291330656_n.png?_nc_cat=107&ccb=1-7&_nc_sid=510075&_nc_ohc=cO2KzVhSOtgAX9CX4lV&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdT-I5MJyt7UQ5wMxpWJf93pktpDOFy0SmdrK6cxujiHjQ&oe=6572A2D8';
-
 if (!localStorage.getItem('spDaXem')) {
     let array = [];
     localStorage.setItem('spDaXem', JSON.stringify(array));
@@ -249,23 +154,11 @@ const themSPDaXem = async (idSP) => {
 <template>
     <div class="grid">
         <div class="image-container">
-            <!-- <div class="nav-button left-button" @click="previousImage">&lt;</div> -->
-            <!-- <img src="/src/assets/images/logo.png" style="width: 1000px; height: max-content;" class="centered-image" /> -->
-            <h1 style="padding: 1rem; margin: 2rem 12rem">San Pham</h1>
-            <!-- <div class="nav-button right-button" @click="nextImage">&gt;</div> -->
+            <h1 style="padding: 1rem; margin: 2rem 12rem">Slide</h1>
         </div>
         <div class="main-sp">
-            <div class="thumbnail-list">
-                <div class="thumbnail" v-for="(thumbnail, index) in thumbnails" :key="index">
-                    <a href="http://localhost:5173/#/trang-chu">
-                        <img :src="thumbnail.imageUrl" alt="Thumbnail" />
-                        <h5>{{ thumbnail.name }}</h5>
-                    </a>
-                </div>
-            </div>
             <!-- SP hot -->
-            <!-- <div><img src="/src/assets/images/bannerSPBC.jpg" alt="Thumbnail" class="banner2" /></div>
-            <div><img src="/src/assets/images/tenSP_BanChay.png" alt="Thumbnail" class="banner3" /></div> -->
+            <!-- <h1 style="padding: 1rem; margin: 2rem 12rem">Sản Phẩm Bán Chạy</h1>
             <div class="flex-container">
                 <div class="flex-item" v-for="(spct, index) in dataSPBanChay" :key="index">
                     <div class="product-top">
@@ -274,83 +167,87 @@ const themSPDaXem = async (idSP) => {
                         </a>
                         <a class="xct" @click="goToProductDetail(spct.idSP)">Xem chi tiết</a>
                     </div>
-                    <p class="ten-sp">{{ spct.tenSP }}</p>
-                    <br />
-                    <p class="gia-sp" style="color: black; text-align: center" v-if="spct.giaBanMin == spct.giaBanMax">{{ formatCurrency(spct.giaBanMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax != null && spct.giaSauGiamMin != null && spct.giaSauGiamMax != spct.giaSauGiamMin">
-                        {{ formatCurrency(spct.giaSauGiamMin) }} - {{ formatCurrency(spct.giaSauGiamMax) }}
-                    </p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax == null && spct.giaSauGiamMin == null">{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax == spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else>{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</p>
+                    <div class="ten-sp">{{ spct.tenSP }}</div>
+                    <div>{{ spct.tenLoai }}</div>
+                    <div>{{ spct.tenThuongHieu }}</div>
+                    <div class="gia-sp" v-if="spct.giaBanMin == spct.giaBanMax">{{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax != null && spct.giaSauGiamMin != null && spct.giaSauGiamMax != spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMin) }} - {{ formatCurrency(spct.giaSauGiamMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == null && spct.giaSauGiamMin == null">{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMax) }}</div>
+                    <div class="gia-sp" v-else>{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
                 </div>
-            </div>
+            </div> -->
             <!-- SP mới -->
             <!-- <div><img src="/src/assets/images/HANG-MOI.jpg" alt="Thumbnail" class="banner2" /></div>
             <div><img src="/src/assets/images/hangMoi.png" alt="Thumbnail" class="banner3" /></div> -->
+
+            <h1 style="padding: 1rem; margin: 2rem 12rem">Sản Phẩm Mới</h1>
             <div class="flex-container">
                 <div class="flex-item" v-for="(spct, index) in dataHangMoi" :key="index">
                     <div class="product-top">
-                        <a href="" class="product-thumb">
+                        <a href="" class="product-thumb" @click="goToProductDetail(spct.idSP)">
                             <img :src="spct.anh" alt="Thumbnail" class="product-image" />
                         </a>
-                        <a class="xct" @click="goToProductDetail(spct.idSP)">Xem chi tiết</a>
                     </div>
-                    <p class="ten-sp">{{ spct.tenSP }}</p>
-                    <br />
-                    <p class="gia-sp" style="color: black; text-align: center" v-if="spct.giaBanMin == spct.giaBanMax">{{ formatCurrency(spct.giaBanMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax != null && spct.giaSauGiamMin != null && spct.giaSauGiamMax != spct.giaSauGiamMin">
-                        {{ formatCurrency(spct.giaSauGiamMin) }} - {{ formatCurrency(spct.giaSauGiamMax) }}
-                    </p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax == null && spct.giaSauGiamMin == null">{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax == spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else>{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</p>
+                    <div class="ten-sp">{{ spct.tenSP }}</div>
+                    <div class="loai-sp">{{ spct.tenLoai }}</div>
+                    <div class="gia-sp" v-if="spct.giaBanMin == spct.giaBanMax">{{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax != null && spct.giaSauGiamMin != null && spct.giaSauGiamMax != spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMin) }} - {{ formatCurrency(spct.giaSauGiamMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == null && spct.giaSauGiamMin == null">{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMax) }}</div>
+                    <div class="gia-sp" v-else>{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="flex items-center justify-end my-3">
+                        <Button class="w-full" label="Xem chi tiết" raised @click="goToProductDetail(spct.idSP)" severity="success" />
+                    </div>
                 </div>
             </div>
             <!-- Nón full -->
             <!-- <div><img src="/src/assets/images/fullFace.jpg" alt="Thumbnail" class="banner2" /></div>
             <div><img src="/src/assets/images/full.png" alt="Thumbnail" class="banner3" /></div> -->
+            <h1 style="padding: 1rem; margin: 2rem 12rem">Sản Phẩm Đánh Giá 5 Sao</h1>
             <div class="flex-container">
                 <div class="flex-item" v-for="(spct, index) in dataFullrace" :key="index">
                     <div class="product-top">
-                        <a href="" class="product-thumb">
+                        <a href="" class="product-thumb" @click="goToProductDetail(spct.idSP)">
                             <img :src="spct.anh" alt="Thumbnail" class="product-image" />
                         </a>
-                        <a class="xct" @click="goToProductDetail(spct.idSP)">Xem chi tiết</a>
                     </div>
-                    <p class="ten-sp">{{ spct.tenSP }}</p>
-                    <br />
-                    <p class="gia-sp" style="color: black; text-align: center" v-if="spct.giaBanMin == spct.giaBanMax">{{ formatCurrency(spct.giaBanMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax != null && spct.giaSauGiamMin != null && spct.giaSauGiamMax != spct.giaSauGiamMin">
-                        {{ formatCurrency(spct.giaSauGiamMin) }} - {{ formatCurrency(spct.giaSauGiamMax) }}
-                    </p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax == null && spct.giaSauGiamMin == null">{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax == spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else>{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</p>
+                    <div class="ten-sp">{{ spct.tenSP }}</div>
+                    <div class="loai-sp">{{ spct.tenLoai }}</div>
+                    <div class="gia-sp" v-if="spct.giaBanMin == spct.giaBanMax">{{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax != null && spct.giaSauGiamMin != null && spct.giaSauGiamMax != spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMin) }} - {{ formatCurrency(spct.giaSauGiamMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == null && spct.giaSauGiamMin == null">{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMax) }}</div>
+                    <div class="gia-sp" v-else>{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="flex items-center justify-end my-3">
+                        <Button class="w-full" label="Xem chi tiết" raised @click="goToProductDetail(spct.idSP)" severity="success" />
+                    </div>
                 </div>
             </div>
 
             <!-- Nón trẻ em -->
             <!-- <div><img src="/src/assets/images/non-tre-em-scaled.jpg" alt="Thumbnail" class="banner2" /></div>
             <div><img src="/src/assets/images/Banner-non-tre-em.png" alt="Thumbnail" class="banner3" /></div> -->
+
             <div class="flex-container">
                 <div class="flex-item" v-for="(spct, index) in dataTreEm" :key="index">
                     <div class="product-top">
-                        <a href="" class="product-thumb">
+                        <a href="" class="product-thumb" @click="goToProductDetail(spct.idSP)">
                             <img :src="spct.anh" alt="Thumbnail" class="product-image" />
                         </a>
-                        <a class="xct" @click="goToProductDetail(spct.idSP)">Xem chi tiết</a>
                     </div>
-                    <p class="ten-sp">{{ spct.tenSP }}</p>
-                    <br />
+                    <div class="ten-sp">{{ spct.tenSP }}</div>
+                    <div>{{ spct.tenLoai }}</div>
+                    <div>{{ spct.tenThuongHieu }}</div>
 
-                    <p class="gia-sp" style="color: black; text-align: center" v-if="spct.giaBanMin == spct.giaBanMax">{{ formatCurrency(spct.giaBanMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax != null && spct.giaSauGiamMin != null && spct.giaSauGiamMax != spct.giaSauGiamMin">
-                        {{ formatCurrency(spct.giaSauGiamMin) }} - {{ formatCurrency(spct.giaSauGiamMax) }}
-                    </p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax == null && spct.giaSauGiamMin == null">{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else-if="spct.giaSauGiamMax == spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMax) }}</p>
-                    <p class="gia-sp" style="color: black; text-align: center" v-else>{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</p>
+                    <div class="gia-sp" v-if="spct.giaBanMin == spct.giaBanMax">{{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax != null && spct.giaSauGiamMin != null && spct.giaSauGiamMax != spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMin) }} - {{ formatCurrency(spct.giaSauGiamMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == null && spct.giaSauGiamMin == null">{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMax) }}</div>
+                    <div class="gia-sp" v-else>{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
+                    <div class="flex items-center justify-end my-3">
+                        <Button class="w-full" label="Xem chi tiết" raised @click="goToProductDetail(spct.idSP)" severity="success" />
+                    </div>
                 </div>
             </div>
             <!-- <div class="thong-tin">
@@ -439,12 +336,6 @@ const themSPDaXem = async (idSP) => {
     border-bottom-left-radius: 25px;
 }
 
-.thumbnail-list {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-}
-
 .main-sp {
     /* background: black; */
     display: flex;
@@ -453,6 +344,8 @@ const themSPDaXem = async (idSP) => {
     flex-direction: column;
     /* Để căn giữa theo chiều dọc */
     width: 1200px;
+
+    gap: 1rem;
 }
 
 .thumbnail {
@@ -511,21 +404,32 @@ const themSPDaXem = async (idSP) => {
 }
 
 .ten-sp {
-    text-align: left;
     font-size: 17px;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: -5px;
     color: black;
-    height: 35px;
+    overflow: hidden;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top: 1.5rem;
+    font-weight: 600;
+}
+
+.loai-sp {
+    margin: 0.5rem 0;
+    font-size: 16px;
+    font-weight: 500;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 .gia-sp {
-    text-align: left;
-    font-size: 13px;
-    margin-left: 10px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 500;
     color: red;
+    font-family: 'Poppins', sans-serif;
 }
 
 .thong-tin {
@@ -572,21 +476,19 @@ const themSPDaXem = async (idSP) => {
 }
 
 .flex-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 1100px;
+    margin-block-start: 3rem;
 }
 
 .flex-item {
-    flex: 0 0 calc(20% - 10px);
-    /* 20% độ rộng cho mỗi cột và 10px là khoảng cách giữa các cột */
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     padding: 10px;
+    border-radius: 10px;
     box-sizing: border-box;
-    /* Đảm bảo rằng padding và border không làm tăng kích thước của các cột */
     margin-bottom: 20px;
-    /* Khoảng cách giữa các dòng */
     margin-right: 12px;
 }
 
@@ -597,24 +499,8 @@ const themSPDaXem = async (idSP) => {
 
 .flex-item img {
     max-width: 100%;
-    /* Đảm bảo ảnh không vượt quá kích thước của .flex-item */
-    height: auto;
-    /* Đảm bảo tỷ lệ hình ảnh được giữ nguyên khi giảm kích thước theo chiều rộng */
+    height: 200px;
     display: block;
-    /* Loại bỏ khoảng trắng dư thừa dưới ảnh */
-}
-
-.xct {
-    text-transform: uppercase;
-    text-decoration: none;
-    text-align: center;
-    display: block;
-    background-color: #446084;
-    color: #fff;
-    padding: 10px 0px;
-    position: absolute;
-    width: 100%;
-    bottom: -45px;
 }
 
 .product-top {
@@ -627,6 +513,8 @@ const themSPDaXem = async (idSP) => {
 }
 
 .product-top .product-thumb .product-image {
+    max-width: 100%;
+    height: 200px;
     display: block;
 }
 

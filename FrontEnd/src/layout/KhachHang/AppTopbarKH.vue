@@ -67,7 +67,6 @@ const openSocketConnection = () => {
 
                     // loadDataSpChiTiet();
                     // loadDataHD();
-
                 });
             }
         }
@@ -185,7 +184,6 @@ const dangXuat = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('currentUserInformation');
 
-
     const arraySPDaXem = JSON.parse(localStorage.getItem('spDaXem'));
     const arraySauKhiDangXuat = [];
     if (Array.isArray(arraySPDaXem)) {
@@ -284,15 +282,15 @@ const soLuongGH = async () => {
 const menu = ref();
 const items = ref([
     {
-        label: 'Hồ sơ cá nhân',
+        label: 'Profiles',
         command: onSettingsClick
     },
     {
-        label: 'Địa chỉ',
+        label: 'Address',
         command: onSettingsClick
     },
     {
-        label: 'Lịch sử mua hàng',
+        label: 'History',
         command: onSettingsClick
     }
 ]);
@@ -307,20 +305,22 @@ const toggle2 = (event) => {
     op.value.toggle(event);
 };
 
-
 const loadDataHDCT = async (idHD) => {
     const respone = await useHD.findHdByIdHd(idHD);
     dataHDCT.value = respone;
 };
 
-
-
+const members = ref([
+    { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
+    { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
+    { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
+]);
 </script>
 
 <template>
-    <div class="layout-topbar">
-        <router-link :to="{ name: 'trang-chu' }" class="layout-topbar-logo" style="height: 60px; width: 120px">
-            <img src="/src/assets/images/logo.png" alt="logo" style="height: 70px" />
+    <div class="layout-topbar" style="padding: 1rem 5rem">
+        <router-link :to="{ name: 'trang-chu' }">
+            <img src="/src/assets/images/logo.jpg" alt="logo" style="height: 70px" />
         </router-link>
 
         <button class="p-link layout-topbar-menu-button layout-topbar-button" @click="onTopBarMenuButton()">
@@ -328,22 +328,23 @@ const loadDataHDCT = async (idHD) => {
         </button>
 
         <Toast />
+        <div style="display: flex; gap: 1rem; margin-left: 3rem">
+            <router-link :to="{ name: 'trang-chu' }">
+                <p class="nav-links">Home</p>
+            </router-link>
+            <router-link :to="{ name: 'san-pham' }">
+                <p class="nav-links">Products</p>
+            </router-link>
+            <router-link :to="{ name: 'gioi-thieu' }">
+                <p class="nav-links">Abouts</p>
+            </router-link>
+            <router-link :to="{ name: 'gioi-thieu' }">
+                <p class="nav-links">Contacts</p>
+            </router-link>
+        </div>
         <div class="layout-topbar-menu">
-            <router-link :to="{ name: 'trang-chu' }" class="layout-topbar-logo" style="width: 100px; margin-left: 10px">
-                <p style="font-size: 16px">Home</p>
-            </router-link>
-            <router-link :to="{ name: 'san-pham' }" class="layout-topbar-logo" style="width: 100%; margin-left: 10px">
-                <p style="font-size: 16px">Sản phẩm</p>
-            </router-link>
-            <router-link :to="{ name: 'gioi-thieu' }" class="layout-topbar-logo" style="width: 140%; margin-left: 10px">
-                <p style="font-size: 16px">Về chúng tôi</p>
-            </router-link>
-            <router-link :to="{ name: 'san-pham-da-xem' }" class="layout-topbar-logo" style="width: 150%; margin-right: 10px">
-                <p style="font-size: 16px">Sản phẩm đã xem</p>
-            </router-link>
-
-            <router-link :to="{ name: 'gio-hang' }" class="layout-topbar-logo" style="width: 5%; margin-right: 3px">
-                <i class="pi pi-shopping-cart p-text-secondary p-overlay-badge" style="font-size: 1.5rem" v-badge="gioHangService.soLuong"></i>
+            <router-link :to="{ name: 'gio-hang' }" style="width: 5%; margin-right: 3px">
+                <i class="pi pi-shopping-cart p-text-secondary p-overlay-badge" style="font-size: 1.5rem" v-badge.danger="gioHangService.soLuong"></i>
             </router-link>
             <div class="flex justify-content-center" style="margin-right: 10px; margin-left: 20px">
                 <button class="p-link" @click="toggle" aria-haspopup="true" aria-controls="overlay_tmenu">
@@ -351,37 +352,37 @@ const loadDataHDCT = async (idHD) => {
                 </button>
                 <OverlayPanel ref="op2" style="display: block; width: 150px">
                     <button v-if="tokenCheck != null" class="p-link a" aria-haspopup="true" aria-controls="overlay_tmenu" @click="thongTinCaNhan">
-                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">Hồ sơ cá nhân</div>
+                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">Profile</div>
                     </button>
                     <button v-if="tokenCheck != null" class="p-link a" aria-haspopup="true" aria-controls="overlay_tmenu" @click="diaChi">
-                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">Địa chỉ</div>
+                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">Address</div>
                     </button>
                     <button v-if="tokenCheck != null" class="p-link a" aria-haspopup="true" aria-controls="overlay_tmenu" @click="lichSuMuaHang">
-                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">Lịch sử mua hàng</div>
+                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">History Order</div>
                     </button>
                     <button v-if="tokenCheck == null" class="p-link a" aria-haspopup="true" aria-controls="overlay_tmenu" @click="dangNhap">
-                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">Đăng Nhập</div>
+                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">Login</div>
                     </button>
 
                     <button v-if="tokenCheck != null" class="p-link a" aria-haspopup="true" aria-controls="overlay_tmenu" @click="dangXuat">
-                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">Đăng Xuất</div>
+                        <div class="flex align-items-center" style="height: 20px; margin-bottom: 10px; width: 120px">Logout</div>
                     </button>
                 </OverlayPanel>
             </div>
             <div class="flex justify-content-center gap-4">
                 <button class="p-link" @click="toggle2" aria-haspopup="true" aria-controls="overlay_tmenu">
-                    <i v-badge="dem" class="pi pi-bell p-overlay-badge" style="font-size: 1.5rem" />
+                    <i v-badge.danger="dem" class="pi pi-bell p-overlay-badge" style="font-size: 1.5rem" />
                 </button>
 
-                <OverlayPanel ref="op" style="height: 300px; overflow: auto">
-                    <H6>Thông báo </H6>
+                <OverlayPanel ref="op">
+                    <div class="">
+                        <div>
+                            <span class="notify-title">Notification</span>
+                            <br />
+                        </div>
+                    </div>
 
-                    <div v-if="!data || data.length === 0" style="text-align: center; margin-top: 50px">
-                        <svg width="50px" height="50px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000" class="bi bi-file-earmark-x">
-                            <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />
-                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
-                        </svg>
-
+                    <div v-if="!data || data.length === 0">
                         <h5 style="text-align: center">Chưa có Thông báo !</h5>
                     </div>
                     <div v-for="(o, index) in data">
@@ -408,5 +409,38 @@ const loadDataHDCT = async (idHD) => {
 button.p-link:hover {
     background-color: rgb(248, 239, 239);
     /* Thay #f00 bằng màu bạn muốn */
+}
+
+.notify-container {
+    display: flex;
+    flex-direction: column;
+    width: 24rem;
+    gap: 0.75rem;
+}
+
+.nav-links {
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: #000;
+}
+
+.nav-links:hover {
+    color: red;
+}
+
+.notify-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    display: block;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+span,
+p {
+    font-family: 'Poppins', sans-serif;
 }
 </style>

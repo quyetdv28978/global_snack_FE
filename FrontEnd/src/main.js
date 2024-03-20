@@ -102,13 +102,14 @@ import TriStateCheckbox from 'primevue/tristatecheckbox';
 import VirtualScroller from 'primevue/virtualscroller';
 import CodeHighlight from '@/components/CodeHighlight.vue';
 import BlockViewer from '@/components/BlockViewer.vue';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import vue3GoogleLogin from 'vue3-google-login';
 import '@/assets/styles.scss';
+// import 'primevue/resources/themes/aura-light-green/theme.css';
 // import { Client } from 'webstomp-client';
 // import SockJS from 'sockjs-client';
-
 
 // const socket = new SockJS('http://localhost:8080/ws');
 // const stompClient = new Client({ webSocketFactory: () => socket });
@@ -130,7 +131,7 @@ app.use(PrimeVue, { ripple: true });
 app.use(ToastService);
 app.use(DialogService);
 app.use(ConfirmationService);
-// app.provide('stomp', stompClient); 
+// app.provide('stomp', stompClient);
 app.directive('tooltip', Tooltip);
 app.directive('badge', BadgeDirective);
 app.directive('ripple', Ripple);

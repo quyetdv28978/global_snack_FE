@@ -11,139 +11,137 @@ const logoUrl = computed(() => {
 
 <template>
     <!-- Remove the container if you want to extend the Footer to full width. -->
-    <!-- Footer -->
-    <footer class="text-lg-start text-white" style="background-color: #3e4551">
-        <!-- Grid container -->
-        <div class="p-4 pb-0">
-            <!-- Section: Links -->
-            <section class="">
-                <!--Grid row-->
-                <div class="row">
-                    <!--Grid column-->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold">Công ty TNHH siêu to khổng lồ 1 thành viên</h6>
-                        <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
-                        <p>Các thương hiệu mũ bảo hiểm của công ty như Royal, ROC, ROYCE, KIO... đã in đậm trong tâm trí khách hàng và khẳng định được chỗ đứng vững chắc tại thị trường trong nước cũng như quốc tế.</p>
-                    </div>
-                    <!--Grid column-->
 
-                    <!--Grid column-->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold">THÔNG TIN</h6>
-                        <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
-                        <p>
-                            <a href="#!" class="text-white">Giới thiệu chuỗi nón trùm</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Chính sách bán hàng</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Chính sách bảo hành, đổi mới</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Giao hàng, thanh toán</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Chính sách bảo vệ thông tin cá nhân</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Hợp tác với Nón Trùm</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Tuyển dụng</a>
-                        </p>
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold">Liên hệ</h6>
-                        <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
-                        <p><i class="pi pi-home mr-3"></i> 342 đường Hồ Tùng Mậu, Bắc Từ Liêm, Hà Nội</p>
-                        <p><i class="pi pi-envelope mr-3"></i> vunlph28399@fpt.edu.vn</p>
-                        <p><i class="pi pi-phone mr-3"></i> + 01 234 567 88</p>
-                        <p><i class="pi pi-print mr-3"></i> + 01 234 567 89</p>
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold">Kênh truyền thông & sàn thương mại điển tử</h6>
-                        <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
-                        <p>
-                            <a href="#!" class="text-white">Tiktok Nón Trùm</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Shopee Nón Trùm</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Tiki Nón Trùm</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Tiki Rona</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Lazada Nón Trùm</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-white">Lazada Rona</a>
-                        </p>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>company</h4>
+                    <ul>
+                        <li><a href="#">về chúng tôi</a></li>
+                        <li><a href="#">dịch vụ của chúng tôi</a></li>
+                        <li><a href="#">chính sách bảo mật</a></li>
+                        <li><a href="#">chương trình liên kết</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>get help</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">giao hàng</a></li>
+                        <li><a href="#">trả hàng</a></li>
+                        <li><a href="#">trạng thái đơn hàng</a></li>
+                        <li><a href="#">phương thức thanh toán</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>online shop</h4>
+                    <ul>
+                        <li><a href="#">Khoai Tây Chiên</a></li>
+                        <li><a href="#">Bim Bim</a></li>
+                        <li><a href="#">Khô gà </a></li>
+                        <li><a href="#">Đùi gà rong biển </a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>follow us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="pi pi-facebook"></i></a>
+                        <a href="#"><i class="pi pi-twitter"></i></a>
+                        <a href="#"><i class="pi pi-instagram"></i></a>
+                        <a href="#"><i class="pi pi-linkedin"></i></a>
                     </div>
                 </div>
-                <!--Grid row-->
-            </section>
-            <!-- Section: Links -->
-
-            <hr class="mb-4" />
-
-            <!-- Section: CTA -->
-            <section class="">
-                <p class="d-flex justify-content-center align-items-center">
-                    <span class="me-3">Register for free</span>
-                    <button type="button" class="btn btn-outline-light btn-rounded">Sign up!</button>
-                </p>
-            </section>
-            <!-- Section: CTA -->
-
-            <hr class="mb-4" />
-
-            <!-- Section: Social media -->
-            <section class="mb-4 text-center">
-                <!-- Facebook -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="pi pi-facebook"></i></a>
-
-                <!-- Twitter -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="pi pi-twitter"></i></a>
-
-                <!-- Google -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="pi pi-google"></i></a>
-
-                <!-- Instagram -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="pi pi-instagram"></i></a>
-
-                <!-- Linkedin -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="pi pi-linkedin"></i></a>
-
-                <!-- Github -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="pi pi-github"></i></a>
-            </section>
-            <!-- Section: Social media -->
+            </div>
         </div>
-        <!-- Grid container -->
-
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2023 GL:
-            <a class="text-white" href="https://mdbootstrap.com/">Dự án tốt nghiệp</a>
-        </div>
-        <!-- Copyright -->
     </footer>
+
     <!-- Footer -->
     <!-- End of .container -->
 </template>
 <style lang="scss" scoped>
-</style>
+.container {
+    max-width: 1170px;
+    margin: auto;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+.footer {
+    background-color: #24262b;
+    padding: 70px 0;
+}
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+.footer-col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #e91e63;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 8px;
+}
+.footer-col .social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover {
+    color: #24262b;
+    background-color: #ffffff;
+}
 
+/*responsive*/
+@media (max-width: 767px) {
+    .footer-col {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}
+@media (max-width: 574px) {
+    .footer-col {
+        width: 100%;
+    }
+}
+</style>

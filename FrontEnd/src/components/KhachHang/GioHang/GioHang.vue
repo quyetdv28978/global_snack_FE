@@ -568,19 +568,17 @@ const tinhTongTienChoTungSanPham = (soLuong, giaSauGiam, giaBan) => {
 // });
 </script>
 <template>
-  <router-view></router-view>
+    <router-view></router-view>
     <div class="grid">
         <div class="col-12">
             <div class="p-fluid formgrid grid">
                 <div class="Field col-12 md:col-9">
                     <div class="trai">
-                        <div v-if="!dataGHCT || dataGHCT.length===0" style="text-align: center; margin-top: 50px; "  > 
-                                  
-                            <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 width="100px" height="100px" viewBox="0 0 446.853 446.853"
-	 xml:space="preserve">
-<g>
-	<path d="M444.274,93.36c-2.558-3.666-6.674-5.932-11.145-6.123L155.942,75.289c-7.953-0.348-14.599,5.792-14.939,13.708
+                        <div v-if="!dataGHCT || dataGHCT.length === 0" style="text-align: center; margin-top: 50px">
+                            <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100px" height="100px" viewBox="0 0 446.853 446.853" xml:space="preserve">
+                                <g>
+                                    <path
+                                        d="M444.274,93.36c-2.558-3.666-6.674-5.932-11.145-6.123L155.942,75.289c-7.953-0.348-14.599,5.792-14.939,13.708
 		c-0.338,7.913,5.792,14.599,13.707,14.939l258.421,11.14L362.32,273.61H136.205L95.354,51.179
 		c-0.898-4.875-4.245-8.942-8.861-10.753L19.586,14.141c-7.374-2.887-15.695,0.735-18.591,8.1c-2.891,7.369,0.73,15.695,8.1,18.591
 		l59.491,23.371l41.572,226.335c1.253,6.804,7.183,11.746,14.104,11.746h6.896l-15.747,43.74c-1.318,3.664-0.775,7.733,1.468,10.916
@@ -591,23 +589,23 @@ const tinhTongTienChoTungSanPham = (soLuong, giaSauGiam, giaBan) => {
 		c6.235,0,11.752-4.028,13.651-9.96l59.739-186.387C447.536,101.679,446.832,97.028,444.274,93.36z M169.664,409.814
 		c-10.543,0-19.117-8.573-19.117-19.116s8.574-19.117,19.117-19.117s19.116,8.574,19.116,19.117S180.207,409.814,169.664,409.814z
 		 M327.373,409.814c-10.543,0-19.116-8.573-19.116-19.116s8.573-19.117,19.116-19.117s19.116,8.574,19.116,19.117
-		S337.916,409.814,327.373,409.814z"/>
-</g>
-</svg>
-                       
-                            
-<h4  style="text-align: center;">Chưa có sản phẩm !</h4>
-                          </div>
+		S337.916,409.814,327.373,409.814z"
+                                    />
+                                </g>
+                            </svg>
 
-                        <DataTable  v-else
+                            <h4 style="text-align: center">Chưa có sản phẩm !</h4>
+                        </div>
+
+                        <DataTable
+                            v-else
                             :value="dataGHCT"
                             v-model:selection="selectedGHCT"
                             dataKey="id"
                             :filters="filters"
                             paginatorTemplate="FirstPageLink Pr
                                 evPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-                        > 
-            
+                        >
                             <Column headerStyle="width: 1rem">
                                 <template #body="slotProps">
                                     <Checkbox
@@ -730,35 +728,35 @@ const tinhTongTienChoTungSanPham = (soLuong, giaSauGiam, giaBan) => {
 
                 <div class="Field col-12 md:col-3">
                     <div class="phai">
-                        <p class="TieuDePhai">CỘNG GIỎ HÀNG</p>
+                        <p class="text-lg font-medium text-gray-900">GIỎ HÀNG</p>
                         <hr class="gach-ngang" />
-                        <p class="content" style="font-size: 13px">
-                            Tổng số lượng sản phẩm: <span style="font-size: 16px">{{ TongSoLuong }}</span>
+
+                        <p class="text-xl text-gray-600">
+                            Tổng tiền hàng: <span style="text-align: right" class="gia">{{ formatCurrency(TongTien) == '' ? 0 : formatCurrency(TongTien) }}</span>
                         </p>
-                        <p class="content" style="font-size: 13px">
-                            Tổng tiền: <span style="text-align: right" class="gia">{{ formatCurrency(TongTien) == '' ? 0 : formatCurrency(TongTien) }}</span>
+                        <p class="text-xl text-gray-600" v-if="tienGiam !== 0">
+                            Giảm giá sản phẩm: <span style="color: red; font-size: 15px">- {{ formatCurrency(tienGiam) }}</span>
                         </p>
-                        <p class="content" v-if="tienGiam !== 0" style="font-size: 13px">
-                            số tiền giảm: <span style="color: red; font-size: 15px">- {{ formatCurrency(tienGiam) }}</span>
+                        <p class="text-xl text-gray-600" v-if="tienGiam !== 0">
+                            Tiết Kiệm: <span style="color: red; font-size: 15px">{{ formatCurrency(tienGiam) }}</span>
                         </p>
-                        <p class="content" v-if="tienGiam !== 0" style="font-size: 13px">
-                            Tổng tiền giảm: <span style="text-align: right; font-size: 19px" class="gia">{{ formatCurrency(TongTienCu) == '' ? 0 : formatCurrency(TongTienCu) }}</span>
+                        <p class="text-xl text-gray-600" v-if="tienGiam !== 0">
+                            Tổng số tiền: <span style="text-align: right; font-size: 19px" class="gia">{{ formatCurrency(TongTienCu) == '' ? 0 : formatCurrency(TongTienCu) }}</span>
                         </p>
 
-                        <Button label="Thanh Toán" severity="danger" class="btn-thanh-toan" style="width: 110px; font-size: 13px; height: 40px; margin-left: 40px" @click="ThanhToan()" />
                         <div class="phieu-uu-dai">
-                            <p class="tieu-de-phieu-uu-dai">Phiếu ưu đãi</p>
+                            <p class="text-lg font-medium text-gray-900">Phiếu ưu đãi</p>
                             <hr class="gach-ngang" />
                             <div style="display: flex">
                                 <span class="p-float-label" style="width: 140px; margin-top: 20px">
                                     <Dropdown id="dropdown" :options="dataVoucher" v-model="selectVoucher" optionLabel="ten" :class="{ 'p-invalid': loaiError }" @change="onloaiChange"> </Dropdown>
-                                    <label for="dropdown">voucher</label>
+                                    <label for="dropdown">Voucher</label>
                                 </span>
                                 <Button class="pi pi-refresh" style="width: 50px; height: 40px; margin-top: 20px; margin-left: 10px" @click="reset" />
                             </div>
-
-                            <Button label="Áp dụng" severity="success" class="btn-ap-dung" @click="apDung" />
                         </div>
+                        <Button label="Áp dụng" severity="success" class="btn-ap-dung" @click="apDung" style="margin: 1rem 0" />
+                        <Button label="Thanh Toán" severity="danger" class="font-xl font-normal rounded-3xl" @click="ThanhToan()" />
                     </div>
                 </div>
             </div>
@@ -907,7 +905,7 @@ div.border-red {
 
 .gach-ngang {
     border: none;
-    border-top: 3px solid rosybrown;
+    border-top: 1px solid rgb(0, 0, 0);
     margin-top: -10px;
 }
 
@@ -923,7 +921,7 @@ div.border-red {
 .gia {
     text-align: right;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .quantity {

@@ -22,6 +22,7 @@ const dataSanPham = ref({});
 
 const quantity = ref(1);
 const dataMauSac = ref([]);
+console.log('dataMauSac', dataMauSac);
 const dataSize = ref([]);
 const loadImage = ref([]);
 const products = ref([]);
@@ -80,7 +81,7 @@ watch([getSize, idMau], async ([newGetSize, newIdMau]) => {
         dataListSPCT.value = productStore.products;
         idSanPhamChiTiet.value = dataListSPCT.value.id;
     } else {
-        await productStore.fetchIdSPCT(idProduct,  idMau.value);
+        await productStore.fetchIdSPCT(idProduct, idMau.value);
         dataListSPCT.value = productStore.products;
         idSanPhamChiTiet.value = dataListSPCT.value.id;
         quantity.value = 1;
@@ -121,6 +122,7 @@ const getSLTonTong = async (idctsp) => {
 
 const loadData = async () => {
     await productStore.fetchProductById(idProduct);
+    console.log('productStore.product', productStore.product);
     dataSanPham.value = productStore.product;
 
     // loadImage.value = dataSanPham.value.images;
@@ -439,7 +441,6 @@ const commentId = ref(null);
 const phanHoi = (id) => {
     phanHoiDialog.value = true;
     commentId.value = id;
-
 };
 
 const xoaPhanHoi = async (phanhoi) => {
@@ -481,11 +482,13 @@ const phanHoiComment = async () => {
     resetPhanHoi();
 };
 
-const checkAnh = ref(true)
+const checkAnh = ref(true);
 const isAnh = () => {
     checkAnh.value = true;
     anh.value = false;
-}
+};
+
+const value = ref(3);
 
 const menu = ref();
 </script>
@@ -494,199 +497,157 @@ const menu = ref();
     <div class="card">
         <div class="grid">
             <div class="container">
-                <Breadcrumb :home="home" :model="items" />
+                <h2>Sản Phẩm Chi Tiết</h2>
                 <!-- Cột phải -->
                 <div class="card md:flex md:justify-content-center" style="margin-top: 0px">
                     <div class="flex">
                         <div class="col-5">
                             <Galleria :value="loadImage" :responsiveOptions="responsiveOptions" :numVisible="5" containerStyle="max-width: 450px">
-                                <!-- <template #item="anh" v-if ="anh" >
-                                   
-                                    <img  :src="selectedMauSac.anh" :alt="slotProps.item" style="width: 100%" />
-                                   
-                                </template> -->
+                                <template #item="anh" v-if="anh">
+                                    <img :src="selectedMauSac.anh" :alt="slotProps.item" style="width: 100%" />
+                                </template>
 
-                                <template #item="slotProps">   
-                                    <img  v-if ="checkAnh" :src="slotProps.item.anh" :alt="slotProps.item" style="width: 100%" />
-                                    <img v-if ="anh" :src="selectedMauSac.anh" :alt="slotProps.item" style="width: 100%" />                           
-                                  
-                               </template>
+                                <template #item="slotProps">
+                                    <img v-if="checkAnh" :src="slotProps.item.anh" :alt="slotProps.item" style="width: 100%" />
+                                    <img v-if="anh" :src="selectedMauSac.anh" :alt="slotProps.item" style="width: 100%" />
+                                </template>
                                 <template #thumbnail="slotProps">
                                     <img :src="slotProps.item.anh" :alt="slotProps.item" @click="isAnh()" style="width: 100%" />
                                 </template>
                             </Galleria>
                         </div>
                         <div class="col-7">
-                            <h1 class="masp">{{ dataSanPham.ten }}</h1>
-                            <label for=""
-                                >Mã SP: <span>{{ dataSanPham.ma }}</span></label
-                            >
-                            <label for="" style="margin-left: 20px"
-                                >Loại: <span style="color: red">{{ dataSanPham.loai }}</span></label
-                            >
-                            <div class="gb" style="display: flex">
-                                <h2 s v-if="dataListSPCT.soLuongTon > 0 || dataListSPCT.soLuongTon == null">
-                                    <!-- <p tyle="color: rgb(0, 0, 0)">{{ formatCurrency(dataListSPCT.giaBan) !== '' ? formatCurrency(dataListSPCT.giaBan) : 'Hết hàng' }}</p> -->
-                                    <p tyle="color: rgb(0, 0, 0)" style="text-decoration: line-through" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
-                                    <p tyle="color: rgb(0, 0, 0)" v-else-if="formatCurrency(dataListSPCT.giaBan) !== ''">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
-                                    <p tyle="color: rgb(0, 0, 0)" v-else>Hết hàng</p>
-                                </h2>
-                                <p style="color: red; font-size: 25px" v-else>Hết hàng</p>
-                                <div>
-                                    <h2 style="color: red; margin-left: 20px" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaSauGiam) }}</h2>
-                                    <Tag v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined" severity="danger" style="width: 70px; height: 20px; margin-left: 5px; margin-bottom: 10px">Giảm {{ dataListSPCT.giaTriGiam }}%</Tag>
+                            <h1 class="text-4xl text-gray-800">{{ dataSanPham.ten }}</h1>
+
+                            <div class="flex gap-4">
+                                <div class="flex">
+                                    <span class="text-xl font-normal">Rate : </span>
+                                    <Rating v-model="value" readonly :cancel="false" />
                                 </div>
-                            </div>
-                            <label for="">- Trọng lượng: {{ dataListSPCT.trongLuong }} ({{ dataListSPCT.donVi }}) </label>
-                            <br />
-                            <label for="">- Vật liệu: {{ dataSanPham.vatLieu }}</label>
-                            <br />
-                            <label for="">- Thương hiệu: {{ dataSanPham.thuongHieu }}</label>
-                            <br />
-                            <label for="">- Số lượng tồn: {{ dataListSPCT.soLuongTon <= 0 ? 0 : dataListSPCT.soLuongTon }}</label>
-                            <br />
-                            <br />
-                            <label class="ms">Trọng lượng</label>
-                            <br />
-                            <div class="rounded-content-list">
-                                <div v-for="(mauSacs, index) in dataMauSac" :key="index" class="rounded-content" @click="selectMauSac(mauSacs)" :class="{ selected: isMauSacSelected(mauSacs), disabled: isMauSacDisbled(mauSacs) }">
-                                    <img class="rounded-image" :src='mauSacs.anh' alt="Hình ảnh" />
-                                    <a class="rounded-text">{{ mauSacs.ten }}</a>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-xl font-normal text-gray-400">90.6k </span>
+                                    <span class="text-xl font-normal text-gray-950">Đánh Giá </span>
                                 </div>
-                            </div>
-                            <br />
-                            <label class="ms">Size</label>
-                            <br />
-                            <div class="rounded-content-list">
-                                <div v-for="(size, index) in dataSize" :key="index" style="margin-right: 10px">
-                                    <RadioButton v-model="getSize" inputId="ingredient2" name="pizza" :value="size.id" style="margin-right: 10px; color: white" />
-                                    <label>{{ size.ten }} </label>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-xl font-normal text-gray-400">200 </span>
+                                    <span class="text-xl font-normal text-gray-950">Đã bán</span>
                                 </div>
                             </div>
 
-                            <br />
-                            <br />
-                            <div class="sl">
-                                <label for="quantity">Số lượng</label>
-                                <br />
-                                <div class="quantity">
-                                    <button @click="decrement" class="minus p-button-secondary p-button-outlined" :disabled="dataListSPCT.giaBan == null || dataListSPCT.soLuongTon == 0">
-                                        <i class="pi pi-minus"></i>
-                                    </button>
-                                    <input v-model="quantity" class="input-soluong" style="width: 35px" @input="validateQuantity" @blur="setDefaultQuantity" />
-                                    <!-- <input v-model="quantity" class="input-soluong" style="width: 35px" disabled /> -->
-                                    <button @click="increment" class="plus-phai p-button-secondary p-button-outlined" :disabled="dataListSPCT.giaBan == null || dataListSPCT.soLuongTon == 0">
-                                        <i class="pi pi-plus"></i>
-                                    </button>
+                            <div class="gb" style="display: flex">
+                                <h2 s v-if="dataListSPCT.soLuongTon > 0 || dataListSPCT.soLuongTon == null">
+                                    <!-- <p tyle="color: rgb(0, 0, 0)">{{ formatCurrency(dataListSPCT.giaBan) !== '' ? formatCurrency(dataListSPCT.giaBan) : 'Hết hàng' }}</p> -->
+                                    <p class="text-red-500" s tyle="text-decoration: line-through" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
+                                    <p class="text-red-500" v-else-if="formatCurrency(dataListSPCT.giaBan) !== ''">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
+                                    <p class="text-red-500" v-else>Hết hàng</p>
+                                </h2>
+                                <p style="color: red; font-size: 25px" v-else>Hết hàng</p>
+                                <div>
+                                    <h2 style="color: red" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaSauGiam) }}</h2>
+                                    <Tag v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined" severity="danger" style="width: 70px; height: 20px; margin-left: 5px; margin-bottom: 10px">Giảm {{ dataListSPCT.giaTriGiam }}%</Tag>
                                 </div>
+                            </div>
+
+                            <label class="text-xl font-normal text-gray-950">Trọng lượng</label>
+                            <br />
+                            <div class="flex gap-4">
+                                <div
+                                    v-for="(mauSacs, index) in dataMauSac"
+                                    :key="index"
+                                    class="items-center justify-center px-7 py-2 inline-block border-1 border-solid border-gray-300 rounded-2xl text-xl text-black cursor-pointer mt-2 hover:border-red-500 hover:text-red-500"
+                                    @click="selectMauSac(mauSacs)"
+                                    :class="{ selected: isMauSacSelected(mauSacs), disabled: isMauSacDisbled(mauSacs) }"
+                                >
+                                    <div>{{ mauSacs.value }} {{ mauSacs.donVi }}</div>
+                                </div>
+                            </div>
+                            <!-- <div class="flex gap-4">
+                                <div class="items-center justify-center px-7 py-2 inline-block border-1 border-solid border-gray-300 rounded-2xl text-xl text-black cursor-pointer mt-2 hover:border-red-500 hover:text-red-500">100g</div>
+                                <div class="items-center justify-center px-7 py-2 inline-block border-1 border-solid border-gray-300 rounded-2xl text-xl text-black cursor-pointer mt-2 hover:border-red-500 hover:text-red-500">200g</div>
+                            </div> -->
+
+                            <!-- <label class="ms">Size</label>
+                                <br />
+                                <div class="rounded-content-list">
+                                    <div v-for="(size, index) in dataSize" :key="index" style="margin-right: 10px">
+                                        <RadioButton v-model="getSize" inputId="ingredient2" name="pizza" :value="size.id" style="margin-right: 10px; color: white" />
+                                        <label>{{ size.ten }} </label>
+                                    </div>
+                                </div> -->
+
+                            <div class="mt-3 flex gap-4">
                                 <Button
+                                    class="cursor-pointer"
+                                    severity="danger"
+                                    text
+                                    raised
                                     label="Thêm vào giỏ hàng"
                                     @click="addToCart"
                                     icon="pi pi-shopping-cart"
-                                    class="p-button-rounded p-button-warning mr-2 mb-2"
-                                    style="background: #e8bd72"
                                     :disabled="dataListSPCT.giaBan == null || dataListSPCT.soLuongTon <= 0 || quantity <= 0"
                                 />
-                                <Button label="Mua ngay" @click="muaNgay" class="p-button-rounded p-button-warning mr-2 mb-2" style="background: #e8bd72" :disabled="dataListSPCT.giaBan == null || dataListSPCT.soLuongTon <= 0 || quantity <= 0" />
+                                <Button class="cursor-pointer" severity="danger" label="Mua ngay" @click="muaNgay" :disabled="dataListSPCT.giaBan == null || dataListSPCT.soLuongTon <= 0 || quantity <= 0" />
                             </div>
+                            <hr />
+                            <div class="text-gray-600 text-xl">Trả hàng miễn phi trong 30 ngày</div>
                         </div>
                     </div>
+
                     <div class="tab-view-container">
                         <TabView>
                             <TabPanel header="Mô tả sản phẩm">
-                                <iframe
-                                    style="margin-left: 220px"
-                                    width="560"
-                                    height="315"
-                                    src="https://www.youtube.com/embed/LavsX-c8m74"
-                                    title="Tự tin sống chất cùng Quỳnh Anh Shyn | Mũ bảo hiểm Royal Helmet"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen
-                                ></iframe>
-                                <br />
-                                <br />
-                                <label for=""> {{ dataSanPham.moTa }}</label>
-                                <h3>CHI TIẾT SẢN PHẨM</h3>
-                                <div class="ctn">
-                                    <div class="item">
-                                        <label>Size: </label>
-                                        <span>L và XL</span>
+                                <label for="" class="texl-xl font-medium my-5"> {{ dataSanPham.moTa }}</label>
+                                <div class="text-3xl font-medium">Chi tiết sản phẩm</div>
+                                <div class="flex flex-column gap-4">
+                                    <div class="item mt-3">
+                                        <label class="text-xl text-gray-500">Loại sản phẩm: </label>
+                                        <span class="text-xl"> {{ dataSanPham.loai }} </span>
                                     </div>
-                                    <Divider />
                                     <div class="item">
-                                        <label>Trọng lượng: </label>
-                                        <span> {{ dataSanPham.trongLuong }} </span>
+                                        <label class="text-xl text-gray-500">Vật Liệu: </label>
+                                        <span class="text-xl"> {{ dataSanPham.vatLieu }} </span>
                                     </div>
-                                    <Divider />
                                     <div class="item">
-                                        <label>Màu sắc: </label>
-                                        <span>Đen, trắng, xanh, đỏ, hồng,..</span>
+                                        <label class="text-xl text-gray-500">Trọng lượng: </label>
+                                        <span class="text-xl"> {{ dataSanPham.dictionary }} </span>
                                     </div>
-                                    <Divider />
+
                                     <div class="item">
-                                        <label>Đạt chuẩn: </label>
-                                        <a href="https://nontrum.vn/chuan-qcvn/">QCVN</a>
+                                        <label class="text-xl text-gray-500">Đạt chuẩn: </label>
+                                        <a class="text-xl text-black">Quốc Gia</a>
                                     </div>
-                                    <Divider />
                                     <div class="item">
-                                        <label>Vỏ: </label>
-                                        <a href="https://nontrum.vn/nhua-abs-la-gi/"> ABS</a>
+                                        <label class="text-xl text-gray-500">Sản xuất tại: </label>
+                                        <span class="text-xl">Việt Nam </span>
                                     </div>
-                                    <Divider />
                                     <div class="item">
-                                        <label>Xốp: </label>
-                                        <a href="https://nontrum.vn/xop-eps-la-gi/"> EPS</a>
+                                        <label class="text-xl text-gray-500">Thương hiệu: </label>
+                                        <span class="text-xl text-black"> {{ dataSanPham.thuongHieu }} </span>
                                     </div>
-                                    <Divider />
                                     <div class="item">
-                                        <label>Lót: </label>
-                                        <span> {{ dataSanPham.demLot }}</span>
+                                        <label class="text-xl text-gray-500">Gửi Từ </label>
+                                        <span class="text-xl text-black"> Hà Nội</span>
                                     </div>
-                                    <Divider />
-                                    <div class="item">
-                                        <label>Ốp tai: </label>
-                                        <span>Có thể tháo rời. </span>
+                                </div>
+
+                                <div class="mt-5">
+                                    <div class="text-3xl font-medium">Mô tả sản phẩm</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">CHÍNH SÁCH ĐỔI TRẢ:</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">Đổi trả hàng trong 03 ngày với các lý do sau</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">- 1 đổi 1 nếu không ưng ý sản phẩm vì bất cứ lý do gì</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">- 1 đổi 1 hoặc hoàn tiền 100% khi có lỗi từ NBH</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">Tiger Food rất mong được phục vụ quý khách !</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">
+                                        ăn vặt, ăn vặt ngon, ăn vặt việt nam, ăn vặt bánh tráng, bánh tráng, bánh tráng phơi sương, bánh tráng trộn, bánh tráng bơ, bánh tráng xi ke, bánh trang long an, bánh tráng phô mai, bánh tráng tây ninh, bánh
+                                        tráng tỏi ớt, bánh tráng sate, bánh tráng me, bánh tráng cuộn, bánh tráng tiger food
                                     </div>
-                                    <Divider />
-                                    <div class="item">
-                                        <label>Sản xuất tại: </label>
-                                        <span>Việt Nam </span>
-                                    </div>
-                                    <Divider />
-                                    <div class="item">
-                                        <label>Thương hiệu: </label>
-                                        <span> {{ dataSanPham.thuongHieu }} </span>
-                                    </div>
-                                    <Divider />
-                                    <div class="item">
-                                        <label>Tình trạng: </label>
-                                        <span>Mới 100% </span>
-                                    </div>
-                                    <Divider />
-                                    <div class="item">
-                                        <label>Bảo hành: </label>
-                                        <span>365 ngày </span>
-                                    </div>
-                                    <Divider />
-                                    <div class="item">
-                                        <label>Đổi do lỗi: </label>
-                                        <span>7 ngày </span>
-                                    </div>
-                                    <Divider />
-                                    <div class="item">
-                                        <label>Phí giao thường: </label>
-                                        <span> 30.000đ </span>
-                                    </div>
-                                    <Divider />
-                                    <div class="item">
-                                        <label>Phí giao nhanh: </label>
-                                        <span>Theo đơn vị vận chuyển </span>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">
+                                        #setbanhtrang #banhtrangphoisuong #combobanhtrangphoisuong #anvat#anvatngon#anvatvietnam#anvatbanhtrang#banhtrang#banhtrangphoisuong#banhtrangtron#banhtrangbo#banhtrangxike#banhtranglo #banhtranglongan
+                                        #banhtrangladua #banhtrangxanh #doanvat #banhtrangsate #banhtranglongan #banhtrangcuontom #banhtranglongan #banhtrangbo #banhtranganlien
                                     </div>
                                 </div>
                             </TabPanel>
                             <TabPanel header="Đánh giá">
-                                <br />
                                 <br />
                                 <div class="flex">
                                     <h6 style="margin-right: 10px"><span>1 </span> bình luận</h6>
@@ -714,9 +675,9 @@ const menu = ref();
                                         </h6>
                                         <span>{{ cm.noiDung }}</span>
 
-                                        <div class="flex flex-wrap  align-items-center gap-3" style="margin-left: 700px">
-                                                <a @click="phanHoi(cm.id)" style="color: blue; margin-right: 5px;">Phản hồi</a>
-                                                <a @click="xoa(cm)" style="color: red">Xoá</a>
+                                        <div class="flex flex-wrap align-items-center gap-3" style="margin-left: 700px">
+                                            <a @click="phanHoi(cm.id)" style="color: blue; margin-right: 5px">Phản hồi</a>
+                                            <a @click="xoa(cm)" style="color: red">Xoá</a>
                                         </div>
 
                                         <!-- Phản hồi -->
@@ -764,28 +725,6 @@ const menu = ref();
                         </TabView>
                     </div>
                     <Divider />
-                    <div class="">
-                        <h2>Sản phẩm tương tự</h2>
-                        <Carousel :value="products" :numVisible="3" :numScroll="3" :responsiveOptions="responsiveOptions">
-                            <template #item="slotProps">
-                                <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
-                                    <a href="">
-                                        <img :src="slotProps.data.sanPham.anh" alt="Hình ảnh" style="width: 50%" />
-                                    </a>
-                                    <div>
-                                        <a href="">
-                                            <h4 class="mb-1">{{ slotProps.data.sanPham.ten }}</h4>
-                                        </a>
-                                        <h6 class="mt-0 mb-3">{{ slotProps.data.giaBan }} đ</h6>
-                                        <div class="mt-5">
-                                            <Button icon="pi pi-search" rounded class="mr-2" />
-                                            <Button icon="pi pi-star-fill" rounded severity="success" class="mr-2" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </template>
-                        </Carousel>
-                    </div>
                 </div>
             </div>
         </div>
@@ -820,7 +759,7 @@ div.selected {
 }
 
 .grid {
-    margin-top: 45px;
+    margin-top: 5rem;
     display: flex;
     justify-content: center;
 }
@@ -837,10 +776,16 @@ div.disabled {
 }
 
 .masp {
-    color: #e8bd72;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    /* Đổ bóng chữ */
-    font-weight: bold;
+    -webkit-text-size-adjust: none;
+    color: rgba(0, 0, 0, 0.8);
+    font-family: 'Helvetica Neue', Helvetica, Arial, 文泉驛正黑, 'WenQuanYi Zen Hei', 'Hiragino Sans GB', '儷黑 Pro', 'LiHei Pro', 'Heiti TC', 微軟正黑體, 'Microsoft JhengHei UI', 'Microsoft JhengHei', sans-serif;
+    visibility: visible;
+    --brand-primary-color: #d0011b;
+    --brand-primary-light-color: rgba(208, 1, 27, 0.08);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 24px;
+    overflow-wrap: break-word;
     /* Làm đậm chữ */
 }
 
@@ -1031,5 +976,9 @@ div.disabled {
 .selected {
     border-color: #e8bd72;
     /* Màu border khi được chọn */
+}
+
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
+    color: yellow;
 }
 </style>
