@@ -7,10 +7,10 @@
                 <h5 class="m-0 ">Khuyến Mại</h5>              
             </div>
 
-            <Dropdown id="dropdown" :options="dataLoai" v-model="selectedLoai" optionLabel="ten"  placeholder="Loại" :class="{ 'p-invalid': loaiError }" style="height: 40px"> </Dropdown>
+            <!-- <Dropdown id="dropdown" :options="dataLoai" v-model="selectedLoai" optionLabel="ten"  placeholder="Loại" :class="{ 'p-invalid': loaiError }" style="height: 40px"> </Dropdown> -->
                 <!-- <label for="dropdown" style="margin-left: 10px;">Loại</label> -->
             <!-- <Dropdown v-model="thuongHieu" :options="dataThuongHieu" optionLabel="label" placeholder="Tất cả" class="w-full md:w-14rem" style="margin-left: 20px" /> -->
-            <Dropdown id="dropdown" :options="dataThuongHieu" v-model="selectedThuongHieu" optionLabel="ten"  placeholder="Thương hiệu" :class="{ 'p-invalid': loaiError }" style="height: 40px"> </Dropdown>
+            <!-- <Dropdown id="dropdown" :options="dataThuongHieu" v-model="selectedThuongHieu" optionLabel="ten"  placeholder="Thương hiệu" :class="{ 'p-invalid': loaiError }" style="height: 40px"> </Dropdown> -->
 
         </template>
         <div class="card p-fluid">

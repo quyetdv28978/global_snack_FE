@@ -25,8 +25,7 @@ const schema = yup.object().shape({
         .nullable(),
     userName: yup
         .string()
-        .required('User name không được để trống')
-        .matches(/^[a-zA-Z0-9đĐáÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬêÊếẾềỀểỂễỄệỆôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢùÙúÚụỤủỦũŨưỨỨửỬữỮựỰýÝỳỲỷỶỹỸỵỴ\s]*$/, 'User name không được chứa kí tự đặc biệt!'),
+        .required('User name không được để trống'),
     gioiTinh: yup.string().required('Vui lòng chọn giới tính '),
     ngaySinh: yup.date().required(' vui lòng chọn ngày sinh '),
     email: yup

@@ -5,23 +5,18 @@ import * as yup from 'yup';
 import { reactive, ref, computed, onMounted, onBeforeMount } from 'vue';
 import TableLoai from './DataTableLoai.vue';
 import TableThuongHieu from './DataTableThuongHieu.vue';
-import TableMauSac from './DataTableMauSac.vue';
 import TablevatLieu from './DataTableVatLieu.vue';
 import TableTrongLuong from './DataTableTrongLuong.vue';
 import { ProductStore } from '@/service/Admin/product/product.api';
 import { useToast } from 'primevue/usetoast';
 import { useCounterStore } from '@/service/Admin/ThuongHieu/ThuongHieuService.js';
-import { SizeStore } from '@/service/Admin/Size/SizeService';
 import { useLoaiService } from '@/service/Admin/Loai/LoaiService';
-import { useMauSacService } from '@/service/Admin/MauSac/MauSacService';
 import { TrongLuongStore } from '@/service/Admin/TrongLuong/TrongLuong.api';
 import { VatLieuStore } from '@/service/Admin/VatLieu/VatLieu.api';
 
 const toast = useToast();
 const productStore = ProductStore();
 const thuongHieuService = useCounterStore();
-const sizeStore = SizeStore();
-const mauSacStore = useMauSacService();
 const loaiStore = useLoaiService();
 const trongLuongStore = TrongLuongStore();
 const vatLieuStore = VatLieuStore();
@@ -35,16 +30,10 @@ const { value: name, errorMessage: nameError } = useField('ten');
 const { value: soluong, errorMessage: soLuongError } = useField('soLuongTon');
 const { value: GiaBan, errorMessage: giaBanError } = useField('giaBan');
 const { value: GiaNhap, errorMessage: giaNhapError } = useField('giaNhap');
-// const { value: QuaiDeo, errorMessage: quaiDeoError } = useField('quaiDeo');
 const { value: Loai, errorMessage: loaiError } = useField('loai');
 const { value: ThuongHieu, errorMessage: thuongHieuError } = useField('thuongHieu');
 const { value: vatLieu, errorMessage: vatLieuError } = useField('vatLieu');
-const { value: idMauSac, errorMessage: mauSacError } = useField('idMauSac');
-// const { value: DemLot, errorMessage: demLotError } = useField('demLot');
-const { value: Size, errorMessage: SizeError } = useField('idSize');
-const { value: SoLuongSize, errorMessage: soLuongSizeError } = useField('soLuongSize');
 const { value: TrongLuong, errorMessage: trongLuongError } = useField('trongLuong');
-const { value: imgMauSac, errorMessage: ImgMauSacError } = useField('imgMauSac');
 const { value: TrangThai, errorMessage: TrangThaiSacError } = useField('trangThai');
 const { value: MoTa, errorMessage: MoTaSacError } = useField('moTa');
 const { value: imagesProduct, errorMessage: imagesProductError } = useField('imagesProduct');
@@ -67,17 +56,13 @@ const hideDialog = () => {
 
 const selectedCity = ref(null);
 const selectedLoai = ref(null);
-const selectedMauSac = ref(null);
 const selectedvatLieu = ref(null);
 const selectedTrongLuong = ref(null);
-const selectedSizes = ref(null);
 const array = ref([]);
-const arrayMauSac = ref([]);
 
 
 
 
-const arrayImgMauSac = ref([]);
 const ImagesProduct = ref([]);
 
 const dataThuongHieu = ref([]);
@@ -96,21 +81,6 @@ const loadDataThuongHieu = async () => {
         ThuongHieu.value = null;
     }
 };
-
-const dataSize = ref([]);
-
-//load data size tất cả
-// const loadDataSize = async () => {
-//     await sizeStore.fetchData();
-//     dataSize.value = sizeStore.data;
-// };
-
-// const dataMauSac = ref([]);
-// const loadDataMauSac = async () => {
-//     await mauSacStore.fetchData();
-//     dataMauSac.value = mauSacStore.data;
-
-// };
 
 const dataLoai = ref([]);
 const loadDataLoai = async () => {
@@ -158,8 +128,6 @@ const loadDataVatLieu = async () => {
 
 onBeforeMount(() => {
     loadDataThuongHieu();
-    // loadDataSize();
-    // loadDataMauSac();
     loadDataLoai();
     loadDataTrongLuong();
     loadDataVatLieu();
@@ -167,7 +135,6 @@ onBeforeMount(() => {
 
 });
 
-const arrayImageMauSac = ref([]);
 const arrayImage = ref([]);
 const lstChiTietSP = ref([]);
 const editProduct = () => {
@@ -203,10 +170,9 @@ const getStatusLabel = (soLuong) => {
         return { text: 'hết Hàng', severity: 'danger' };
     } else if (soLuong == 1) {
         return { text: 'Còn hàng', severity: 'success' };
-    } else {
+    } else if (soLuong == 2){
         return { text: 'Tồn kho', severity: 'war' };
-    }
-
+    }else return { text: 'Khuyen mai', severity: 'war' };
 };
 
 const getStatusLabelKhuyenMai = (khuyenMai) => {
@@ -297,56 +263,6 @@ const loadDataTrangThai = () => {
                         </span>
                         <small class="p-error">{{ nameError }}</small>
                     </div>
-
-
-                    <!-- <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
-                        <label for="address">Quai Đeo</label>
-                        <div class="flex flex-wrap gap-3">
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient1" name="QuaiDeo" value="Vải"
-                                    :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient1" class="ml-2">Vải</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient2" name="QuaiDeo"
-                                    value="Quai đeo đặc biệt" :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient2" class="ml-2">Quai đeo đặc biệt</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient3" name="QuaiDeo" value="Da"
-                                    :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient3" class="ml-2" :class="{ 'p-invalid': equaiDeoError }">Da</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient3" name="QuaiDeo"
-                                    value="Polycarbonate" :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient3" class="ml-2"
-                                    :class="{ 'p-invalid': equaiDeoError }">Polycarbonate</label>
-                            </div>
-                        </div>
-                        <small class="p-error">{{ quaiDeoError }}</small>
-                    </div> -->
-                    <!-- <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
-                        <label for="address">Đệm lót</label>
-                        <div class="flex flex-wrap gap-3">
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="DemLot" inputId="ingredient1" name="pizza" value="Polycarbonate"
-                                    :class="{ 'p-invalid': demLotError }" />
-                                <label for="ingredient1" class="ml-2">Polycarbonate</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="DemLot" inputId="ingredient2" name="pizza" value="Vải"
-                                    :class="{ 'p-invalid': demLotError }" />
-                                <label for="ingredient2" class="ml-2">Vải</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="DemLot" inputId="ingredient4" name="pizza" value="Da"
-                                    :class="{ 'p-invalid': demLotError }" />
-                                <label for="ingredient4" class="ml-2">Da</label>
-                            </div>
-                        </div>
-                        <small class="p-error">{{ demLotError }}</small>
-                    </div> -->
                     <div class="field col-12 md:col-12" style="margin-bottom: 30px">
                         <label for="address">Trạng thái</label>
                         <div class="flex flex-wrap gap-3">
@@ -407,24 +323,8 @@ const loadDataTrangThai = () => {
                         </div>
                     </div>
                 </div>
-                <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                    <div class="p-fluid formgrid grid">
-                        <div class="Field col-12 md:col-6"
-                            style="margin-bottom: 30px; height: 300px;margin-top: -30px; margin-left: 100px;display: inline-flex; justify-content: center; align-items: center;">
-                            <Galleria :value="arrayImage" :responsiveOptions="responsiveOptions" :numVisible="5"
-                                containerStyle="max-width: 340px" style="">
-                                <template #item="slotProps">
-                                    <img :src="imagesChinh" :alt="slotProps.item.alt" style="width: 70%; height: ;" />
-                                </template>
-                                <template #thumbnail="slotProps">
-                                    <img :src="slotProps.item.anh" :alt="slotProps.item.alt"
-                                        style="width: 80px; height:80px ;" />
-                                </template>
-                            </Galleria>
-                        </div>
-                    </div>
-
-                    <div class="field col-12 md:col-12" style="margin-bottom: 30px; margin-top: 20px;">
+                <div class="Field col-12 md:col-6" >
+                    <div class="field col-12 md:col-12">
                         <label for="address">Mô tả</label>
                         <Textarea id="address" rows="4" v-model="MoTa" :class="{ 'p-invalid': MoTaSacError }"
                             disabled></Textarea>
@@ -518,8 +418,8 @@ const loadDataTrangThai = () => {
                         <Column field="trangThai" header="Trạng Thái" sortable headerStyle="width: 4%; min-width: 5rem;">
                             <template #body="slotProps">
                                 <Tag :value="getStatusLabel(slotProps.data.trangThai).text"
-                                    v-if="slotProps.data.tenKM === null || slotProps.data.tenKM == ''"
-                                    :severity="getStatusLabel(slotProps.data.trangThai).severity" />
+                                    v-if="getStatusLabel(slotProps.data.trangThai).text === 'hết Hàng'"
+                                    :severity="getStatusLabel(slotProps.data.trangThai)" />
                                 <div v-else>
                                     <Tag :value="getStatusLabelKhuyenMai(slotProps.data.tenKM).text"
                                         :severity="getStatusLabelKhuyenMai(slotProps.data.tenKM).severity" />

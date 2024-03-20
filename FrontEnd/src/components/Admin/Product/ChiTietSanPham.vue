@@ -105,18 +105,9 @@ const initFilters = () => {
 };
 
 const columns = ref([
-    { field: 'quaiDeo', header: 'Quai đeo' },
-    { field: 'demLot', header: 'Đệm lót' },
     { field: 'ngaySua', header: 'Ngày sửa' },
     { field: 'ngayTao', header: 'Ngày tạo' },
     { field: 'moTa', header: 'Mô Tả' }
-    // { field: 'soLuongTon', header: 'Số lượng' },
-    // { field: 'trongLuong', header: 'Trọng Lượng' },
-    // { field: 'giaSauGiam', header: 'Giá giảm giá' },
-    // { field: 'tenKM', header: 'Tên Khuyến Mãi' },
-    // { field: 'thoiGianBatDau', header: 'Thời gian bắt đầu' },
-    // { field: 'thoiGianKetThuc', header: 'Thời gian kết thúc' },
-    // { field: 'giaTriGiam', header: 'Giá Trị (%)' },
 ]);
 
 // hàm để tắt/mở cột
@@ -192,82 +183,50 @@ const handImportExcel = async (event) => {
         await productStore.uploadFile(formData);
         excel.value = productStore.excels;
         let hasError = false;
-      //   console.log(excel.value.responseList)
+        console.log(excel.value.responseList);
             for (const data of excel.value.responseList) {
                 if (data.importMessageGiaBan !== null && data.importMessageGiaBan !== 'SUCCESS') {
+                    console.log(1);
                     toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageGiaBan, life: 30000 });
                     hasError = true;
                     showProgressSpinner.value = false;
                     dis.value = true;
                     break;
-                } else if (data.importMessageDemLot !== null && data.importMessageDemLot !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageDemLot, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
                 } else if (data.importMessageSanPham !== null && data.importMessageSanPham !== 'SUCCESS') {
+                    console.log(2);
+
                     toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageSanPham, life: 30000 });
                     hasError = true;
                     showProgressSpinner.value = false;
                     dis.value = true;
                     break;
                 } else if (data.importMessageTrongLuong !== null && data.importMessageTrongLuong !== 'SUCCESS') {
+                    console.log(3);
                     toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageTrongLuong, life: 30000 });
                     hasError = true;
                     showProgressSpinner.value = false;
                     dis.value = true;
                     break;
                 } else if (data.importMessageVatLieu !== null && data.importMessageVatLieu !== 'SUCCESS') {
+                    console.log(4);
+
                     toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageVatLieu, life: 30000 });
                     hasError = true;
                     showProgressSpinner.value = false;
                     dis.value = true;
                     break;
                 } else if (data.importMessageThuongHieu !== null && data.importMessageThuongHieu !== 'SUCCESS') {
+                    console.log(5);
+
                     toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageThuongHieu, life: 30000 });
                     hasError = true;
                     showProgressSpinner.value = false;
                     dis.value = true;
                     break;
-                } else if (data.importMessageSize !== null && data.importMessageSize !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageSize, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageMauSac !== null && data.importMessageMauSac !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageMauSac, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
                 } else if (data.importMessageLoai !== null && data.importMessageLoai !== 'SUCCESS') {
+                    console.log(6);
+
                     toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageLoai, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageImageMau !== null && data.importMessageImageMau !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageImageMau, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageQuaiDeo !== null && data.importMessageQuaiDeo !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageQuaiDeo, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageSoLuongSize !== null && data.importMessageSoLuongSize !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageSoLuongSize, life: 30000 });
-                    hasError = true;
-                    showProgressSpinner.value = false;
-                    dis.value = true;
-                    break;
-                } else if (data.importMessageSoLuongMau !== null && data.importMessageSoLuongMau !== 'SUCCESS') {
-                    toast.add({ severity: 'error', summary: 'Error', detail: data.importMessageSoLuongMau, life: 30000 });
                     hasError = true;
                     showProgressSpinner.value = false;
                     dis.value = true;
@@ -279,12 +238,14 @@ const handImportExcel = async (event) => {
             }
            
         if (!hasError) {
+            console.log(excel.value.responseList);
             showProgressSpinner.value = false;
             dis.value = true;
             toast.add({ severity: 'success', summary: 'Success Message', detail: 'Import thành công', life: 3000 });
             loadProducts();
         }
     } catch (error) {
+        console.log(excel.value.responseList);
         toast.add({ severity: 'error', summary: 'Error', detail: 'lỗi ', life: 10000 });
         showProgressSpinner.value = false;
         dis.value = true;
@@ -357,11 +318,6 @@ const formatDate = (dateTime) => {
                         responsiveLayout="scroll" showGridlines>
                         <template #header>
                             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                                    <MultiSelect icon="pi pi-plus" :modelValue="selectedColumns" :options="columns"
-                                        optionLabel="header" @update:modelValue="onToggle" display="chip"
-                                        placeholder="Select Columns" />
-                                </div>
                                 <div style="display: flex">
                                     <h5 class="m-0" style="margin-right: 20px">Sản Phẩm</h5>
                                 </div>

@@ -202,9 +202,7 @@ const formatDate = (dateTime) => {
     >
         <template #header>
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                    <MultiSelect icon="pi pi-plus" placeholder="Select Columns" :modelValue="selectedColumns" :options="columns" optionLabel="header" @update:modelValue="onToggle" display="chip" />
-                </div>
+
                 <span class="p-input-icon-left" style="margin-left: 20px">
                     <i class="pi pi-search" />
                     <InputText v-model="filters1['global'].value" placeholder="Keyword Search" style="min-width: 13rem; height: 40px" />

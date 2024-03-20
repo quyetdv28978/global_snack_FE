@@ -77,14 +77,14 @@ const model = ref([
         },]
     },
 
-    {
-        label: 'Chat',
-        items: [{
-            label: 'Chat',
-            icon: 'pi pi-fw pi-circle-off',
-            to: { name: 'chat-admin' }
-        },]
-    },
+    // {
+    //     label: 'Chat',
+    //     items: [{
+    //         label: 'Chat',
+    //         icon: 'pi pi-fw pi-circle-off',
+    //         to: { name: 'chat-admin' }
+    //     },]
+    // },
 
 
 ]);

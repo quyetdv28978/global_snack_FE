@@ -105,7 +105,7 @@ const openNew = () => {
     submitted.value = false;
     productDialog.value = true;
     anh.value = props.myProp.anh;
-    // soluong.value = props.myProp.soLuongTon;
+    soluong.value = props.myProp.soLuongTon;
     GiaBan.value = props.myProp.giaBan;
   //  GiaNhap.value = props.myProp.giaNhap;
     TrangThai.value = props.myProp.trangThai.toString();
@@ -272,21 +272,20 @@ const formatDate = (dateTime) => {
                                 <small class="p-error">{{ LoSanPhamError }}</small>
                             </div>
                           
-                            <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
+                            <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
                                         <Dropdown id="dropdown" :options="khuyenmais" v-model="selectedKhuyenMai" :optionLabel="(option) => `${option.ten}  ${getStatusLabel(option.trangThai)}`" @change="onTrongLuongKhuyenMai"> </Dropdown>
-                                        <label for="dropdown">Khuyễn Mại</label>
+                                        <label for="dropdown">Khuyến Mại</label>
                                     </span>
                                     <TableKhuyenMai :tableId="'TableTrongLuong'" :rightGhId="'right_ghTrongLuong'" :tableClass="'TableTrongLuong'" :rightGhClass="'right_ghTrongLuong'" />
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
                     <div style="width: 1000px; text-align: center; display: flex; margin-left: 170px">
-                        <Button class="p-button-outlined" outlined severity="secondary" style="width: 100px; height: auto; margin: 10px" @click="reset()" label="clear"></Button>
-                        <Button type="submit" class="p-button-outlined" style="width: 100px; height: auto; margin: 10px" label="Lưu"></Button>
+                        <Button type="submit" class="p-button-outlined" style="width: 100px; height: auto; margin: 10px 60px 10px 60px" label="Lưu"></Button>
                     </div>
                 </div>
             </form>

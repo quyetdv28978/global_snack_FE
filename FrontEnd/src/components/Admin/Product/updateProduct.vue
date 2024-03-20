@@ -6,14 +6,11 @@ import * as yup from 'yup';
 import { reactive, ref, computed, onMounted, onBeforeMount } from 'vue';
 import TableLoai from './DataTableLoai.vue';
 import TableThuongHieu from './DataTableThuongHieu.vue';
-
 import TablevatLieu from './DataTableVatLieu.vue';
 import { ProductStore } from '@/service/Admin/product/product.api';
 import { useToast } from 'primevue/usetoast';
 import { useCounterStore } from '@/service/Admin/ThuongHieu/ThuongHieuService.js';
-import { SizeStore } from '@/service/Admin/Size/SizeService';
 import { useLoaiService } from '@/service/Admin/Loai/LoaiService';
-import { useMauSacService } from '@/service/Admin/MauSac/MauSacService';
 import { TrongLuongStore } from '@/service/Admin/TrongLuong/TrongLuong.api';
 import { VatLieuStore } from '@/service/Admin/VatLieu/VatLieu.api';
 
@@ -21,8 +18,6 @@ const confirm = useConfirm();
 const toast = useToast();
 const productStore = ProductStore();
 const thuongHieuService = useCounterStore();
-const sizeStore = SizeStore();
-const mauSacStore = useMauSacService();
 const loaiStore = useLoaiService();
 const trongLuongStore = TrongLuongStore();
 const vatLieuStore = VatLieuStore();
@@ -36,12 +31,10 @@ const schema = yup.object().shape({
         .required('Tên sản phẩm không được để trống')
         .min(4, 'Tên sản phẩm phải có ít nhất 4 ký tự')
         .matches(/^[a-zA-Z0-9đĐáÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬêÊếẾềỀểỂễỄệỆôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢùÙúÚụỤủỦũŨưỨỨửỬữỮựỰýÝỳỲỷỶỹỸỵỴ\s\-]*$/, 'Tên không được chứa kí tự đặc biệt!')
-        .test('no-spaces', 'Tên không được chứa khoảng trắng', value => value && !/\s/.test(value)),
-    // quaiDeo: yup.string().required('Bạn cần chọn quai đeo cho sản phẩm'),
+,
     loai: yup.number().required('loại sản phẩm không được để trống'),
     thuongHieu: yup.number().required('vui lòng chọn Thương hiệu sản phẩm '),
     vatLieu: yup.number().required(' vui lòng chọn Vật liệu sản phẩm '),
-    // demLot: yup.string().required(' vui lòng chọn đệm lót sản phẩm '),
     trangThai: yup.number().required('vui lòng chọn trạng thái của sản phẩm'),
     moTa: yup.string().required('Vui lòng điền mô tả sản phẩm').min(10, 'Mô tả sản phẩm phải có ít nhất 10 ký tự'),
     anh: yup.string().required('vui lòng chọn ảnh chính cho sản phẩm')
@@ -107,10 +100,8 @@ const colors = ref([
 
 const selectedCity = ref(null);
 const selectedLoai = ref(null);
-const selectedMauSac = ref(null);
 const selectedvatLieu = ref(null);
 const selectedTrongLuong = ref(null);
-const selectedSizes = ref(null);
 
 const array = ref([]);
 
@@ -123,35 +114,11 @@ const check = async () => {
     }
 };
 
-const reset = () => {
-    resetForm();
-    array.value = [];
-    arrayMauSac.value = [];
-    selectedSizes.value = null;
-    selectedMauSac.value = null;
-    selectedLoai.value = null;
-    selectedCity.value = null;
-    selectedTrongLuong.value = null;
-    selectedvatLieu.value = null;
-    ImagesProduct.value = [];
-    arrayImgMauSac.value = [];
-    imageUrls.value = [];
-};
-
 const handleInputChange = () => {
     if (array.value.length > 0) {
         SoLuongSize.value = array.value.join(',').replace(/^,/, '').split(',').map(Number);
     } else {
         SoLuongSize.value = null;
-    }
-};
-
-const arrayMauSac = ref([]);
-const handleInputChangeMau = (sizeId) => {
-    if (arrayMauSac.value.length > 0) {
-        soLuongMauSac.value = arrayMauSac.value.join(',').replace(/^,/, '').split(',').map(Number);
-    } else {
-        soLuongMauSac.value = null;
     }
 };
 
@@ -179,24 +146,6 @@ const onloaiChange = () => {
     }
 };
 
-const onMauSacChange = () => {
-    if (selectedMauSac.value.length > 0) {
-        const selectedIds = selectedMauSac.value.map((item) => item.id);
-        idMauSac.value = selectedIds.join(',').split(',').map(Number);
-    } else {
-        idMauSac.value = null;
-    }
-};
-
-const onSizeChange = () => {
-    if (selectedSizes.value.length > 0) {
-        const selectedIds = selectedSizes.value.map((item) => item.id);
-        Size.value = selectedIds.join(',').split(',').map(Number);
-    } else {
-        Size.value = null;
-    }
-};
-
 const onvatLieuChange = () => {
     if (selectedvatLieu.value) {
         vatLieu.value = selectedvatLieu.value.id;
@@ -205,36 +154,9 @@ const onvatLieuChange = () => {
     }
 };
 
-// const selectedItems = computed(() => {
-//     return sizes.value.filter(item => item.isChecked);
-
-// });
 sizes.value.forEach((item) => {
     item.showInput = false; // Initialize the showInput property for each item
 });
-
-const arrayImgMauSac = ref([]);
-function onFileInputImageMauSac(id) {
-    const index = selectedMauSac.value.findIndex((s) => s.id === id);
-    const files = event.target.files;
-
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const basePath = "D:\\imgDATN\\"; // Đường dẫn cố định
-        const fileName = basePath + file.name;
-
-        // Kiểm tra nếu index hợp lệ, sau đó cập nhật giá trị tại index đó
-        if (index >= 0 && index < arrayImgMauSac.value.length) {
-            arrayImgMauSac.value[index] = fileName;
-        } else {
-            // Nếu index không hợp lệ, hãy thêm objectURL vào cuối mảng
-            arrayImgMauSac.value.push(fileName);
-        }
-    }
-
-    // Cập nhật giá trị imgMauSac.value sau khi đã duyệt qua tất cả các tệp
-    imgMauSac.value = arrayImgMauSac.value.join(',').replace(/^,/, '').split(',');
-}
 
 const anh = ref(null);
 const ImagesProduct = ref([]);
@@ -270,19 +192,6 @@ const loadDataThuongHieu = async () => {
     }
 };
 
-const dataSize = ref([]);
-
-//load data size tất cả
-const loadDataSize = async () => {
-    await sizeStore.fetchData();
-    dataSize.value = sizeStore.dataByStatus1;
-};
-
-const dataMauSac = ref([]);
-const loadDataMauSac = async () => {
-    await mauSacStore.fetchData();
-    dataMauSac.value = mauSacStore.dataByStatus1;
-};
 
 const dataLoai = ref([]);
 const loadDataLoai = async () => {
@@ -398,54 +307,7 @@ const formatCurrency = (value) => {
                         </span>
                         <small class="p-error">{{ nameError }}</small>
                     </div>
-                    <!-- <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
-                        <label for="address">Quai Đeo</label>
-                        <div class="flex flex-wrap gap-3">
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient1" name="QuaiDeo" value="Vải"
-                                    :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient1" class="ml-2">Vải</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient2" name="QuaiDeo"
-                                    value="Quai đeo đặc biệt" :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient2" class="ml-2">Quai đeo đặc biệt</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient3" name="QuaiDeo" value="Da"
-                                    :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient3" class="ml-2" :class="{ 'p-invalid': equaiDeoError }">Da</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="QuaiDeo" type="radio" inputId="ingredient3" name="QuaiDeo"
-                                    value="Polycarbonate" :class="{ 'p-invalid': quaiDeoError }" />
-                                <label for="ingredient3" class="ml-2"
-                                    :class="{ 'p-invalid': equaiDeoError }">Polycarbonate</label>
-                            </div>
-                        </div>
-                        <small class="p-error">{{ quaiDeoError }}</small>
-                    </div> -->
-                    <!-- <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
-                        <label for="address">Đệm lót</label>
-                        <div class="flex flex-wrap gap-3">
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="demLot" inputId="ingredient1" name="pizza" value="Polycarbonate"
-                                    :class="{ 'p-invalid': demLotError }" />
-                                <label for="ingredient1" class="ml-2">Polycarbonate</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="demLot" inputId="ingredient2" name="pizza" value="Vải"
-                                    :class="{ 'p-invalid': demLotError }" />
-                                <label for="ingredient2" class="ml-2">Vải</label>
-                            </div>
-                            <div class="flex align-items-center">
-                                <RadioButton v-model="demLot" inputId="ingredient4" name="pizza" value="Da"
-                                    :class="{ 'p-invalid': demLotError }" />
-                                <label for="ingredient4" class="ml-2">Da</label>
-                            </div>
-                        </div>
-                        <small class="p-error">{{ demLotError }}</small>
-                    </div> -->
+                  
                     <div class="field col-12 md:col-8" style="margin-bottom: 30px">
                         <label for="address">Trạng thái</label>
                         <div class="flex flex-wrap gap-3">
@@ -504,7 +366,12 @@ const formatCurrency = (value) => {
 
                             <small class="p-error">{{ thuongHieuError }}</small>
                         </div>
-
+                        <div class="field col-12 md:col-12">
+                            <label for="address">Mô tả</label>
+                            <Textarea id="address" rows="4" v-model="MoTa"
+                                :class="{ 'p-invalid': MoTaSacError }"></Textarea>
+                            <small class="p-error">{{ MoTaSacError }}</small>
+                        </div>
                     </div>
                 </div>
                 <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
@@ -524,22 +391,12 @@ const formatCurrency = (value) => {
                                 <small class="p-error">{{ imagestError }}</small>
                             </div>
                         </div>
-
-                        <div class="field col-12 md:col-12" style="margin-top: -50px">
-                            <label for="address">Mô tả</label>
-                            <Textarea id="address" rows="4" v-model="MoTa"
-                                :class="{ 'p-invalid': MoTaSacError }"></Textarea>
-                            <small class="p-error">{{ MoTaSacError }}</small>
-                        </div>
                     </div>
-
+                   
 
                 </div>
 
                 <div style="width: 1000px; text-align: center">
-
-                    <Button class="p-button-outlined" outlined severity="secondary"
-                        style="width: 200px; height: auto; margin: 10px" @click="reset()" label="clear"></Button>
                     <Button type="submit" class="p-button-outlined" style="width: 200px; height: auto; margin: 10px"
                         label="Lưu"></Button>
                 </div>

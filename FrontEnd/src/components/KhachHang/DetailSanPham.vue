@@ -75,7 +75,8 @@ const loadDataSize = async () => {
 
 const idSanPhamChiTiet = ref(null);
 watch([getSize, idMau], async ([newGetSize, newIdMau]) => {
-    console.log(idMau.value);
+
+console.log("Day la quyet");
     if (getSize.value == null) {
         await productStore.fetchIdSPCT(idProduct, idMau.value);
         dataListSPCT.value = productStore.products;
@@ -535,7 +536,7 @@ const menu = ref();
                             </div>
 
                             <div class="gb" style="display: flex">
-                                <h2 s v-if="dataListSPCT.soLuongTon > 0 || dataListSPCT.soLuongTon == null">
+                                <h2 s v-if="dataListSPCT.giaBan > 0 || dataListSPCT.giaBan == null">
                                     <!-- <p tyle="color: rgb(0, 0, 0)">{{ formatCurrency(dataListSPCT.giaBan) !== '' ? formatCurrency(dataListSPCT.giaBan) : 'Hết hàng' }}</p> -->
                                     <p class="text-red-500" s tyle="text-decoration: line-through" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
                                     <p class="text-red-500" v-else-if="formatCurrency(dataListSPCT.giaBan) !== ''">{{ formatCurrency(dataListSPCT.giaBan) }}</p>

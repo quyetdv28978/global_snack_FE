@@ -1,198 +1,3 @@
-<template>
-    <div class="p-fluid formgrid grid">
-        <div class="Field col-12 md:col-12" style="background: rgb(255, 255, 255); width: 100%; height: 120px; margin-bottom: 10px; display: flex">
-            <div class="Field col-12 md:col-2" style="height: 30px; margin-left: -25px">
-                <Panel header="Tổng Doanh Thu" style="width: 100%; height: 40px">
-                    <div style="display: flex">
-                        <div style="margin-right: 20px; text-align: center">
-                            <p class="m-0" style="text-align: center; font-weight: 750; font-size: 1.4rem">{{ formatCurrency(tongDoanhThu) }}</p>
-                        </div>
-                        <div></div>
-                    </div>
-                </Panel>
-            </div>
-            <div class="Field col-12 md:col-2" style="height: 30px">
-                <Panel header="Tổng Hoàn tiền" style="width: 170px; height: 40px">
-                    <div style="display: flex">
-                        <div style="margin-right: 20px; text-align: center">
-                            <p class="m-0" style="text-align: center; font-weight: 750; font-size: 1.4rem">{{ formatCurrency(tongHoanTien) }}</p>
-                        </div>
-                        <div></div>
-                    </div>
-                </Panel>
-            </div>
-            <div class="Field col-12 md:col-2" style="height: 30px">
-                <Panel header="Tổng Chiết khấu" style="width: 170px; height: 40px">
-                    <div style="display: flex">
-                        <div style="margin-right: 20px; text-align: center">
-                            <p class="m-0" style="text-align: center; font-weight: 750; font-size: 1.4rem">{{ formatCurrency(tongChietKhau) }}</p>
-                        </div>
-                        <div></div>
-                    </div>
-                </Panel>
-            </div>
-
-            <div class="Field col-12 md:col-2" style="height: 30px">
-                <Panel header="Đơn hoàn thành" style="width: 150px; height: 40px">
-                    <div style="display: flex">
-                        <div style="margin-left: 40px; text-align: center">
-                            <p class="m-0" style="text-align: center; font-weight: 750; font-size: 1.4rem">{{ tongDonHoanThanh }}</p>
-                        </div>
-                        <div></div>
-                    </div>
-                </Panel>
-            </div>
-
-            <div class="Field col-6 md:col-4" style="height: 40px">
-                <Panel header="Tìm kiếm" style="width: 100%; height: 40px">
-                    <div class="flex flex-wrap gap-3" style="display: flex">
-                        <Button type="button" label="Năm/tháng" @click="toggle" style="width: 105px; height: 40px; background: none; color: black" />
-
-                        <Button type="button" label="khác" @click="toggle1" style="width: 70px; height: 40px; background: none; color: black" />
-                        <Button type="button" label="Tháng" @click="load()" style="width: 50px; height: 40px; background: none; color: black"> <i class="pi pi-replay" style="font-size: 1.8rem; margin-right: 00px; margin-left: -5px"></i></Button>
-                        <OverlayPanel ref="op">
-                            <H6>Hãy chọn năm</H6>
-                            <div v-for="(o, index) in loadNam" style="display: inline-block; margin-right: 10px; margin-bottom: 20px">
-                                <div class="flex align-items-center">
-                                    <RadioButton v-model="vNam" type="radio" :inputId="'ingredient' + index" name="nam" :value="o.name" />
-                                    <label :for="'ingredient' + index" class="ml-2">{{ o.name }}</label>
-                                </div>
-                            </div>
-                            <form @submit="onSubmit">
-                                <H6></H6>
-                                <div style="display: flex; height: 50px; margin-bottom: 20px">
-                                    <div class="" style="height: 30px; margin-right: 20px; display: block">
-                                        <label style="width: 100px">Ngày bắt đầu</label>
-                                        <span class="p-float-label">
-                                            <InputText type="datetime-local" style="width: 160px" v-model="startDate" :class="{ 'p-invalid': startDateError }" />
-                                            <!-- <label  style="width: 100px;">start month</label> -->
-                                        </span>
-                                        <small class="p-error">{{ startDateError }}</small>
-                                    </div>
-                                    <div class="" style="height: 30px; margin-right: 20px; display: block">
-                                        <label style="width: 100px">Ngày kết thúc</label>
-                                        <span class="p-float-label">
-                                            <InputText type="datetime-local" style="width: 160px" v-model="endDate" :class="{ 'p-invalid': endDateError }" />
-                                            <!-- <label  style="width: 100px;">start month</label> -->
-                                        </span>
-                                        <small class="p-error">{{ endDateError }}</small>
-                                    </div>
-                                    <Button type="submit" style="background: none; height: 50px; border: none; margin-top: 10px"><i class="pi pi-search" style="font-size: 1.8rem; color: blue"></i></Button>
-                                </div>
-                            </form>
-                        </OverlayPanel>
-                        <OverlayPanel ref="op1" style="height: 120px; width: 500px">
-                            <div style="display: flex">
-                                <p>hình thức:</p>
-                                <div class="flex align-items-center" style="margin-right: 20px; margin-left: 20px; margin-top: -10px">
-                                    <RadioButton v-model="vModelHinhThuc" type="radio" :inputId="'ingredient' + index" name="nam" value="1" />
-                                    <label :for="'ingredient' + index" class="ml-2">tại quầy</label>
-                                </div>
-                                <div class="flex align-items-center" style="margin-top: -10px">
-                                    <RadioButton v-model="vModelHinhThuc" type="radio" :inputId="'ingredient' + index" name="nam" value="2" />
-                                    <label :for="'ingredient' + index" class="ml-2">đặt hàng</label>
-                                </div>
-                            </div>
-                            <div style="display: flex; margin-top: 10px">
-                                <p>Hoặc:</p>
-                                <div class="Field col-12 md:col-2" style="margin-right: 50px; height: 30px; margin-top: -10px">
-                                    <span class="p-float-label" style="height: 40px">
-                                        <Dropdown id="dropdown" :options="dataLoai" v-model="selectedLoai" optionLabel="ten" :class="{ 'p-invalid': loaiError }" style="height: 40px; width: 120px"> </Dropdown>
-                                        <label for="dropdown">Loại</label>
-                                    </span>
-                                </div>
-
-                                <div class="Field col-12 md:col-2" style="margin-right: 70px; margin-top: -10px">
-                                    <span class="p-float-label" style="height: 40px; width: 100px">
-                                        <Dropdown id="dropdown" :options="dataThuongHieu" v-model="selectedCity" optionLabel="ten" @change="onCityChange" style="height: 40px; width: 140px"> </Dropdown>
-                                        <label for="dropdown">Thương Hiệu</label>
-                                    </span>
-                                </div>
-                                <div class="Field col-12 md:col-2" style="margin-right: 0px; margin-top: -10px">
-                                    <span class="p-float-label" style="height: 40px; width: 100px">
-                                        <Dropdown id="dropdown" :options="products" v-model="selectedProduct" optionLabel="ten" @change="onCityChange" style="height: 40px; width: 140px"> </Dropdown>
-                                        <label for="dropdown">Sản phẩm</label>
-                                    </span>
-                                </div>
-                            </div>
-                        </OverlayPanel>
-                    </div>
-                </Panel>
-            </div>
-        </div>
-        <div style="margin-top: 10px; font-weight: 700">Hôm nay</div>
-        <div class="Field col-12 md:col-12" style="background: rgb(255, 255, 255); display: flex; margin-left: 3px; margin-top: 10px; width: 100%; height: 130px">
-            <div class="flex Field col-12 md:col-6" style="margin-right: 10px; height: 30px; margin-left: -15px; height: 100%; border-radius: 20px; background-color: #f4f4f4; box-shadow: 5px 5px 5px grey">
-                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: -12px; height: 80%; border-right: 1px solid">
-                    <div style="font-weight: 700">Doanh thu:</div>
-                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
-                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ formatCurrency(doanhThu) }}</p>
-                    </div>
-                </div>
-                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: 12px; height: 80%; border-right: 1px solid">
-                    <div style="font-weight: 700; margin-left: -10px">Doanh thu tại quầy:</div>
-                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
-                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ formatCurrency(doanhThuTaiQuay) }}</p>
-                    </div>
-                </div>
-                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: 12px; height: 80%">
-                    <div style="font-weight: 700">Doanh thu online:</div>
-                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
-                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ formatCurrency(doanhThuOnline) }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flex Field col-12 md:col-6" style="margin-right: 10px; height: 30px; height: 100%; border-radius: 20px; background-color: #f4f4f4; box-shadow: 5px 5px 5px grey">
-                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: -12px; height: 80%; border-right: 1px solid">
-                    <div style="font-weight: 700">Đơn mua:</div>
-                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
-                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ donMua }}</p>
-                    </div>
-                </div>
-                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: 12px; height: 80%; border-right: 1px solid">
-                    <div style="font-weight: 700">Đơn Trả:</div>
-                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
-                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ donTra }}</p>
-                    </div>
-                </div>
-                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: 12px; width: 150px; height: 80%">
-                    <div style="font-weight: 700">Đơn hủy:</div>
-                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
-                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ donHuy }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="Field col-12 md:col-12" style="background: rgb(255, 255, 255); display: flex; margin-left: 0px; margin-top: 20px">
-            <div>
-                <div class="Field col-12 md:col-3" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 240px; height: 250px; border-radius: 20px; border: 1px solid black">
-                    <Chart type="polarArea" :data="chartLoai" :options="chartOptionsLoai" class="w-full md:w-17rem" style="margin-left: -10px" />
-                </div>
-                <div class="Field col-12 md:col-3" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 240px; height: 260px; border-radius: 20px; border-radius: 20px; border: 1px solid black">
-                    <Chart type="polarArea" :data="chartThuongHieu" :options="chartOptionsThuongHieu" class="w-full md:w-17rem" style="margin-left: -10px" />
-                </div>
-            </div>
-
-            <div class="" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 1110px; margin-left: 10px">
-                <div class="Field col-12 md:col-9" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 100%; height: 250px; border-radius: 20px; order-radius: 20px; border: 1px solid black">
-                    <h5 style="margin-top: 2px">Doanh Thu Theo Tháng</h5>
-                    <Chart type="line" :data="chartData" :options="chartOptions" class="h-15rem" />
-                </div>
-                <div class="Field col-12 md:col-9" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 100%; height: 260px; display: flex">
-                    <div class="Field col-12 md:col-6" style="margin-left: -10px; margin-bottom: 10px; background: rgb(255, 255, 255); height: 260px; border-radius: 20px; margin-right: 20px; order-radius: 20px; border: 1px solid black">
-                        <h5 style="margin-top: 2px">Top Sản phẩm doanh thu cao nhất</h5>
-                        <Chart type="bar" :data="chartDataSPCao" :options="chartOptionsSPCao" class="h-15rem" style="margin-top: -10px; margin-left: -10px" />
-                    </div>
-                    <div class="Field col-12 md:col-6" style="margin-bottom: 10px; background: rgb(255, 255, 255); height: 260px; border-radius: 20px; order-radius: 20px; border: 1px solid black">
-                        <h5 style="margin-top: 2px">Top Sản phẩm doanh thu thấp nhất</h5>
-                        <Chart type="bar" :data="chartDataSPThap" :options="chartOptionsSPThap" class="h-15rem" style="margin-top: -10px; margin-left: -10px" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { ThongKeStore } from '@/service/Admin/ThongKe/ThongKe.api';
@@ -889,3 +694,200 @@ const setChartOptionsSpThap = () => {
 
 
 </script>
+
+<template>
+    <div class="p-fluid formgrid grid">
+        <div class="Field col-12 md:col-12" style="background: rgb(255, 255, 255); width: 100%; height: 120px; margin-bottom: 10px; display: flex">
+            <div class="Field col-12 md:col-2" style="height: 30px; margin-left: -25px">
+                <Panel header="Tổng Doanh Thu" style="width: 100%; height: 40px">
+                    <div style="display: flex">
+                        <div style="margin-right: 20px; text-align: center">
+                            <p class="m-0" style="text-align: center; font-weight: 750; font-size: 1.4rem">{{ formatCurrency(tongDoanhThu) }}</p>
+                        </div>
+                        <div></div>
+                    </div>
+                </Panel>
+            </div>
+            <div class="Field col-12 md:col-2" style="height: 30px">
+                <Panel header="Tổng Hoàn tiền" style="width: 170px; height: 40px">
+                    <div style="display: flex">
+                        <div style="margin-right: 20px; text-align: center">
+                            <p class="m-0" style="text-align: center; font-weight: 750; font-size: 1.4rem">{{ formatCurrency(tongHoanTien) }}</p>
+                        </div>
+                        <div></div>
+                    </div>
+                </Panel>
+            </div>
+            <div class="Field col-12 md:col-2" style="height: 30px">
+                <Panel header="Tổng Chiết khấu" style="width: 170px; height: 40px">
+                    <div style="display: flex">
+                        <div style="margin-right: 20px; text-align: center">
+                            <p class="m-0" style="text-align: center; font-weight: 750; font-size: 1.4rem">{{ formatCurrency(tongChietKhau) }}</p>
+                        </div>
+                        <div></div>
+                    </div>
+                </Panel>
+            </div>
+
+            <div class="Field col-12 md:col-2" style="height: 30px">
+                <Panel header="Đơn hoàn thành" style="width: 150px; height: 40px">
+                    <div style="display: flex">
+                        <div style="margin-left: 40px; text-align: center">
+                            <p class="m-0" style="text-align: center; font-weight: 750; font-size: 1.4rem">{{ tongDonHoanThanh }}</p>
+                        </div>
+                        <div></div>
+                    </div>
+                </Panel>
+            </div>
+
+            <div class="Field col-6 md:col-4" style="height: 40px">
+                <Panel header="Tìm kiếm" style="width: 100%; height: 40px">
+                    <div class="flex flex-wrap gap-3" style="display: flex">
+                        <Button type="button" label="Năm/tháng" @click="toggle" style="width: 105px; height: 40px; background: none; color: black" />
+
+                        <Button type="button" label="khác" @click="toggle1" style="width: 70px; height: 40px; background: none; color: black" />
+                        <Button type="button" label="Tháng" @click="load()" style="width: 50px; height: 40px; background: none; color: black"> <i class="pi pi-replay" style="font-size: 1.8rem; margin-right: 00px; margin-left: -5px"></i></Button>
+                        <OverlayPanel ref="op">
+                            <H6>Hãy chọn năm</H6>
+                            <div v-for="(o, index) in loadNam" style="display: inline-block; margin-right: 10px; margin-bottom: 20px">
+                                <div class="flex align-items-center">
+                                    <RadioButton v-model="vNam" type="radio" :inputId="'ingredient' + index" name="nam" :value="o.name" />
+                                    <label :for="'ingredient' + index" class="ml-2">{{ o.name }}</label>
+                                </div>
+                            </div>
+                            <form @submit="onSubmit">
+                                <H6></H6>
+                                <div style="display: flex; height: 50px; margin-bottom: 20px">
+                                    <div class="" style="height: 30px; margin-right: 20px; display: block">
+                                        <label style="width: 100px">Ngày bắt đầu</label>
+                                        <span class="p-float-label">
+                                            <InputText type="datetime-local" style="width: 160px" v-model="startDate" :class="{ 'p-invalid': startDateError }" />
+                                            <!-- <label  style="width: 100px;">start month</label> -->
+                                        </span>
+                                        <small class="p-error">{{ startDateError }}</small>
+                                    </div>
+                                    <div class="" style="height: 30px; margin-right: 20px; display: block">
+                                        <label style="width: 100px">Ngày kết thúc</label>
+                                        <span class="p-float-label">
+                                            <InputText type="datetime-local" style="width: 160px" v-model="endDate" :class="{ 'p-invalid': endDateError }" />
+                                            <!-- <label  style="width: 100px;">start month</label> -->
+                                        </span>
+                                        <small class="p-error">{{ endDateError }}</small>
+                                    </div>
+                                    <Button type="submit" style="background: none; height: 50px; border: none; margin-top: 10px"><i class="pi pi-search" style="font-size: 1.8rem; color: blue"></i></Button>
+                                </div>
+                            </form>
+                        </OverlayPanel>
+                        <OverlayPanel ref="op1" style="height: 120px; width: 500px">
+                            <div style="display: flex">
+                                <p>hình thức:</p>
+                                <div class="flex align-items-center" style="margin-right: 20px; margin-left: 20px; margin-top: -10px">
+                                    <RadioButton v-model="vModelHinhThuc" type="radio" :inputId="'ingredient' + index" name="nam" value="1" />
+                                    <label :for="'ingredient' + index" class="ml-2">tại quầy</label>
+                                </div>
+                                <div class="flex align-items-center" style="margin-top: -10px">
+                                    <RadioButton v-model="vModelHinhThuc" type="radio" :inputId="'ingredient' + index" name="nam" value="2" />
+                                    <label :for="'ingredient' + index" class="ml-2">đặt hàng</label>
+                                </div>
+                            </div>
+                            <div style="display: flex; margin-top: 10px">
+                                <p>Hoặc:</p>
+                                <div class="Field col-12 md:col-2" style="margin-right: 50px; height: 30px; margin-top: -10px">
+                                    <span class="p-float-label" style="height: 40px">
+                                        <Dropdown id="dropdown" :options="dataLoai" v-model="selectedLoai" optionLabel="ten" :class="{ 'p-invalid': loaiError }" style="height: 40px; width: 120px"> </Dropdown>
+                                        <label for="dropdown">Loại</label>
+                                    </span>
+                                </div>
+
+                                <div class="Field col-12 md:col-2" style="margin-right: 70px; margin-top: -10px">
+                                    <span class="p-float-label" style="height: 40px; width: 100px">
+                                        <Dropdown id="dropdown" :options="dataThuongHieu" v-model="selectedCity" optionLabel="ten" @change="onCityChange" style="height: 40px; width: 140px"> </Dropdown>
+                                        <label for="dropdown">Thương Hiệu</label>
+                                    </span>
+                                </div>
+                                <div class="Field col-12 md:col-2" style="margin-right: 0px; margin-top: -10px">
+                                    <span class="p-float-label" style="height: 40px; width: 100px">
+                                        <Dropdown id="dropdown" :options="products" v-model="selectedProduct" optionLabel="ten" @change="onCityChange" style="height: 40px; width: 140px"> </Dropdown>
+                                        <label for="dropdown">Sản phẩm</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </OverlayPanel>
+                    </div>
+                </Panel>
+            </div>
+        </div>
+        <div style="margin-top: 10px; font-weight: 700">Hôm nay</div>
+        <div class="Field col-12 md:col-12" style="background: rgb(255, 255, 255); display: flex; margin-left: 3px; margin-top: 10px; width: 100%; height: 130px">
+            <div class="flex Field col-12 md:col-6" style="margin-right: 10px; height: 30px; margin-left: -15px; height: 100%; border-radius: 20px; background-color: #f4f4f4; box-shadow: 5px 5px 5px grey">
+                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: -12px; height: 80%; border-right: 1px solid">
+                    <div style="font-weight: 700">Doanh thu:</div>
+                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
+                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ formatCurrency(doanhThu) }}</p>
+                    </div>
+                </div>
+                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: 12px; height: 80%; border-right: 1px solid">
+                    <div style="font-weight: 700; margin-left: -10px">Doanh thu tại quầy:</div>
+                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
+                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ formatCurrency(doanhThuTaiQuay) }}</p>
+                    </div>
+                </div>
+                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: 12px; height: 80%">
+                    <div style="font-weight: 700">Doanh thu online:</div>
+                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
+                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ formatCurrency(doanhThuOnline) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex Field col-12 md:col-6" style="margin-right: 10px; height: 30px; height: 100%; border-radius: 20px; background-color: #f4f4f4; box-shadow: 5px 5px 5px grey">
+                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: -12px; height: 80%; border-right: 1px solid">
+                    <div style="font-weight: 700">Đơn mua:</div>
+                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
+                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ donMua }}</p>
+                    </div>
+                </div>
+                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: 12px; height: 80%; border-right: 1px solid">
+                    <div style="font-weight: 700">Đơn Trả:</div>
+                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
+                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ donTra }}</p>
+                    </div>
+                </div>
+                <div class="Field col-12 md:col-4" style="margin-top: 10px; margin-left: 12px; width: 150px; height: 80%">
+                    <div style="font-weight: 700">Đơn hủy:</div>
+                    <div style="margin-right: 20px; margin-top: 20px; text-align: center">
+                        <p class="m-0" style="text-align: center; font-weight: 700; font-size: 1.2rem">{{ donHuy }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Field col-12 md:col-12" style="background: rgb(255, 255, 255); display: flex; margin-left: 0px; margin-top: 20px">
+            <div>
+                <div class="Field col-12 md:col-3" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 240px; height: 250px; border-radius: 20px; border: 1px solid black">
+                    <Chart type="polarArea" :data="chartLoai" :options="chartOptionsLoai" class="w-full md:w-17rem" style="margin-left: -10px" />
+                </div>
+                <div class="Field col-12 md:col-3" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 240px; height: 260px; border-radius: 20px; border-radius: 20px; border: 1px solid black">
+                    <Chart type="polarArea" :data="chartThuongHieu" :options="chartOptionsThuongHieu" class="w-full md:w-17rem" style="margin-left: -10px" />
+                </div>
+            </div>
+
+            <div class="" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 1110px; margin-left: 10px">
+                <div class="Field col-12 md:col-9" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 100%; height: 250px; border-radius: 20px; order-radius: 20px; border: 1px solid black">
+                    <h5 style="margin-top: 2px">Doanh Thu Theo Tháng</h5>
+                    <Chart type="line" :data="chartData" :options="chartOptions" class="h-15rem" />
+                </div>
+                <div class="Field col-12 md:col-9" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 100%; height: 260px; display: flex">
+                    <div class="Field col-12 md:col-6" style="margin-left: -10px; margin-bottom: 10px; background: rgb(255, 255, 255); height: 260px; border-radius: 20px; margin-right: 20px; order-radius: 20px; border: 1px solid black">
+                        <h5 style="margin-top: 2px">Top Sản phẩm doanh thu cao nhất</h5>
+                        <Chart type="bar" :data="chartDataSPCao" :options="chartOptionsSPCao" class="h-15rem" style="margin-top: -10px; margin-left: -10px" />
+                    </div>
+                    <div class="Field col-12 md:col-6" style="margin-bottom: 10px; background: rgb(255, 255, 255); height: 260px; border-radius: 20px; order-radius: 20px; border: 1px solid black">
+                        <h5 style="margin-top: 2px">Top Sản phẩm doanh thu thấp nhất</h5>
+                        <Chart type="bar" :data="chartDataSPThap" :options="chartOptionsSPThap" class="h-15rem" style="margin-top: -10px; margin-left: -10px" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
