@@ -239,8 +239,8 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                             <div class="bills-col">
                                 <div id="pdf-content" class="card p-fluid" style="background: #ffffff">
                                     <div>
-                                        <h3>Shop...</h3>
-                                        <label>139 Cầu Giấy, Phường Quan Hoa, Hà Nội</label>
+                                        <h3>Shop đồ ăn vặt Global Snack</h3>
+                                        <label>169, qua môn, về nhà, đi ngủ</label>
                                         <h5>Hóa đơn thanh toán</h5>
                                     </div>
                                     <div v-if="hienTimeLine(props.myProp.trangThai)">
@@ -264,8 +264,7 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                             <th>Stt</th>
                                             <th>Ảnh</th>
                                             <th>Tên sản phẩm</th>
-                                            <th>Màu săc</th>
-                                            <th>Size</th>
+                                            <th>Trọng lượng</th>
                                             <th>Số lượng</th>
                                             <th>Đơn giá</th>
                                             <th>Thành tiền</th>
@@ -275,16 +274,13 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                             <td style="width: 30px">{{ index + 1 }}</td>
                                             <td style="width: 20%"><img :src="item.anh" style="width: 50%" alt="HoaDon Image" /></td>
                                             <td>{{ item.tenSP }}</td>
-                                            <td>{{ item.tenMauSac }}</td>
-                                            <td>{{ item.tenSize == null ? 'Không có' : item.tenSize }}</td>
+                                            <td>{{ item.trongLuong }}</td>
                                             <td>{{ item.soLuong }}</td>
                                             <td>{{ formatCurrency(item.donGia) }}</td>
                                             <td>{{ formatCurrency(item.soLuong * item.donGia) }}</td>
                                         </tr>
                                     </table>
                                     <hr />
-
-                                    <label>Chúc quý khách vui vẻ! Hẹn gặp lại!</label>
                                 </div>
                             </div>
                         </div>

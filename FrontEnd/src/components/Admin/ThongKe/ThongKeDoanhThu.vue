@@ -81,6 +81,7 @@ const formatCurrency = (value) => {
 const loadData = async () => {
     await thongKeStore.fetchAll();
     data.value = thongKeStore.data;
+    console.log(thongKeStore.data);
     tongDoanhThu.value = thongKeStore.tongDoanhThu;
     tongHoanTien.value = thongKeStore.tongHoanTien;
     tongChietKhau.value = thongKeStore.tongChietKhau;
@@ -112,6 +113,7 @@ const donTra = ref(0);
 const donHuy = ref(0);
 const loadDataDay = async () => {
     await thongKeStore.fetchAllByDay();
+    console.log(thongKeStore.doanhThu);
     doanhThu.value = thongKeStore.doanhThu;
     doanhThuTaiQuay.value = thongKeStore.doanhThuTaiQuay;
     doanhThuOnline.value = thongKeStore.doanhThuOnline;
@@ -420,6 +422,7 @@ const setChartData = () => {
     const dataTongTienThang = thang.map((t) => tongTienThang[t] || 0);
     const dataTongTienNam = thang.map((t) => tongTienNam[t] || 0);
 
+    console.log(dataTongTienThang);
     const viTri = [];
     for (let i = 0; i < dataTongTienThang.length; i++) {
         viTri.push(i);
@@ -427,14 +430,14 @@ const setChartData = () => {
     return {
         labels: thang,
         datasets: [
-            {
-                label: namTruoc[0] ? namTruoc[0] : '',
-                data: dataTongTienNam,
-                fill: false,
-                borderColor: documentStyle.getPropertyValue('--blue-500'),
-                tension: 0.4
-            },
-            {
+            // {
+            //     label: namTruoc[0] ? namTruoc[0] : '',
+            //     data: dataTongTienNam,
+            //     fill: false,
+            //     borderColor: documentStyle.getPropertyValue('--blue-500'),
+            //     tension: 0.4
+            // },
+            {backgroundColor: '#FFC0CB',
                 label: namHienTai[0] ? namHienTai[0] : '',
                 data: dataTongTienThang,
                 fill: false,
@@ -457,7 +460,7 @@ const setChartOptions = () => {
         plugins: {
             legend: {
                 labels: {
-                    color: textColor
+                    color: "blue"
                 }
             }
         },
@@ -873,7 +876,8 @@ const setChartOptionsSpThap = () => {
             <div class="" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 1110px; margin-left: 10px">
                 <div class="Field col-12 md:col-9" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 100%; height: 250px; border-radius: 20px; order-radius: 20px; border: 1px solid black">
                     <h5 style="margin-top: 2px">Doanh Thu Theo Tháng</h5>
-                    <Chart type="line" :data="chartData" :options="chartOptions" class="h-15rem" />
+                    <!-- <Chart type="line" :data="chartData" :options="chartOptions" class="h-15rem" /> -->
+                    <Chart type="bar" :data="chartData" :options="chartOptions" class="h-15rem"/>
                 </div>
                 <div class="Field col-12 md:col-9" style="margin-bottom: 10px; background: rgb(255, 255, 255); width: 100%; height: 260px; display: flex">
                     <div class="Field col-12 md:col-6" style="margin-left: -10px; margin-bottom: 10px; background: rgb(255, 255, 255); height: 260px; border-radius: 20px; margin-right: 20px; order-radius: 20px; border: 1px solid black">
