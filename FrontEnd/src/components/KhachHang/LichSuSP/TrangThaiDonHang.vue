@@ -302,7 +302,7 @@ const checks = (trangThai, soLuong) => {
                 <Divider />
                 <div class="flex">
                     <div>
-                        <p>Cảm ơn bạn đã mua sắm tại VNK!</p>
+                        <p>Cảm ơn bạn đã mua sắm tại Global snack!</p>
                     </div>
                     <div style="margin-left: 600px">
                         <Button type="button" label="Liên hệ" icon="pi pi-users" badgeClass="p-badge-danger"

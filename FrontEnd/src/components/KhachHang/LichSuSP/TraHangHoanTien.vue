@@ -145,7 +145,7 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                 fill-rule="evenodd"
                             ></path>
                         </svg>
-                        <h5 style="font-weight: 700; margin-top: -2px">cửa hàng VNK</h5>
+                        <h5 style="font-weight: 700; margin-top: -2px">cửa hàng Global snack</h5>
                     </div>
                     <div style="margin-left: 100px; font-size: 15px; margin-top: 10px; margin-right: 50px">
                         <label for=""

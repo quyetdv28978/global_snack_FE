@@ -163,8 +163,8 @@ const initFilters = () => {
                         >
                     </div>
                     <template #footer>
-                        <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteProductDialog = false" />
-                        <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteProduct(product.id)" />
+                        <!-- <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteProductDialog = false" />
+                        <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteProduct(product.id)" /> -->
                     </template>
                 </Dialog>
             </div>
