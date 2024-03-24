@@ -75,8 +75,7 @@ const loadDataSize = async () => {
 
 const idSanPhamChiTiet = ref(null);
 watch([getSize, idMau], async ([newGetSize, newIdMau]) => {
-
-console.log("Day la quyet");
+    console.log('Day la quyet');
     if (getSize.value == null) {
         await productStore.fetchIdSPCT(idProduct, idMau.value);
         dataListSPCT.value = productStore.products;
@@ -537,7 +536,6 @@ const menu = ref();
 
                             <div class="gb" style="display: flex">
                                 <h2 s v-if="dataListSPCT.giaBan > 0 || dataListSPCT.giaBan == null">
-                                <h2 s v-if="dataListSPCT.giaBan > 0 || dataListSPCT.giaBan == null">
                                     <!-- <p tyle="color: rgb(0, 0, 0)">{{ formatCurrency(dataListSPCT.giaBan) !== '' ? formatCurrency(dataListSPCT.giaBan) : 'Hết hàng' }}</p> -->
                                     <p class="text-red-500" s tyle="text-decoration: line-through" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
                                     <p class="text-red-500" v-else-if="formatCurrency(dataListSPCT.giaBan) !== ''">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
@@ -663,40 +661,42 @@ const menu = ref();
                                     </span>
                                     <Toast />
 
-                                    <div class="flex flex-wrap justify-content-between align-items-center gap-3 mt-3" style="margin-left: 900px">
+                                    <div class="flex flex-wrap justify-content-between align-items-center gap-3 mt-3">
                                         <Button type="submit" label="Đăng" @click="addComment" />
                                     </div>
                                 </div>
-                                <div class="flex" v-for="(cm, index) in comments" :key="index" style="margin-bottom: 10px">
-                                    <div>
-                                        <Avatar label="P" class="mr-2" size="xlarge" />
+                                <div class="flex flex-column" v-for="(cm, index) in comments" :key="index" style="margin: 1rem 0">
+                                    <div class="flex">
+                                        <div class="flex items-center">
+                                            <Avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
+                                            <div>
+                                                <h6>
+                                                    <a href="" class="text-gray-700">{{ cm.user.ten }}</a>
+                                                </h6>
+                                                <span class="text-gray-500 text-lg text-wrap">{{ cm.noiDung }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-wrap align-items-center gap-3 ml-8">
+                                            <a @click="phanHoi(cm.id)" class="text-gray-700 text-xl cursor-pointer">Phản hồi</a>
+                                            <a @click="xoa(cm)" class="text-red-500 text-xl cursor-pointer">Xoá</a>
+                                        </div>
                                     </div>
                                     <div>
-                                        <h6>
-                                            <a href="">{{ cm.user.ten }}</a>
-                                        </h6>
-                                        <span>{{ cm.noiDung }}</span>
-
-                                        <div class="flex flex-wrap align-items-center gap-3" style="margin-left: 700px">
-                                            <a @click="phanHoi(cm.id)" style="color: blue; margin-right: 5px">Phản hồi</a>
-                                            <a @click="xoa(cm)" style="color: red">Xoá</a>
-                                        </div>
-
                                         <!-- Phản hồi -->
                                         <div v-for="(ph, index) in phanHois.filter((item) => item.idPhanHoi === cm.id)" :key="index" style="margin-top: 15px; margin-left: 30px" class="flex">
                                             <div>
-                                                <Avatar label="P" class="mr-2" size="xlarge" />
+                                                <Avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
                                             </div>
                                             <div>
                                                 <h6>
-                                                    <a href="">{{ ph.user.ten }}</a>
+                                                    <a href="" class="text-gray-700">{{ ph.user.ten }}</a>
                                                 </h6>
-                                                <span>{{ ph.noiDung }}</span>
+                                                <span class="text-gray-500 text-lg text-wrap">{{ ph.noiDung }}</span>
                                             </div>
                                             <!-- Nút phản hồi và xoá (bạn có thể di chuyển nó lên nếu muốn) -->
-                                            <div class="flex flex-wrap justify-content-between align-items-center gap-3 mt-3" style="margin-left: 550px">
-                                                <a @click="phanHoi(cm.id)" style="color: blue">Phản hồi</a>
-                                                <a @click="xoaPhanHoi(ph)" style="color: red">Xoá</a>
+                                            <div class="flex flex-wrap justify-content-between align-items-center gap-3 mt-3 ml-8">
+                                                <a @click="phanHoi(cm.id)" class="text-gray-700 text-xl cursor-pointer">Phản hồi</a>
+                                                <a @click="xoaPhanHoi(ph)" class="text-red-500 text-xl cursor-pointer">Xoá</a>
                                             </div>
                                         </div>
                                         <div class="flex flex-wrap justify-content-between align-items-center gap-3 mt-3" style="margin-left: 660px">

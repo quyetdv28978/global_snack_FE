@@ -338,7 +338,7 @@ const members = ref([
             <router-link :to="{ name: 'gioi-thieu' }">
                 <p class="nav-links">Abouts</p>
             </router-link>
-            <router-link :to="{ name: 'gioi-thieu' }">
+            <router-link :to="{ name: 'lien-he' }">
                 <p class="nav-links">Contacts</p>
             </router-link>
         </div>

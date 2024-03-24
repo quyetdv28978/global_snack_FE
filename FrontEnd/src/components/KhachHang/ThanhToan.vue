@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, watchEffect,watch } from 'vue';
+import { ref, onMounted, computed, watchEffect, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useCartStore } from '@/service/KhachHang/Giohang/useCartStore.js';
 import { useDiaChi } from '@/service/KhachHang/DiaChiService.js';
@@ -98,7 +98,7 @@ const formatCurrency = (value) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
 };
 
-const diaChiMacDinh = computed(() =>  diaChiService.diaChiMacDinh);
+const diaChiMacDinh = computed(() => diaChiService.diaChiMacDinh);
 
 watch(diaChiMacDinh, async (newVal) => {
     if (diaChiMacDinh.value == '' || diaChiMacDinh.value == null) {
@@ -123,7 +123,7 @@ const loadUser = async () => {
     return diaChi.value;
 };
 
-const loadPhiShip = async () => { };
+const loadPhiShip = async () => {};
 
 const diaChiDialog = ref(false);
 
@@ -154,11 +154,11 @@ const sendMessage = () => {
 const dataHoaDon = ref([]);
 const stringVNpay = ref();
 const thanhtoan = async () => {
-    console.log("laskjflkashflkasjflsndf");
+    console.log('laskjflkashflkasjflsndf');
     const token = localStorage.getItem('token');
     const userName = await tokenService.getUserNameByToken(token);
     const user = await userKHService.getUserByUsername(userName);
-    if(user.sdt == null) {
+    if (user.sdt == null) {
         updateSDTDialog.value = true;
         return;
     }
@@ -184,7 +184,7 @@ const thanhtoan = async () => {
     };
     const formString = JSON.stringify(form);
 
-console.log(phuongThucThanhToan.value);
+    console.log(phuongThucThanhToan.value);
 
     if (parseInt(phuongThucThanhToan.value) == 2) {
         const data = {
@@ -202,7 +202,7 @@ console.log(phuongThucThanhToan.value);
         // Kiểm tra xem API có trả về URL redirect hay không
         if (stringVNpay.value) {
             // Chuyển hướng người dùng đến trang thanh toán của VnPay
-            
+
             window.location.href = stringVNpay.value;
         } else {
             console.log('Failed to get redirect URL from VnPay API');
@@ -291,41 +291,34 @@ const loadDiaChi = async () => {
     if (token.length > 0 || token != null) {
         await diaChiService.fetchData(token);
         userDiaChi.value = diaChiService.diaChi;
-
     }
 };
 
-
 const updateSDT = async (id) => {
-   
-    await thongTinCaNhanService.updatesdt(id, sdt.value)
+    await thongTinCaNhanService.updatesdt(id, sdt.value);
     diaChiMacDinh.value.user.sdt = sdt.value;
     toast.add({ severity: 'success', summary: '', detail: 'Cập nhật số điện thoại thành công', life: 3000 });
     updateSDTDialog.value = false;
-
-}
+};
 
 const touched = ref(false);
 
 const handleInput = () => {
-  touched.value = true;
+    touched.value = true;
 };
 
 const isValidPhoneNumber = computed(() => {
-  // Kiểm tra xem 'sdt' có phải là số điện thoại hợp lệ không
-  const phoneNumberRegex = /^0\d{9}$/;
-  return phoneNumberRegex.test(sdt.value);
+    // Kiểm tra xem 'sdt' có phải là số điện thoại hợp lệ không
+    const phoneNumberRegex = /^0\d{9}$/;
+    return phoneNumberRegex.test(sdt.value);
 });
 
 const showError = computed(() => {
-  // Chỉ hiển thị lỗi khi 'sdt' không hợp lệ và đã được chạm vào ít nhất một lần
-  return touched.value && !isValidPhoneNumber.value;
+    // Chỉ hiển thị lỗi khi 'sdt' không hợp lệ và đã được chạm vào ít nhất một lần
+    return touched.value && !isValidPhoneNumber.value;
 });
-
-
 </script>
 <template>
-    
     <div class="card">
         <div class="grid">
             <div class="flex">
@@ -335,24 +328,18 @@ const showError = computed(() => {
                         <h5>THÔNG TIN THANH TOÁN</h5>
                         <div style="display: flex">
                             <div>
-                                <h4 v-if="phiShip == -1" style="color: red"><i class="pi pi-user"
-                                        style="margin-right: 15px"></i>Bạn cần thêm địa chỉ trước khi thanh toán</h4>
-                                <h4 v-else style="color: red"><i class="pi pi-user" style="margin-right: 15px"></i> Địa chỉ
-                                    nhận hàng</h4>
+                                <h4 v-if="phiShip == -1" style="color: red"><i class="pi pi-user" style="margin-right: 15px"></i>Bạn cần thêm địa chỉ trước khi thanh toán</h4>
+                                <h4 v-else style="font-size: 26px">Địa chỉ nhận hàng</h4>
 
-                                <p style="font-weight: bold">{{ diaChiMacDinh?.user?.ten }} - {{ diaChiMacDinh?.user?.sdt }}
-                                </p>
-                                <p style="">{{ diaChiMacDinh?.diaChi }}, {{ diaChiMacDinh?.tenphuongXa }}, {{
-                                    diaChiMacDinh?.tenQuanHuyen }}, {{ diaChiMacDinh?.tenTinhThanh }}</p>
+                                <p style="font-weight: 500" class="text-gray-600">Thông tin khách hàng : {{ diaChiMacDinh?.user?.ten }} - {{ diaChiMacDinh?.user?.sdt }}</p>
+                                <p style="font-weight: 500" class="text-gray-600">Đia Chỉ : {{ diaChiMacDinh?.diaChi }}, {{ diaChiMacDinh?.tenphuongXa }}, {{ diaChiMacDinh?.tenQuanHuyen }}, {{ diaChiMacDinh?.tenTinhThanh }}</p>
                             </div>
                             <div>
-                                <Button style="margin-left: 30px; margin-top: 50px" label="" icon="pi pi-plus"
-                                    class="p-button-outlined p-button-info mr-2 mb-2" @click="openNew" />
+                                <Button style="margin-left: 30px; margin-top: 50px" label="" icon="pi pi-plus" class="p-button-outlined p-button-info mr-2 mb-2" @click="openNew" />
                             </div>
                         </div>
 
-                        <Textarea v-model="value" rows="4" cols="87" style="margin-top: 25px"
-                            placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay địa điểm giao hàng chi tiết hơn" />
+                        <Textarea v-model="value" rows="9" cols="87" style="margin-top: 25px" placeholder="Ghi chú" />
                     </div>
                 </div>
                 <!-- cột phải -->
@@ -360,173 +347,160 @@ const showError = computed(() => {
                     <div class="phai">
                         <div class="card">
                             <h5>ĐƠN HÀNG CỦA BẠN</h5>
-                            <DataTable :value="dataGHCT" dataKey="id" :filters="filters" paginatorTemplate="FirstPageLink Pr
-                            evPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
-                                <Column field="code" header="Sản phẩm" headerStyle="width:38%; min-width:14rem;">
+                            <DataTable
+                                :value="dataGHCT"
+                                dataKey="id"
+                                :filters="filters"
+                                paginatorTemplate="FirstPageLink Pr
+                            evPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                            >
+                                <Column field="code" header="Sản phẩm">
                                     <template #body="slotProps">
-                                        <img :src="slotProps.data.anhMau" alt="Ảnh sản phẩm" class="shadow-2" width="50" />
-                                        <span style="margin-left: 10px">{{ slotProps.data.tenSP }}</span>
-                                    </template>
-                                </Column>
-
-                                <Column field="code" header="Phân loại hàng" headerStyle="width:10%; min-width:5rem;">
-                                    <template #body="slotProps">
-                                        <div style="width: 100px">
-                                            <!-- <p v-if="slotProps.data.soLuongTon != 0">Phân loại hàng:</p> -->
-                                            <p style="font-size: 13px; margin-top: -10px">{{ slotProps.data.tenMauSac }}, {{
-                                                slotProps.data.tenSize }}</p>
+                                        <div class="flex items-center justify-center">
+                                            <img :src="slotProps.data.anhMau" alt="Ảnh sản phẩm" class="shadow-2" style="width: 100px; border-radius: 10px" />
+                                            <span style="margin-left: 10px" class="text-gray-600">{{ slotProps.data.tenSP }}</span>
                                         </div>
                                     </template>
                                 </Column>
 
-                                <Column field="tenSP" header="Đơn giá" headerStyle="width:14%; min-width:5rem;">
+                                <Column field="tenSP" header="Đơn giá">
                                     <template #body="slotProps">
                                         <div style="display: block">
-                                            <div>{{ formatCurrency(slotProps.data.giaSPSauGiam) == '' ?
-                                                formatCurrency(slotProps.data.giaBan) :
-                                                formatCurrency(slotProps.data.giaSPSauGiam) }}</div>
+                                            <div class="text-gray-600 text-lg">{{ formatCurrency(slotProps.data.giaSPSauGiam) == '' ? formatCurrency(slotProps.data.giaBan) : formatCurrency(slotProps.data.giaSPSauGiam) }}</div>
                                         </div>
                                     </template>
                                 </Column>
-                                <Column field="name" header="Số lượng" headerStyle="width:15%; min-width:5rem;">
+                                <Column field="name" header="Số lượng">
                                     <template #body="slotProps">
                                         <div class="quantity">
-                                            <span>{{ slotProps.data.soLuong }}</span>
+                                            <span class="text-gray-600">{{ slotProps.data.soLuong }}</span>
                                         </div>
                                     </template>
                                 </Column>
-                                <Column field="giaBan" header="Tổng tiền" headerStyle="min-width:5rem;">
+                                <Column field="giaBan" header="Tổng tiền">
                                     <template #body="slotProps">
                                         <span class="p-column-title">Code</span>
-                                        <p style="font-size: 15px; color: red">
-                                            {{ formatCurrency(tinhTongTienChoTungSanPham(slotProps.data.soLuong,
-                                                slotProps.data.giaSPSauGiam, slotProps.data.giaBan)) }}
+                                        <p style="font-size: 16px; color: red">
+                                            {{ formatCurrency(tinhTongTienChoTungSanPham(slotProps.data.soLuong, slotProps.data.giaSPSauGiam, slotProps.data.giaBan)) }}
                                         </p>
                                     </template>
                                 </Column>
                             </DataTable>
 
                             <Divider style="margin-bottom: 10px" />
-                            <div class="flex">
+                            <div class="flex items-center">
                                 <div class="p-col-6">
                                     <div class="flex-container">
-                                        <h6>Tổng tiền hàng</h6>
+                                        <h6 class="text-lg">Tổng tiền hàng :</h6>
                                     </div>
                                 </div>
-                                <div class="p-col-6" style="margin-left: 470px">
-                                    <h6 style="height: 20px; width: 80px">{{ formatCurrency(tongTien) }}</h6>
+                                <div class="p-col-6" style="margin-left: 1rem">
+                                    <h6 style="" class="text-red-600 text-xl">{{ formatCurrency(tongTien) }}</h6>
                                 </div>
                             </div>
-                            <Divider style="margin-top: -10px" />
-                            <h6 style="margin-top: 10px">Giao hàng</h6>
                             <!-- <span style="font-weight: bold; margin-bottom: 15px;"><input type="radio" name="shipping" value="fast" /> Giao hàng miễn phí</span> -->
-                            <label style="display: flex; justify-content: space-between;">
-                                <span>Phí giao nhanh:</span>
-                                <span style="margin-left: 400px; font-weight: bold"> {{ phiShip == -1 ? 'bạn cần thêm địa chỉ':formatCurrency(phiShip) }}</span>
+                            <label style="display: flex; align-items: center">
+                                <span class="text-lg font-medium">Phí giao nhanh :</span>
+                                <span style="font-weight: bold; margin-left: 1rem" class="text-gray-700 text-xl"> {{ phiShip == -1 ? 'bạn cần thêm địa chỉ' : formatCurrency(phiShip) }}</span>
                             </label>
                             <Divider />
 
-                            <div class="flex">
-                                <div class="p-col-6">
-                                    <div class="flex-container">
-                                        <h6>Voucher</h6>
-                                    </div>
+                            <div class="flex items-center justify-center">
+                                <div>
+                                    <h6 class="text-gray-800 text-xl">Voucher :</h6>
                                 </div>
-                                <div class="p-col-6" style="margin-left: 490px; margin-bottom: 10px">
-                                    <span style="color: blue" @click="selectVoucher">Chọn voucher</span>
+                                <div style="margin-left: 1rem">
+                                    <Button style="color: #fff" @click="selectVoucher"> Voucher</Button>
                                 </div>
                             </div>
 
-                            <Dialog v-model:visible="selectedVoucherDialog" header="Flex Scroll" :style="{ width: '600px' }"
-                                maximizable modal :contentStyle="{ height: '370px' }" class="p-fluid">
+                            <Dialog v-model:visible="selectedVoucherDialog" header="Flex Scroll" :style="{ width: '800px' }" maximizable modal :contentStyle="{ height: '370px' }" class="p-fluid">
                                 <template #header>
-                                    <div
-                                        class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                                         <h5 class="m-0">Voucher</h5>
                                     </div>
                                 </template>
-                                <div v-if="!dataVoucher || dataVoucher.length === 0"
-                                    style="text-align: center; margin-top: 100px;">
-
-                                    <svg width="100px" height="100px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
-                                        fill="#000000" class="bi bi-file-earmark-x">
-                                        <path
-                                            d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />
-                                        <path
-                                            d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                <div v-if="!dataVoucher || dataVoucher.length === 0" style="text-align: center; margin-top: 100px">
+                                    <svg width="100px" height="100px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000" class="bi bi-file-earmark-x">
+                                        <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />
+                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
                                     </svg>
 
-
-                                    <h4 style="text-align: center;">Không có voucher</h4>
+                                    <h4 style="text-align: center">Không có voucher</h4>
                                 </div>
 
-                                <div v-for="(vo, index) in dataVoucher"
-                                    style="box-shadow: 0px 0px 15px 5px rgba(173, 172, 172, 0.75); border-radius: 20px 0px 0px 20px; margin-bottom: 20px; margin-top: 20px">
-                                    <div
-                                        style="width: 100%; background: rgb(165, 27, 27); border-radius: 20px 0px 0px 20px; height: 100px; display: flex">
-                                        <div
-                                            style="height: 100%; width: 30%; background: rgb(11, 117, 103); text-align: center; border-radius: 20px 0px 0px 20px">
+                                <div v-for="(vo, index) in dataVoucher" style="box-shadow: 0px 0px 15px 5px rgba(173, 172, 172, 0.75); border-radius: 20px 0px 0px 20px; margin-bottom: 20px; margin-top: 20px">
+                                    <div style="width: 100%; background: rgb(165, 27, 27); border-radius: 20px 0px 0px 20px; height: 100%; display: flex">
+                                        <div style="display: flex; align-items: center; justify-content: center; width: 30%; background: red; text-align: center; border-radius: 20px 0px 0px 20px">
                                             <H5 style="margin-top: 30px; color: white">{{ vo.ten }}</H5>
                                         </div>
-                                        <div
-                                            style="height: 100%; width: 70%; background: rgb(255, 255, 255); display: flex">
-                                            <div style="margin-left: 20px; width: 80%; background: rgb(255, 255, 255)">
-                                                <p>giảm tối đa: {{ vo.giamToiDa }}</p>
-
-                                                <p style="margin-top: -10px">giá trị giảm: {{ vo.giaTriGiam }} (%)</p>
-
-                                                <p style="margin-top: -10px">Thời gian kết thúc: {{ vo.thoiGianKetThuc }}
+                                        <div style="height: 100%; width: 70%; background: rgb(255, 255, 255); display: flex">
+                                            <div style="margin-left: 20px; width: 80%; background: #fff; padding: 1rem 0.5rem">
+                                                <p class="text-xl text-gray-500">
+                                                    Giảm tối đa: <span class="text-red-500 font-thin">{{ vo.giamToiDa }} đ</span>
                                                 </p>
 
-                                                <p style="margin-top: -10px">Mô tả: {{ vo.moTa }}</p>
+                                                <p style="margin-top: -10px" class="text-xl text-gray-500">
+                                                    Giá trị giảm: <span class="text-lg text-gray-800 font-medium">{{ vo.giaTriGiam }} (%)</span>
+                                                </p>
+
+                                                <p style="margin-top: -10px" class="text-xl text-gray-500">
+                                                    Thời gian kết thúc:
+                                                    <span class="text-gray-800 font-medium"> {{ vo.thoiGianKetThuc }}</span>
+                                                </p>
+
+                                                <p style="margin-top: -10px" class="text-xl text-gray-500">
+                                                    Mô tả:
+
+                                                    <span class="text-gray-800 font-medium">{{ vo.moTa }}</span>
+                                                </p>
                                             </div>
-                                            <div
-                                                style="width: 10%; display: flex; justify-content: center; padding-top: 40px">
-                                                <RadioButton v-model="selectedVoucher" inputId="ingredient1" name="pizza"
-                                                    :value="vo"  />
+                                            <div style="width: 10%; display: flex; justify-content: center; padding-top: 40px">
+                                                <RadioButton v-model="selectedVoucher" inputId="ingredient1" name="pizza" :value="vo" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <template #footer>
-                                    <Button label="Bỏ qua" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
-                                    <Button label="Áp dụng" icon="pi pi-check" @click="applyVoucher" />
+                                    <Button label="Bỏ qua" class="p-button-text" @click="hideDialog" />
+                                    <Button label="Áp dụng" @click="applyVoucher" />
                                 </template>
                             </Dialog>
 
                             <div class="flex">
                                 <div class="p-col-6">
                                     <div class="flex-container">
-                                        <h6>Giảm giá</h6>
+                                        <h6 class="text-xl">Giảm giá :</h6>
                                     </div>
                                 </div>
-                                <div class="p-col-6" style="margin-left: 520px">
-                                    <h6 style="height: 20px; width: 80px">{{ formatCurrency(giamGia) }} <span></span></h6>
+                                <div class="p-col-6">
+                                    <h6 style="height: 20px; width: 80px; margin-left: 1rem">{{ formatCurrency(giamGia) }}</h6>
                                 </div>
                             </div>
 
                             <div class="flex">
                                 <div class="p-col-6">
                                     <div class="flex-container">
-                                        <h6>Tổng thanh toán</h6>
+                                        <h6 class="text-xl">Tổng thanh toán :</h6>
                                     </div>
                                 </div>
-                                <div class="p-col-6" style="margin-left: 470px">
-                                    <h6 style="height: 20px; width: 80px">{{ formatCurrency(tongThanhToan) }} <span></span>
-                                    </h6>
+                                <div class="p-col-6">
+                                    <h6 style="height: 20px; width: 80px; margin-left: 1rem" class="text-red-600 text-xl">{{ formatCurrency(tongThanhToan) }}</h6>
                                 </div>
                             </div>
                             <Divider style="margin-top: -10px" />
-                            <span style="font-weight: bold">
+                            <span style="font-weight: 500; font-size: 1rem">
                                 <input type="radio" id="chuyenkhoan" value="2" v-model="phuongThucThanhToan" />
-                                Payment Credit Card / Visa / Master Card / Amex</span>
+                                Visa / Master Card</span
+                            >
                             <br />
 
                             <Divider style="margin-top: -10px" />
-                            <span style="font-weight: bold">
+                            <span style="font-weight: 500; font-size: 1rem">
                                 <input type="radio" id="tienmat" value="1" v-model="phuongThucThanhToan" />
-                                Trả tiền mặt khi nhận hàng</span>
+                                Thanh toán khi nhận hàng</span
+                            >
                             <br />
                             <!-- <div class="p-inputgroup flex-1">
                                 <InputText placeholder="Mã ưu đãi" />
@@ -538,7 +512,6 @@ const showError = computed(() => {
                             <br />
                             <Button label="Đặt hàng" severity="danger" :disabled="diaChiMacDinh == ''" @click="thanhtoan" />
                             <br />
-                            <label for="">Bộ phận CSKH sẽ liên hệ bạn qua số điện thoại để xác nhận đơn hàng.</label>
                         </div>
                     </div>
                 </div>
@@ -551,48 +524,42 @@ const showError = computed(() => {
             <AddDiaChi style="position: absolute; right: 0; width: 80px; margin-bottom: 5px"></AddDiaChi>
         </div>
 
-
-
         <div class="card">
-
-            <div v-if="!userDiaChi || userDiaChi.length === 0" style="text-align: center; margin-top: 50px;">
-
-                <svg width="100px" height="100px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000"
-                    class="bi bi-file-earmark-x">
-                    <path
-                        d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />
-                    <path
-                        d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+            <div v-if="!userDiaChi || userDiaChi.length === 0" style="text-align: center; margin-top: 50px">
+                <svg width="100px" height="100px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000" class="bi bi-file-earmark-x">
+                    <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />
+                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
                 </svg>
 
-
-                <h4 style="text-align: center;">Chưa có địa chỉ</h4>
+                <h4 style="text-align: center">Chưa có địa chỉ</h4>
             </div>
             <div v-for="(hd, index) in userDiaChi">
                 <div style="width: 100%; height: 100px; display: flex">
                     <div style="width: 90%; height: 100px; background: rgb(255, 255, 255)">
                         <div class="flex">
                             <label for="" style="margin-right: 10px">
-                                <span>{{ hd?.user?.ten }} </span></label>
+                                <span>{{ hd?.user?.ten }} </span></label
+                            >
                             <span style="margin-right: 10px"> | </span>
                             <label for="" style="color: rgb(0, 0, 0)"> {{ hd?.user?.sdt }}</label>
                             <label for="" style="color: rgb(255, 0, 0); margin-left: 10px"> {{ hd.trangThai == 1 ? 'Mặc định' : '' }}</label>
                         </div>
                         <div style="margin-top: 10px">
                             <label for="" style="margin-right: 10px">
-                                <span>{{ hd.diaChi }} </span></label>
+                                <span>{{ hd.diaChi }} </span></label
+                            >
                         </div>
                         <div style="margin-top: 10px">
                             <label for="" style="margin-right: 10px">
-                                <span>{{ hd.tenphuongXa }}, {{ hd.tenQuanHuyen }}, {{ hd.tenTinhThanh }} </span></label>
+                                <span>{{ hd.tenphuongXa }}, {{ hd.tenQuanHuyen }}, {{ hd.tenTinhThanh }} </span></label
+                            >
                         </div>
                     </div>
 
                     <div style="width: 35%; height: 10px; background: rgb(255, 255, 255); display: flex; margin-top: 30px">
                         <UpdateDiaChi :my-prop="hd"></UpdateDiaChi>
 
-                        <Button style="width: 100px; height: 45px; margin-top: 0px" label="Thiết lập mặc định "
-                            class="p-button-outlined p-button-info mr-2 mb-2" @click="thietLapMacDinh(hd.id)" />
+                        <Button style="width: 100px; height: 45px; margin-top: 0px" label="Thiết lập mặc định " class="p-button-outlined p-button-info mr-2 mb-2" @click="thietLapMacDinh(hd.id)" />
                     </div>
                 </div>
                 <Divider />
@@ -600,16 +567,14 @@ const showError = computed(() => {
         </div>
     </Dialog>
 
-
     <Dialog v-model:visible="updateSDTDialog" :style="{ width: '450px' }" header="Tài khoản chưa có số điện thoại. Vui lòng cập nhật số điện thoại!" :modal="true">
         <div class="flex align-items-center justify-content-center">
-          
             <!-- <span class="p-float-label">
                 <InputText id="Số điện thoại" v-model="value" />
                 <label for="số điện thoại">Số điện thoại</label>
             </span> -->
             <InputText v-model="sdt" type="text" size="small" placeholder="Số điện thoại" @input="handleInput" />
-            <p v-if="showError" style="color: red;">Số điện thoại không hợp lệ!</p>
+            <p v-if="showError" style="color: red">Số điện thoại không hợp lệ!</p>
         </div>
         <template #footer>
             <Button label="Huỷ" icon="pi pi-times" class="p-button-text" @click="deleteDialog = false" />
@@ -659,4 +624,5 @@ const showError = computed(() => {
 
 span {
     font-weight: bold;
-}</style>
+}
+</style>

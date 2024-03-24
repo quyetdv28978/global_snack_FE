@@ -575,25 +575,6 @@ const tinhTongTienChoTungSanPham = (soLuong, giaSauGiam, giaBan) => {
                 <div class="Field col-12 md:col-9">
                     <div class="trai">
                         <div v-if="!dataGHCT || dataGHCT.length === 0" style="text-align: center; margin-top: 50px">
-                            <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100px" height="100px" viewBox="0 0 446.853 446.853" xml:space="preserve">
-                                <g>
-                                    <path
-                                        d="M444.274,93.36c-2.558-3.666-6.674-5.932-11.145-6.123L155.942,75.289c-7.953-0.348-14.599,5.792-14.939,13.708
-		c-0.338,7.913,5.792,14.599,13.707,14.939l258.421,11.14L362.32,273.61H136.205L95.354,51.179
-		c-0.898-4.875-4.245-8.942-8.861-10.753L19.586,14.141c-7.374-2.887-15.695,0.735-18.591,8.1c-2.891,7.369,0.73,15.695,8.1,18.591
-		l59.491,23.371l41.572,226.335c1.253,6.804,7.183,11.746,14.104,11.746h6.896l-15.747,43.74c-1.318,3.664-0.775,7.733,1.468,10.916
-		c2.24,3.184,5.883,5.078,9.772,5.078h11.045c-6.844,7.617-11.045,17.646-11.045,28.675c0,23.718,19.299,43.012,43.012,43.012
-		s43.012-19.294,43.012-43.012c0-11.028-4.201-21.058-11.044-28.675h93.777c-6.847,7.617-11.047,17.646-11.047,28.675
-		c0,23.718,19.294,43.012,43.012,43.012c23.719,0,43.012-19.294,43.012-43.012c0-11.028-4.2-21.058-11.042-28.675h13.432
-		c6.6,0,11.948-5.349,11.948-11.947c0-6.6-5.349-11.948-11.948-11.948H143.651l12.902-35.843h216.221
-		c6.235,0,11.752-4.028,13.651-9.96l59.739-186.387C447.536,101.679,446.832,97.028,444.274,93.36z M169.664,409.814
-		c-10.543,0-19.117-8.573-19.117-19.116s8.574-19.117,19.117-19.117s19.116,8.574,19.116,19.117S180.207,409.814,169.664,409.814z
-		 M327.373,409.814c-10.543,0-19.116-8.573-19.116-19.116s8.573-19.117,19.116-19.117s19.116,8.574,19.116,19.117
-		S337.916,409.814,327.373,409.814z"
-                                    />
-                                </g>
-                            </svg>
-
                             <h4 style="text-align: center">Chưa có sản phẩm !</h4>
                         </div>
 
@@ -617,43 +598,32 @@ const tinhTongTienChoTungSanPham = (soLuong, giaSauGiam, giaBan) => {
                                 </template>
                             </Column>
 
-                            <Column field="code" header="Giỏ hàng" headerStyle="width:20%; min-width:14rem;">
+                            <Column field="code" header="Sản Phẩm">
                                 <template #body="slotProps">
-                                    <div class="product-container">
+                                    <div class="flex items-center justify-center">
                                         <div class="thumbnail">
-                                            <img :src="slotProps.data.anhMau" alt="Ảnh sản phẩm" class="shadow-2" width="50" />
+                                            <img :src="slotProps.data.anhMau" alt="Ảnh sản phẩm" />
                                         </div>
-                                        <div class="details">
-                                            <p style="margin-top: 10px; font-size: 15px">{{ slotProps.data.tenSP }}</p>
+                                        <div class="details mt-4">
+                                            <p class="product_name_cart" style="margin-top: 10px; font-size: 15px">{{ slotProps.data.tenSP }}</p>
                                         </div>
                                     </div>
                                 </template>
                             </Column>
-
-                            <Column field="code" header="" headerStyle="width:10%; min-width:5rem;">
-                                <template #body="slotProps">
-                                    <div @click="slotProps.data.soLuongTon != 0 && editProduct(slotProps.data)" style="width: 100px">
-                                        <p v-if="slotProps.data.soLuongTon != 0">Phân loại hàng:</p>
-                                        <p style="font-size: 13px; margin-top: -10px" v-if="slotProps.data.soLuongTon != 0">{{ slotProps.data.tenMauSac }}, {{ slotProps.data.tenSize }}</p>
-                                        <p style="color: red" v-if="slotProps.data.soLuongTon <= 0 || slotProps.data.trangThaiSP == 3 || slotProps.data.trangThaiSPCT == 3">Hết sản phẩm</p>
-                                    </div>
-                                </template>
-                            </Column>
-
-                            <Column field="tenSP" header="" headerStyle="width:14%; min-width:5rem;">
+                            <Column header="Giá">
                                 <template #body="slotProps">
                                     <span class="p-column-title">Code</span>
 
-                                    <div v-if="slotProps.data.giaSPSauGiam === null">{{ formatCurrency(slotProps.data.giaBan) }}</div>
+                                    <div class="font-medium text-xl" v-if="slotProps.data.giaSPSauGiam === null">{{ formatCurrency(slotProps.data.giaBan) }}</div>
                                     <div v-else>
                                         <div style="display: block">
-                                            <div :class="{ strikethrough: true }">{{ formatCurrency(slotProps.data.giaBan) }}</div>
-                                            <div>{{ formatCurrency(slotProps.data.giaSPSauGiam) }}</div>
+                                            <div class="text-xl font-medium text-red-500" :class="{ strikethrough: true }">{{ formatCurrency(slotProps.data.giaBan) }}</div>
+                                            <div class="text-xl font-medium text-gray-500">{{ formatCurrency(slotProps.data.giaSPSauGiam) }}</div>
                                         </div>
                                     </div>
                                 </template>
                             </Column>
-                            <Column field="name" header="" headerStyle="width:10%; min-width:5rem;">
+                            <Column field="name" header="Số Lượng">
                                 <template #body="slotProps">
                                     <span class="p-column-title">Code</span>
 
@@ -681,22 +651,23 @@ const tinhTongTienChoTungSanPham = (soLuong, giaSauGiam, giaBan) => {
                                     </div>
                                 </template>
                             </Column>
-                            <Column field="giaBan" header="" headerStyle="min-width:5rem;">
+                            <Column field="giaBan" header="Giá Bán">
                                 <template #body="slotProps">
                                     <span class="p-column-title">Code</span>
-                                    <p style="font-size: 15px; color: red">
+                                    <p class="text-red-500 font-medium text-xl">
                                         {{ formatCurrency(tinhTongTienChoTungSanPham(slotProps.data.soLuong, slotProps.data.giaSPSauGiam, slotProps.data.giaBan)) }}
                                     </p>
                                 </template>
                             </Column>
-                            <Column headerStyle="min-width:2rem;">
+
+                            <Column>
                                 <template #body="slotProps">
-                                    <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2" @click="deleteGioHang(slotProps.data.idGHCT)" />
+                                    <Button icon="pi pi-trash" class="p-button-rounded p-button-danger mt-2" @click="deleteGioHang(slotProps.data.idGHCT)" />
                                 </template>
                             </Column>
                         </DataTable>
 
-                        <Dialog v-model:visible="selectedSizeMauSac" :style="{ width: '450px' }" header="Cập nhật phân loại hàng" :modal="true">
+                        <!-- <Dialog v-model:visible="selectedSizeMauSac" :style="{ width: '450px' }" header="Cập nhật phân loại hàng" :modal="true">
                             <p class="ms" v-if="datagh == ''" style="color: red; font-size: 20px">Hết Hàng</p>
                             <label class="ms">Màu sắc</label>
                             <br />
@@ -722,7 +693,7 @@ const tinhTongTienChoTungSanPham = (soLuong, giaSauGiam, giaBan) => {
                                 <Button label="Trở lại" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
                                 <Button type="submit" label="Xác nhận" icon="pi pi-check" class="p-button-text" @click="updateMauSacSize(ghct.idGHCT)" :disabled="datagh == '' || idMau == '' || idMau == null" />
                             </template>
-                        </Dialog>
+                        </Dialog> -->
                     </div>
                 </div>
 
@@ -748,11 +719,10 @@ const tinhTongTienChoTungSanPham = (soLuong, giaSauGiam, giaBan) => {
                             <p class="text-lg font-medium text-gray-900">Phiếu ưu đãi</p>
                             <hr class="gach-ngang" />
                             <div style="display: flex">
-                                <span class="p-float-label" style="width: 140px; margin-top: 20px">
+                                <span class="p-float-label" style="width: 100%; margin-top: 20px">
                                     <Dropdown id="dropdown" :options="dataVoucher" v-model="selectVoucher" optionLabel="ten" :class="{ 'p-invalid': loaiError }" @change="onloaiChange"> </Dropdown>
                                     <label for="dropdown">Voucher</label>
                                 </span>
-                                <Button class="pi pi-refresh" style="width: 50px; height: 40px; margin-top: 20px; margin-left: 10px" @click="reset" />
                             </div>
                         </div>
                         <Button label="Áp dụng" severity="success" class="btn-ap-dung" @click="apDung" style="margin: 1rem 0" />
@@ -831,19 +801,11 @@ div.border-red {
 }
 
 .grid {
-    /* margin-top: 70px; */
-    /* position: absolute;
-    top: 0;
-    left: 0;
-    right: 0; */
     margin: auto;
     margin-top: 50px;
     margin-bottom: 30px;
-    width: 1100px;
-    /* background: white; */
     display: flex;
     justify-content: center;
-    /* align-items: center; */
 }
 
 .trai {
@@ -885,8 +847,9 @@ div.border-red {
 }
 
 .thumbnail img {
-    width: 60px;
-    height: auto;
+    width: 100px;
+    height: 100%;
+    border-radius: 10px;
 }
 
 .details {
@@ -922,6 +885,7 @@ div.border-red {
     text-align: right;
     font-size: 18px;
     font-weight: 500;
+    color: red;
 }
 
 .quantity {
@@ -995,5 +959,17 @@ div.border-red {
 .btn-ap-dung {
     margin-top: 20px;
     width: 100%;
+}
+
+.product_name_cart {
+    width: 200px;
+    font-size: 17px;
+    color: black;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top: 1.5rem;
+    font-weight: 600;
 }
 </style>

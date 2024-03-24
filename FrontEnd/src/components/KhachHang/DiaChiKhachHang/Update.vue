@@ -148,7 +148,7 @@ const onQuanHuyenChange = async () => {
 <template>
     <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editProduct(props.myProp)" />
 
-    <Dialog v-model:visible="productDialog" :style="{ width: '600px' }" header="Sửa màu sắc" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="productDialog" :style="{ width: '600px' }" header="Cập nhật địa chỉ" :modal="true" class="p-fluid">
         <div class="card">
             <form @submit="onSubmit">
                 <div class="p-fluid formgrid grid">

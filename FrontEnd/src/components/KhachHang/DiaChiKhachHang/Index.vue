@@ -103,25 +103,25 @@ const initFilters = () => {
                             </span>
                         </div>
                     </template>
-                    <Column field="tenTinhThanh" header="Tỉnh thành" :sortable="true" headerStyle="width:14%; min-width:10rem;">
+                    <Column field="tenTinhThanh" header="Tỉnh thành" :sortable="true">
                         <template #body="slotProps">
                             <span class="p-column-title">tenTinhThanh</span>
                             {{ slotProps.data.tenTinhThanh }}
                         </template>
                     </Column>
-                    <Column field="tenQuanHuyen" header="Quận huyện" :sortable="true" headerStyle="width:14%; min-width:10rem;">
+                    <Column field="tenQuanHuyen" header="Quận huyện" :sortable="true">
                         <template #body="slotProps">
                             <span class="p-column-title">tenQuanHuyen</span>
                             {{ slotProps.data.tenQuanHuyen }}
                         </template>
                     </Column>
-                    <Column field="tenphuongXa" header="Phường xã" :sortable="true" headerStyle="width:14%; min-width:8rem;">
+                    <Column field="tenphuongXa" header="Phường xã" :sortable="true">
                         <template #body="slotProps">
                             <span class="p-column-title">tenphuongXa</span>
                             {{ slotProps.data.tenphuongXa }}
                         </template>
                     </Column>
-                    <Column field="diaChi" header="Địa chỉ cụ thể" :sortable="true" headerStyle="width:14%; min-width:10rem;">
+                    <Column field="diaChi" header="Địa chỉ cụ thể" :sortable="true">
                         <template #body="slotProps">
                             <span class="p-column-title">diaChi</span>
                             {{ slotProps.data.diaChi }}
@@ -130,10 +130,10 @@ const initFilters = () => {
 
                     <Column header="Hành động" headerStyle="min-width:10rem;">
                         <template #body="slotProps">
-                            <Detail :my-prop="slotProps.data"></Detail>
+                            <!-- <Detail :my-prop="slotProps.data"></Detail> -->
                             <Update :my-prop="slotProps.data"></Update>
                             <!-- <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editProduct(slotProps.data)" /> -->
-                            <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2" @click="confirmDeleteProduct(slotProps.data.id)" />
+                            <Button icon="pi pi-trash" class="p-button-rounded p-button-danger mt-2" @click="confirmDeleteProduct(slotProps.data.id)" />
                         </template>
                     </Column>
                 </DataTable>

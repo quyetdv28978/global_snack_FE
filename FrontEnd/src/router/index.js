@@ -1,5 +1,5 @@
-import {createRouter, createWebHistory} from 'vue-router';
-import {authMiddleware} from "@/middleware";
+import { createRouter, createWebHistory } from 'vue-router';
+import { authMiddleware } from '@/middleware';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -16,34 +16,39 @@ const router = createRouter({
                 {
                     path: 'gioi-thieu',
                     name: 'gioi-thieu',
-                    component: () => import('@/components/KhachHang/GioiThieu.vue'),
+                    component: () => import('@/components/KhachHang/GioiThieu.vue')
+                },
+                {
+                    path: 'lien-he',
+                    name: 'lien-he',
+                    component: () => import('@/components/KhachHang/LienLac.vue')
                 },
                 {
                     path: 'san-pham-da-xem',
                     name: 'san-pham-da-xem',
-                    component: () => import('@/components/KhachHang/SanPhamDaXem.vue'),
+                    component: () => import('@/components/KhachHang/SanPhamDaXem.vue')
                 },
                 {
                     path: 'tra-cuu/:id',
                     name: 'tra-cuu',
-                    component: () => import('@/components/KhachHang/TraCuuDonHang.vue'),
+                    component: () => import('@/components/KhachHang/TraCuuDonHang.vue')
                 },
                 {
                     path: 'lich-su-san-pham',
                     name: 'lich-su-san-pham',
                     beforeEnter: authMiddleware.requireAuth,
-                    component: () => import('@/components/KhachHang/LichSuSP/LichSuSP.vue'),
+                    component: () => import('@/components/KhachHang/LichSuSP/LichSuSP.vue')
                 },
                 {
                     path: 'ho-so',
                     name: 'ho-so',
                     beforeEnter: authMiddleware.requireAuth,
-                    component: () => import('@/components/KhachHang/ThongTinKhachHang.vue'),
+                    component: () => import('@/components/KhachHang/ThongTinKhachHang.vue')
                 },
                 {
                     path: 'san-pham',
                     name: 'san-pham',
-                    component: () => import('@/components/KhachHang/SanPham.vue'),
+                    component: () => import('@/components/KhachHang/SanPham.vue')
                 },
                 {
                     path: 'san-pham/:id',
@@ -79,7 +84,7 @@ const router = createRouter({
                     name: 'trang-thai-don-hang',
                     props: true,
                     beforeEnter: authMiddleware.requireAuth,
-                    component: () => import('@/components/KhachHang/LichSuSP/TrangThaiDonHang.vue'),
+                    component: () => import('@/components/KhachHang/LichSuSP/TrangThaiDonHang.vue')
                 },
                 {
                     path: 'dia-chi',
@@ -92,7 +97,7 @@ const router = createRouter({
         {
             path: '/dang-ky',
             name: 'dang-ky',
-            component: () => import('@/components/KhachHang/Register.vue'),
+            component: () => import('@/components/KhachHang/Register.vue')
         },
         {
             path: '/dang-ky/xac-thuc',
@@ -114,7 +119,7 @@ const router = createRouter({
         {
             path: '/admin',
             component: () => import('@/layout/AppLayout.vue'),
-             beforeEnter: authMiddleware.requireAdmin,
+            beforeEnter: authMiddleware.requireAdmin,
             children: [
                 {
                     path: '',
@@ -227,12 +232,12 @@ const router = createRouter({
         {
             path: '/logout',
             name: 'logout',
-            redirect: {name: 'login'}
+            redirect: { name: 'login' }
         },
         {
             path: '/admin/logout',
             name: 'logout-admin',
-            redirect: {name: 'login-admin'}
+            redirect: { name: 'login-admin' }
         },
         {
             path: '/unauthorized',
@@ -250,8 +255,8 @@ const router = createRouter({
             component: () => import('@/views/pages/NotFound.vue')
         }
     ],
-    scrollBehavior (to, from, savedPosition) {
-        return { top: 0 }
+    scrollBehavior(to, from, savedPosition) {
+        return { top: 0 };
     }
 });
 

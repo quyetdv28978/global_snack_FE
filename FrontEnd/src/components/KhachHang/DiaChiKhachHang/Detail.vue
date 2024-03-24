@@ -21,8 +21,8 @@ const editProduct = () => {
     <Dialog v-model:visible="productDialog" :style="{ width: '450px' }" header="Địa chỉ" :modal="true" class="p-fluid">
         <div class="p-col-6">
             <div class="col-12">
-                <label
-                    >Tỉnh thành: <span>{{ myProp.tenTinhThanh }}</span></label
+                <label class="text-xl font-medium text-gray-700"
+                    >Tỉnh thành: <span class="text-xl font-medium text-gray-600">{{ myProp.tenTinhThanh }}</span></label
                 >
             </div>
             <div class="col-12">

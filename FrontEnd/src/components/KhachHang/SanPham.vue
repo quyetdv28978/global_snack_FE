@@ -143,67 +143,25 @@ const filteredAndSortedProducts = computed(() => {
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
                 responsiveLayout="scroll"
             >
-                <template #header>
-                    <div class="flex justify-content-end">
-                        <DataViewLayoutOptions v-model="layout" />
-                    </div>
-                </template>
-
-                <template #list="slotProps">
-                    <div class="grid grid-nogutter">
-                        <div v-for="(sp, index) in slotProps.items" :key="index" class="col-12">
-                            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" :class="{ 'border-top-1 surface-border': index !== 0 }">
-                                <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" :src="sp.anh" :alt="sp.tenSP" />
-                                <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                                        <div class="text-2xl font-bold text-900">{{ sp.tenSP }}</div>
-
-                                        <div class="flex align-items-center gap-3">
-                                            <span class="flex align-items-center gap-2">
-                                                <i class="pi pi-tag"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                                        <p class="text-xl font-semibold" style="color: black; text-align: center" v-if="sp.giaBanMin == sp.giaBanMax">{{ formatCurrency(sp.giaBanMax) }}</p>
-                                        <p class="text-xl font-semibold" style="color: black; text-align: center" v-else-if="sp.giaSauGiamMax != null && sp.giaSauGiamMin != null && sp.giaSauGiamMax != sp.giaSauGiamMin">
-                                            {{ formatCurrency(sp.giaSauGiamMin) }} - {{ formatCurrency(sp.giaSauGiamMax) }}
-                                        </p>
-                                        <p class="text-xl font-semibold" style="color: black; text-align: center" v-else-if="sp.giaSauGiamMax == null && sp.giaSauGiamMin == null">
-                                            {{ formatCurrency(sp.giaBanMin) }} - {{ formatCurrency(sp.giaBanMax) }}
-                                        </p>
-                                        <p class="text-xl font-semibold" style="color: black; text-align: center" v-else-if="sp.giaSauGiamMax == sp.giaSauGiamMin">{{ formatCurrency(sp.giaSauGiamMax) }}</p>
-                                        <p class="text-xl font-semibold" style="color: black; text-align: center" v-else>{{ formatCurrency(sp.giaBanMin) }} - {{ formatCurrency(sp.giaBanMax) }}</p>
-                                        <Button icon="pi  pi-shopping-cart" rounded @click="goToProductDetail(sp.idSP)"></Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-
                 <template #grid="slotProps">
                     <div class="grid grid-nogutter">
                         <div v-for="(sp, index) in slotProps.items" :key="index" class="col-12 sm:col-6 lg:col-12 xl:col-3 p-2">
                             <div class="p-4 border-1 surface-border surface-card border-round">
-                                <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="flex align-items-center gap-2">
-                                        <i class="pi pi-tag"></i>
-                                    </div>
+                                <div class="flex flex-column gap-3">
+                                    <img class="product-image" :src="sp.anh" :alt="sp.tenSP" />
+                                    <div class="text-xl font-medium product-name">{{ sp.tenSP }}</div>
+                                    <div class="category-product">{{ sp.tenLoai }}</div>
                                 </div>
-                                <div class="flex flex-column align-items-center gap-3 py-5">
-                                    <img class="w-9 shadow-2 border-round" :src="sp.anh" :alt="sp.tenSP" />
-                                    <div class="text-2xl font-bold">{{ sp.tenSP }}</div>
-                                </div>
-                                <div class="flex sm:flex-column align-items-center gap-3 sm:gap-2">
-                                    <p class="text-xl font-semibold" style="color: black; text-align: center" v-if="sp.giaBanMin == sp.giaBanMax">{{ formatCurrency(sp.giaBanMax) }}</p>
-                                    <p class="text-xl font-semibold" style="color: black; text-align: center" v-else-if="sp.giaSauGiamMax != null && sp.giaSauGiamMin != null && sp.giaSauGiamMax != sp.giaSauGiamMin">
+                                <div class="flex sm:flex-column gap-3 sm:gap-2">
+                                    <p class="text-lg text-red-600 font-semibold" v-if="sp.giaBanMin == sp.giaBanMax">{{ formatCurrency(sp.giaBanMax) }}</p>
+                                    <p class="text-lg text-red-600 font-semibold" v-else-if="sp.giaSauGiamMax != null && sp.giaSauGiamMin != null && sp.giaSauGiamMax != sp.giaSauGiamMin">
                                         {{ formatCurrency(sp.giaSauGiamMin) }} - {{ formatCurrency(sp.giaSauGiamMax) }}
                                     </p>
-                                    <p class="text-xl font-semibold" style="color: black; text-align: center" v-else-if="sp.giaSauGiamMax == null && sp.giaSauGiamMin == null">{{ formatCurrency(sp.giaBanMin) }} - {{ formatCurrency(sp.giaBanMax) }}</p>
-                                    <p class="text-xl font-semibold" style="color: black; text-align: center" v-else-if="sp.giaSauGiamMax == sp.giaSauGiamMin">{{ formatCurrency(sp.giaSauGiamMax) }}</p>
-                                    <p class="text-xl font-semibold" style="color: black; text-align: center" v-else>{{ formatCurrency(sp.giaBanMin) }} - {{ formatCurrency(sp.giaBanMax) }}</p>
-                                    <Button icon="pi pi-shopping-cart" rounded @click="goToProductDetail(sp.idSP)"></Button>
+                                    <p class="text-lg text-red-600 font-semibold" v-else-if="sp.giaSauGiamMax == null && sp.giaSauGiamMin == null">{{ formatCurrency(sp.giaBanMin) }} - {{ formatCurrency(sp.giaBanMax) }}</p>
+                                    <p class="text-lg text-red-600 font-semibold" v-else-if="sp.giaSauGiamMax == sp.giaSauGiamMin">{{ formatCurrency(sp.giaSauGiamMax) }}</p>
+                                    <p class="text-lg text-red-600 font-semibold" v-else>{{ formatCurrency(sp.giaBanMin) }} - {{ formatCurrency(sp.giaBanMax) }}</p>
+
+                                    <Button icon="pi pi-shopping-cart" class="bg-red-600 border-none hover:bg-red-800" rounded @click="goToProductDetail(sp.idSP)"></Button>
                                 </div>
                                 <div class="flex align-items-center justify-content-between"></div>
                             </div>
@@ -211,31 +169,6 @@ const filteredAndSortedProducts = computed(() => {
                     </div>
                 </template>
             </DataView>
-            <Divider />
-            <Carousel :value="dataSP" :numVisible="4" :numScroll="4" :responsiveOptions="responsiveOptions">
-                <template #item="slotProps">
-                    <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
-                        <div class="" style="height: 60px">
-                            <img :src="slotProps.data.anh" alt="Hình ảnh" style="width: 50%" />
-                        </div>
-                        <div>
-                            <h5 class="mb-1" style="height: 50px; margin-top: 50px">{{ slotProps.data.tenSP }}</h5>
-                            <p class="font-semibold" style="color: black; text-align: center" v-if="slotProps.data.giaBanMin == slotProps.data.giaBanMax">{{ formatCurrency(slotProps.data.giaBanMax) }}</p>
-                            <p class="font-semibold" style="color: black; text-align: center" v-else-if="slotProps.data.giaSauGiamMax != null && slotProps.data.giaSauGiamMin != null && slotProps.data.giaSauGiamMax != slotProps.data.giaSauGiamMin">
-                                {{ formatCurrency(slotProps.data.giaSauGiamMin) }} - {{ formatCurrency(slotProps.data.giaSauGiamMax) }}
-                            </p>
-                            <p class="font-semibold" style="color: black; text-align: center" v-else-if="slotProps.data.giaSauGiamMax == null && slotProps.data.giaSauGiamMin == null">
-                                {{ formatCurrency(slotProps.data.giaBanMin) }} - {{ formatCurrency(slotProps.data.giaBanMax) }}
-                            </p>
-                            <p class="font-semibold" style="color: black; text-align: center" v-else-if="slotProps.data.giaSauGiamMax == slotProps.data.giaSauGiamMin">{{ formatCurrency(slotProps.data.giaSauGiamMax) }}</p>
-                            <p class="font-semibold" style="color: black; text-align: center" v-else>{{ formatCurrency(slotProps.data.giaBanMin) }} - {{ formatCurrency(slotProps.data.giaBanMax) }}</p>
-                            <div class="mt-5">
-                                <Button icon="pi pi-search" rounded class="mr-2" @click="goToProductDetail(slotProps.data.idSP)" />
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </Carousel>
         </div>
     </div>
 </template>
@@ -272,5 +205,33 @@ const filteredAndSortedProducts = computed(() => {
     margin-top: 2rem;
 }
 
+.product-name {
+    font-size: 17px;
+    color: black;
+    overflow: hidden;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top: 1.5rem;
+    font-weight: 600;
+}
+
+.category-product {
+    margin: 0.5rem 0;
+    font-size: 16px;
+    font-weight: 500;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.product-image {
+    max-width: 100%;
+    height: 200px;
+    display: block;
+    border-radius: 10px;
+}
 /* Định dạng cho mỗi phần tử trong danh sách */
 </style>

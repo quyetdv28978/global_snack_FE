@@ -501,6 +501,7 @@ const themSPDaXem = async (idSP) => {
     max-width: 100%;
     height: 200px;
     display: block;
+    border-radius: 10px;
 }
 
 .product-top {
