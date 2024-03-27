@@ -37,7 +37,7 @@ const schema = yup.object().shape({
     giaBan: yup
         .number()
         .required('Giá bán không được để trống')
-        .min(50000, 'giá phải lớn hơn hoặc bằng 50.000 đ')
+        .min(5000, 'giá phải lớn hơn hoặc bằng 5.000 đ')
         .max(10000000, 'Giá bán không lớn hơn 10.000.000 đ'),
         // .when(['giaNhap'], (giaBan, schema) => {
         //     return schema.test({

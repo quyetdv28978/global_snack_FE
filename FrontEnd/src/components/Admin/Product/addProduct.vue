@@ -32,18 +32,20 @@ const vatLieuStore = VatLieuStore();
 const loSanPhamStore = useLoSanPhamService();
 
 const schema = yup.object().shape({
-      ten: yup
+    ten: yup
         .string()
         .required('Tên sản phẩm không được để trống')
         .min(4, 'Tên sản phẩm phải có ít nhất 4 ký tự')
-        .matches(/^[a-zA-Z0-9đĐáÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬêÊếẾềỀểỂễỄệỆôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢùÙúÚụỤủỦũŨưỨỨửỬữỮựỰýÝỳỲỷỶỹỸỵỴ\s\-]*$/, 'Tên không được chứa kí tự đặc biệt!')
-        .test('no-spaces', 'Tên không được chứa khoảng trắng', value => value && !/\s/.test(value)),
- 
+    // .matches(/^[a-zA-Z0-9đĐáÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬêÊếẾềỀểỂễỄệỆôÔốỐồỒổỔỗỖộỘơƠớỚờỜởỞỡỠợỢùÙúÚụỤủỦũŨưỨỨửỬữỮựỰýÝỳỲỷỶỹỸỵỴ\s\-]*$/, 'Tên không được chứa kí tự đặc biệt!')
+    // .test('no-spaces', 'Tên không được chứa khoảng trắng', value => value && !/\s/.test(value))
+    ,
+
     loai: yup.number().required('loại sản phẩm không được để trống'),
     thuongHieu: yup.number().required('vui lòng chọn Thương hiệu sản phẩm '),
     vatLieu: yup.number().required(' vui lòng chọn Vật liệu sản phẩm '),
-     moTa: yup.string().required('Vui lòng điền mô tả sản phẩm').min(10, 'Mô tả sản phẩm phải có ít nhất 10 ký tự')
-    .test('no-spaces', 'Tên không được chứa khoảng trắng', value => value && !/\s/.test(value)),
+    moTa: yup.string().required('Vui lòng điền mô tả sản phẩm').min(10, 'Mô tả sản phẩm phải có ít nhất 10 ký tự')
+    // .test('no-spaces', 'Tên không được chứa khoảng trắng', value => value && !/\s/.test(value))
+    ,
     anh: yup.string().required('vui lòng chọn ảnh chính cho sản phẩm')
 });
 
@@ -246,7 +248,7 @@ const arrayImgMauSac = ref([]);
 function onFileInputImageMauSac(event) {
     const files = event.target.files;
     for (let i = 0; i < files.length; i++) {
-    
+
         const file = files[i];
         const objectURL = URL.createObjectURL(file);
         const basePath = ""; // Đường dẫn cố định
@@ -318,7 +320,7 @@ const openNew = () => {
                                     </span>
                                     <small class="p-error">{{ nameError }}</small>
                                 </div>
-   
+
                                 <div class="p-fluid formgrid grid">
                                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                         <div style="display: flex">
@@ -342,20 +344,21 @@ const openNew = () => {
                                                     :class="{ 'p-invalid': thuongHieuError }"></Dropdown>
                                                 <label for="dropdown">Thương Hiệu</label>
                                             </span>
-                                            <TableThuongHieu :tableId="'TableThuongHieu'" :rightGhId="'right_ghThuongHieu'"
-                                                :tableClass="'TableThuongHieu'" :rightGhClass="'right_ghThuongHieu'" />
+                                            <TableThuongHieu :tableId="'TableThuongHieu'"
+                                                :rightGhId="'right_ghThuongHieu'" :tableClass="'TableThuongHieu'"
+                                                :rightGhClass="'right_ghThuongHieu'" />
                                         </div>
 
                                         <small class="p-error">{{ thuongHieuError }}</small>
                                     </div>
-                                  
+
                                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                         <div style="display: flex">
                                             <span class="p-float-label" style="width: 239px">
                                                 <Dropdown id="dropdown" :options="dataVatLieu" v-model="selectedvatLieu"
                                                     :class="{ 'p-invalid': vatLieuError }" optionLabel="ten"
                                                     @change="onvatLieuChange"> </Dropdown>
-                                                <label for="dropdown">Vật liệu</label>
+                                                <label for="dropdown">Vật liệu chính</label>
                                             </span>
                                             <TablevatLieu :tableId="'TablevatLieu'" :rightGhId="'right_ghvatLieu'"
                                                 :tableClass="'TablevatLieu'" :rightGhClass="'right_ghvatLieu'" />
@@ -370,13 +373,13 @@ const openNew = () => {
                                         :class="{ 'p-invalid': MoTaSacError }"></Textarea>
                                     <small class="p-error">{{ MoTaSacError }}</small>
                                 </div>
-                                <div class="field col-12 md:col-12">
+                                <!-- <div class="field col-12 md:col-12">
                                     <file-upload :upload-url="uploadUrl" :pt="{buttonbar: {class: 'flex-nowrap'}}" :multiple="true" :maxFileSize="2000000"
                                         @input="onFileInputImageProduct"
                                         :class="{ 'p-invalid': imagesProductError }"></file-upload>
                                     <small class="p-error">{{ imagesProductError }}</small>
                                     
-                                </div>
+                                </div> -->
 
                             </div>
 
