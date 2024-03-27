@@ -18,6 +18,7 @@ const props = defineProps({
 
 const { value: tenLo, errorMessage: loSanPhamError } = useField('tenLo');
 const { value: name, errorMessage: nameError } = useField('ten');
+const { value: trangThai, errorMessage: trangThaiError } = useField('trangThai');
 
 const isOpen = ref(true);
 
@@ -37,12 +38,15 @@ const selectedLoSanPham = ref(null);
 const dataLoSanPham = ref([]);
 const loadDataLoSanPham = async () => {
     await loSanPhamStore.fetchDataBySPCTNotNull(props.myProp.id);
+    console.log(loSanPhamStore.dataByStatus1);
     dataLoSanPham.value = loSanPhamStore.dataByStatus1;
 };
 
 const onLoSanPhamChange = () => {
     if (selectedLoSanPham.value) {
+        console.log(selectedColumns.value);
         tenLo.value = selectedLoSanPham.value.id;
+        trangThai.value = selectedLoSanPham.value.trangThai 
         //    console.log(TrongLuong.value)
     } else {
         tenLo.value = null;
@@ -91,6 +95,8 @@ const getStatusLabel = (trangThai) => {
 
         case 3:
             return '- Hết hạn  ';
+            case 4:
+            return '- Hết hạn sử dụng ';
 
         default:
             return '';
@@ -125,9 +131,9 @@ const { handleSubmit, resetForm } = useForm({
     // validationSchema: schema
 });
 const onSubmit = handleSubmit(async (values) => {
-console.log(tenLo.value);
-console.log(props.myProp.id);
-try {
+    console.log(trangThai.value);
+    if(trangThai.value !== 4) {
+        try {
             await loSanPhamStore.updateLoSanPham(tenLo.value, props.myProp.id);
             toast.add({ severity: 'success', summary: 'Success Message', detail: 'update thành công', life: 3000 });
             productDialog.value = false;
@@ -136,6 +142,8 @@ try {
     } catch (error) {
         console.error('Lỗi xử lý dữ liệu:', error);
     }
+    }else
+    toast.add({ severity: 'error', summary: 'Error', detail: 'Lô sản phẩm đã hết hạn sử dụng không thể xử lí', life: 3000 });
 })
 
 </script>
@@ -143,7 +151,7 @@ try {
 
 <template>
     <Button icon="pi pi-eye" severity="secondary" class="p-button-rounded  mr-2" @click="editProduct()" />
-    <Dialog v-model:visible="productDialog" :style="{ width: '1050px' }" header="Xem Chi Tiết Sản Phẩm" :modal="true"
+    <Dialog v-model:visible="productDialog" :style="{ width: '1050px' }" header="Xem Chi Tiết lô Sản Phẩm" :modal="true"
         class="p-fluid">
         <form @submit="onSubmit" style="margin-top: 30px;">
             <div class="p-fluid formgrid grid">
@@ -162,7 +170,7 @@ try {
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
                                         <Dropdown id="dropdown" :options="dataLoSanPham" v-model="selectedLoSanPham"
-                                        :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan}  ${getStatusLabel(option.trangThai)}`"
+                                        :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan}  ${getStatusLabel(option.trangThai)} - ${option.soLuong} `"
                                         @change="onLoSanPhamChange" 
                                         >
                                         </Dropdown>

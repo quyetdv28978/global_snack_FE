@@ -136,9 +136,11 @@ const router = createRouter({
                             component: () => import('@/components/Admin/Product/ChiTietSanPham.vue')
                         },
                         {
-                            path: 'mau-sac',
-                            name: 'mau-sac',
-                            component: () => import('@/components/Admin/MauSac/Index.vue')
+                            path: 'han-su-dung/:time(\\d+)',
+                            name: 'han-su-dung',
+                            component: () => import('@/components/Admin/LoSanpham/QuanLyHanSuDungSanPham.vue')
+                            , props: true
+
                         },
                         {
                             path: 'loai',
@@ -155,11 +157,7 @@ const router = createRouter({
                             name: 'vat-lieu',
                             component: () => import('@/components/Admin/VatLieu/Index.vue')
                         },
-                        {
-                            path: 'size',
-                            name: 'size',
-                            component: () => import('@/components/Admin/QuanLySize/ViewSize.vue')
-                        },
+
                         {
                             path: 'thuong-hieu',
                             name: 'thuong-hieu',

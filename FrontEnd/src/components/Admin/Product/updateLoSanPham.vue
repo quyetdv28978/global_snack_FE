@@ -98,6 +98,8 @@ const dataLoSanPham = ref([]);
 const loadDataLoSanPham = async () => {
     await loSanPhamStore.fetchDataBySPCT(props.myProp.id);
     dataLoSanPham.value = loSanPhamStore.dataByStatus1;
+    console.log(props.myProp.id);
+    console.log(loSanPhamStore.dataByStatus1);
 };
 // mở form
 const openNew = () => {

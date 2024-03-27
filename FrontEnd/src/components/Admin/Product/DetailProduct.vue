@@ -131,8 +131,6 @@ onBeforeMount(() => {
     loadDataLoai();
     loadDataTrongLuong();
     loadDataVatLieu();
-    console.log('list update: ', props.myProp);
-
 });
 
 const arrayImage = ref([]);
@@ -419,7 +417,12 @@ const loadDataTrangThai = () => {
                             <template #body="slotProps">
                                 <Tag :value="getStatusLabel(slotProps.data.trangThai).text"
                                     v-if="getStatusLabel(slotProps.data.trangThai).text === 'hết Hàng'"
-                                    :severity="getStatusLabel(slotProps.data.trangThai)" />
+                                    :severity="getStatusLabel(slotProps.data.trangThai)"
+                                     />
+                                     <div v-else-if="getStatusLabel(slotProps.data.trangThai).text === 'Còn hàng'">
+                                        <Tag :value="getStatusLabel(slotProps.data.trangThai).text"
+                                        :severity="getStatusLabel(slotProps.data.trangThai)" />
+                                    </div>
                                 <div v-else>
                                     <Tag :value="getStatusLabelKhuyenMai(slotProps.data.tenKM).text"
                                         :severity="getStatusLabelKhuyenMai(slotProps.data.tenKM).severity" />

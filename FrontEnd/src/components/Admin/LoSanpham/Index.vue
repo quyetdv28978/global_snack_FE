@@ -1,9 +1,6 @@
 <script setup>
 import { FilterMatchMode } from 'primevue/api';
 import { ref, onMounted, onBeforeMount, watch } from 'vue';
-// import Them from './ThemMauSac.vue';
-// import Detail from './DetailMauSac.vue';
-// import Update from './UpdateMauSac.vue';
 import { useLoSanPhamService } from '@/service/Admin/LoSanPham/LoSanPhamServiceAPI';
 import { useToast } from 'primevue/usetoast';
 import ThemLoSanPham from './ThemLoSanPham.vue';
@@ -24,16 +21,10 @@ const trangThai = ref();
 const idDelete = ref();
 const dataTrongLuong = ref([]);
 
-//load data màu sắc tất cả
-// const loaddataTrongLuong = () => {
-//     await loSanPhamService.fetchData();
-//     dataTrongLuong.value = loSanPhamService.data;
-// };
-
-//load data màu sắc theo trạng thái
 const loaddataTrongLuong = async () => {
     await loSanPhamService.fetchData();
     dataTrongLuong.value = loSanPhamService.data;
+    console.log("dataTrongLuong.value");
 };
 
 const loaddataTrongLuongByTrangThai = async () => {
@@ -57,23 +48,6 @@ onMounted(() => {
     loaddataTrongLuong();
 });
 
-//hiện confirm
-// const confirmDeleteProduct = (id) => {
-//     idDelete.value = id;
-//     deleteProductDialog.value = true;
-// };
-
-//xoá
-// const deleteTrongLuong = (id) => {
-//     // axios.put('http://localhost:8080/api/mau-sac/delete/' + idDelete.value).then((response) => {
-//     //     alert(response.data.data);
-//     //     deleteProductDialog.value = false;
-//     //     window.location.reload();
-//     // });
-//     const remove = loSanPhamService.deleteMauSac(idDelete.value);
-//     toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Xoá thành công', life: 3000 });
-//     deleteProductDialog.value = false;
-// };
 
 const exportCSV = () => {
     dt.value.exportCSV();

@@ -7,7 +7,8 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
     state: () => ({
         data: [],
         dataByStatus1: [],
-        check: 0
+        check: 0,
+        dataLoSanPhamByMount: []
     }),
     actions: {
         //load tất cả data
@@ -16,6 +17,7 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
             try {
                 const response = await axios.get(apiLoSanPham);
                 this.data = response.data;
+                console.log("jsdlfkasjldkf");
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
@@ -72,14 +74,21 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
         async updateLoSanPham(idlsp, idctsp) {
             axios.put(apiLoSanPham + `/update-lo-san-pham-by-idctsp/${idlsp}/${idctsp}`).then((response) => {
                 const index = this.dataByStatus1.findIndex(product => product.id === idctsp);
-                console.log(this.dataByStatus1);
                 if (index !== -1) {
                     let newProductData = this.dataByStatus1[index];
                     newProductData = response.dataByStatus1;
                     this.dataByStatus1[index] = newProductData;
-                    console.log(newProductData);
                 }
             });
+        },
+        async showLoSanPhamByMount(mount) {
+            this.check = 0;
+            try {
+                const response = await axios.get(apiLoSanPham + `/lo-san-pham-het-han-by-mount/${mount}`);
+                this.dataLoSanPhamByMount = response.data;
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
         }
     }
 });

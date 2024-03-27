@@ -15,7 +15,6 @@ export const TrongLuongStore = defineStore('trongLuong', {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_BASE_API_ENDPOINT}/admin/trong-luong`); // Thay đổi URL dựa trên API của bạn
                 this.data = response.data.data;
-                console.table(this.data);
             } catch (error) {
                 console.error('Lỗi khi lấy danh sách sản phẩm:', error);
             }

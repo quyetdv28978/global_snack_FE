@@ -87,6 +87,7 @@ const loadProducts = async () => {
 const url = ref([]);
 let soLuongSP = ref(null);
 onMounted(() => {
+    console.log("onMounted chi ");
     myDiv.value = document.getElementById('right_gh');
     div.value = document.getElementById('table');
     loadProducts();
@@ -263,6 +264,7 @@ const dataTrangThai = ref([
 const loadDataByTrangThai = async () => {
     showSpinner.value = true;
     visibledatatable.value = false;
+    console.log(trangThai.value.value);
     await productStore.fetchDataByStatus(trangThai.value.value);
     products.value = productStore.products;
     const productList = productStore.products; // Lấy dữ liệu từ Store và gán vào biến products

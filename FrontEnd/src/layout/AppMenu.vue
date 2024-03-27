@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import AppMenuItem from './AppMenuItem.vue';
 
 const model = ref([
-{
+    {
         label: 'Bán Hàng tại quầy',
         items: [{ label: 'Bán Hàng', icon: 'pi pi-fw pi-home', to: { name: 'ban-hang' } }]
     },
@@ -42,7 +42,27 @@ const model = ref([
                         label: 'Trọng lượng',
                         icon: 'pi pi-fw pi-circle-off',
                         to: { name: 'trong-luong' }
-                    },
+                    }, {
+                        label: 'Thông tin sản phẩm sắp hết hạn',
+                        icon: '',
+                        items: [{
+                            label: 'Trong 6 tháng tới',
+                            icon: 'pi pi-fw pi-circle-off',
+                            to: { name: 'han-su-dung',params: { time: '180' } }
+                        }
+                            , {
+                            label: 'Trong 3 tháng tới',
+                            icon: 'pi pi-fw pi-circle-off',
+                            to: { name: 'han-su-dung',params: { time: '90' } }
+                        }, {
+                            label: 'Trong 1 tháng tới',
+                            icon: 'pi pi-fw pi-circle-off',
+                            to: { name: 'han-su-dung',params: { time: '30' } }
+                        }
+                        ]
+
+                    }
+
                 ]
             },
         ]

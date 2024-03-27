@@ -22,7 +22,6 @@ const dataSanPham = ref({});
 
 const quantity = ref(1);
 const dataMauSac = ref([]);
-console.log('dataMauSac', dataMauSac);
 const dataSize = ref([]);
 const loadImage = ref([]);
 const products = ref([]);
@@ -75,7 +74,6 @@ const loadDataSize = async () => {
 
 const idSanPhamChiTiet = ref(null);
 watch([getSize, idMau], async ([newGetSize, newIdMau]) => {
-    console.log('Day la quyet');
     if (getSize.value == null) {
         await productStore.fetchIdSPCT(idProduct, idMau.value);
         dataListSPCT.value = productStore.products;
@@ -125,7 +123,6 @@ const loadData = async () => {
     console.log('productStore.product', productStore.product);
     dataSanPham.value = productStore.product;
 
-    // loadImage.value = dataSanPham.value.images;
 };
 
 // const loadProducts = async () => {
@@ -532,7 +529,9 @@ const menu = ref();
                                     <span class="text-xl font-normal text-gray-400">200 </span>
                                     <span class="text-xl font-normal text-gray-950">Đã bán</span>
                                 </div>
+
                             </div>
+                            <h1 class="text-4xl text-gray-800">{{ dataListSPCT.soLuongTon }}</h1>
 
                             <div class="gb" style="display: flex">
                                 <h2 s v-if="dataListSPCT.giaBan > 0 || dataListSPCT.giaBan == null">
@@ -561,19 +560,6 @@ const menu = ref();
                                     <div>{{ mauSacs.value }} {{ mauSacs.donVi }}</div>
                                 </div>
                             </div>
-                            <!-- <div class="flex gap-4">
-                                <div class="items-center justify-center px-7 py-2 inline-block border-1 border-solid border-gray-300 rounded-2xl text-xl text-black cursor-pointer mt-2 hover:border-red-500 hover:text-red-500">100g</div>
-                                <div class="items-center justify-center px-7 py-2 inline-block border-1 border-solid border-gray-300 rounded-2xl text-xl text-black cursor-pointer mt-2 hover:border-red-500 hover:text-red-500">200g</div>
-                            </div> -->
-
-                            <!-- <label class="ms">Size</label>
-                                <br />
-                                <div class="rounded-content-list">
-                                    <div v-for="(size, index) in dataSize" :key="index" style="margin-right: 10px">
-                                        <RadioButton v-model="getSize" inputId="ingredient2" name="pizza" :value="size.id" style="margin-right: 10px; color: white" />
-                                        <label>{{ size.ten }} </label>
-                                    </div>
-                                </div> -->
 
                             <div class="mt-3 flex gap-4">
                                 <Button
@@ -610,6 +596,10 @@ const menu = ref();
                                     <div class="item">
                                         <label class="text-xl text-gray-500">Trọng lượng: </label>
                                         <span class="text-xl"> {{ dataSanPham.dictionary }} </span>
+                                    </div>
+                                    <div class="item">
+                                        <label class="text-xl text-gray-500">Số lượng: </label>
+                                        <span class="text-xl"> {{ dataSanPham }} </span>
                                     </div>
 
                                     <div class="item">
