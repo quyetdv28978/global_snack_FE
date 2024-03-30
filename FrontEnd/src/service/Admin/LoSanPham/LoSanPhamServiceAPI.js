@@ -90,5 +90,16 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
                 console.error('Error fetching users:', error);
             }
         }
+        ,
+        async updateLoSanPhamTT(maLo) {
+            this.check = 0;
+            try {
+                const response = await axios.put(apiLoSanPham + `/update-lo-san-pham/${maLo}`);
+                this.data = response.data;
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        }
     }
 });

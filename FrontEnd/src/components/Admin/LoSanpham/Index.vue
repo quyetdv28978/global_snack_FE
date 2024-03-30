@@ -31,6 +31,21 @@ const loaddataTrongLuongByTrangThai = async () => {
     await loSanPhamService.fetchDataByStatus(trangThai.value.value);
     dataTrongLuong.value = loSanPhamService.data;
 };
+
+const confirmDeleteProduct = async (maLo) => {
+    idDelete.value = maLo
+    deleteProductDialog.value = true;
+
+}
+
+const deleteProduct = async () => {
+    console.log(idDelete.value);
+    await loSanPhamService.updateLoSanPhamTT(idDelete.value);
+    dataTrongLuong = loSanPhamService.data
+    toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Xoá thành công', life: 3000 });
+    deleteProductDialog.value = false;
+
+}
 //thay đổi cbb
 watch(trangThai, (newVal) => {
     // if (trangThai.value.value != 'Tất cả') {
@@ -47,7 +62,14 @@ onBeforeMount(() => {
 onMounted(() => {
     loaddataTrongLuong();
 });
-
+const trangThad = (tt) => {
+    if(tt == 1) {
+        return "Đang sử dụng"
+    }else if (tt == 0 ) {
+        return "Chưa sử dụng"
+    }else if (tt == 5) return "Tạm ngưng sử dụng"
+    else if(tt == 4) return "Hết hạn sử dụng"
+}
 
 const exportCSV = () => {
     dt.value.exportCSV();
@@ -116,16 +138,16 @@ const initFilters = () => {
                     <Column field="trangThai" header="Trạng thái" :sortable="true" headerStyle="width:14%; min-width:10rem;">
                         <template #body="slotProps">
                             <span class="p-column-title">Category</span>
-                            {{ slotProps.data.trangThai == 1 ? 'Đang sử dụng' : 'Ngưng sử dụng' }}
+                                {{ trangThad(slotProps.data.trangThai) }}
                         </template>
                     </Column>
 
                     <Column header="Hành động" headerStyle="min-width:10rem;">
                         <template #body="slotProps">
-                            <Detail :my-prop="slotProps.data"></Detail>
-                            <Update :my-prop="slotProps.data"></Update>
+                            <!-- <Detail :my-prop="slotProps.data"></Detail>
+                            <Update :my-prop="slotProps.data"></Update> -->
                             <!-- <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editProduct(slotProps.data)" /> -->
-                            <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2" @click="confirmDeleteProduct(slotProps.data.id)" />
+                            <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2" @click="confirmDeleteProduct(slotProps.data.tenLo)" />
                         </template>
                     </Column>
                 </DataTable>
@@ -133,12 +155,12 @@ const initFilters = () => {
                     <div class="flex align-items-center justify-content-center">
                         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
                         <span v-if="product"
-                            >Bạn có chắc chắn muốn xoá lô sản phẩm <b>{{ product.tenLo }}</b> không ?</span
+                            >Bạn có chắc chắn muốn xoá lô sản phẩm  không ?</span
                         >
                     </div>
                     <template #footer>
-                        <!-- <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteProductDialog = false" />
-                        <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteProduct(product.id)" /> -->
+                         <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteProductDialog = false" />
+                        <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteProduct()" /> 
                     </template>
                 </Dialog>
             </div>
