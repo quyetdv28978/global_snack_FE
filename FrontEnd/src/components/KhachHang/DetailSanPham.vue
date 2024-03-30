@@ -536,14 +536,14 @@ const menu = ref();
                             <div class="gb" style="display: flex">
                                 <h2 s v-if="dataListSPCT.giaBan > 0 || dataListSPCT.giaBan == null">
                                     <!-- <p tyle="color: rgb(0, 0, 0)">{{ formatCurrency(dataListSPCT.giaBan) !== '' ? formatCurrency(dataListSPCT.giaBan) : 'Hết hàng' }}</p> -->
-                                    <p class="text-red-500" s tyle="text-decoration: line-through" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
+                                    <p class="text-red-500" style="text-decoration: line-through" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
                                     <p class="text-red-500" v-else-if="formatCurrency(dataListSPCT.giaBan) !== ''">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
                                     <p class="text-red-500" v-else>Hết hàng</p>
                                 </h2>
                                 <p style="color: red; font-size: 25px" v-else>Hết hàng</p>
-                                <div>
+                                <div style="margin-left: 1rem; margin-top: 5px">
                                     <h2 style="color: red" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaSauGiam) }}</h2>
-                                    <Tag v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined" severity="danger" style="width: 70px; height: 20px; margin-left: 5px; margin-bottom: 10px">Giảm {{ dataListSPCT.giaTriGiam }}%</Tag>
+                                    <Tag v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined" severity="danger" style="width: 70px; height: 20px; margin-left: 1rem">Giảm {{ dataListSPCT.giaTriGiam }}%</Tag>
                                 </div>
                             </div>
 
