@@ -499,17 +499,21 @@ const menu = ref();
                 <div class="card md:flex md:justify-content-center" style="margin-top: 0px">
                     <div class="flex">
                         <div class="col-5">
-                            <Galleria :value="loadImage" :responsiveOptions="responsiveOptions" :numVisible="5" containerStyle="max-width: 450px">
+                            <Galleria :value="loadImage" :responsiveOptions="responsiveOptions" :numVisible="5"
+                                containerStyle="max-width: 450px">
                                 <template #item="anh" v-if="anh">
                                     <img :src="selectedMauSac.anh" :alt="slotProps.item" style="width: 100%" />
                                 </template>
 
                                 <template #item="slotProps">
-                                    <img v-if="checkAnh" :src="slotProps.item.anh" :alt="slotProps.item" style="width: 100%" />
-                                    <img v-if="anh" :src="selectedMauSac.anh" :alt="slotProps.item" style="width: 100%" />
+                                    <img v-if="checkAnh" :src="slotProps.item.anh" :alt="slotProps.item"
+                                        style="width: 100%" />
+                                    <img v-if="anh" :src="selectedMauSac.anh" :alt="slotProps.item"
+                                        style="width: 100%" />
                                 </template>
                                 <template #thumbnail="slotProps">
-                                    <img :src="slotProps.item.anh" :alt="slotProps.item" @click="isAnh()" style="width: 100%" />
+                                    <img :src="slotProps.item.anh" :alt="slotProps.item" @click="isAnh()"
+                                        style="width: 100%" />
                                 </template>
                             </Galleria>
                         </div>
@@ -531,51 +535,49 @@ const menu = ref();
                                 </div>
 
                             </div>
-                            <h1 class="text-4xl text-gray-800">{{ dataListSPCT.soLuongTon }}</h1>
+                            <h1 class="text-lg text-gray-600">Số lượng còn lại: {{ dataListSPCT.soLuongTon }}</h1>
 
                             <div class="gb" style="display: flex">
                                 <h2 s v-if="dataListSPCT.giaBan > 0 || dataListSPCT.giaBan == null">
                                     <!-- <p tyle="color: rgb(0, 0, 0)">{{ formatCurrency(dataListSPCT.giaBan) !== '' ? formatCurrency(dataListSPCT.giaBan) : 'Hết hàng' }}</p> -->
-                                    <p class="text-red-500" style="text-decoration: line-through" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
-                                    <p class="text-red-500" v-else-if="formatCurrency(dataListSPCT.giaBan) !== ''">{{ formatCurrency(dataListSPCT.giaBan) }}</p>
+                                    <p class="text-gray-500" style="text-decoration: line-through"
+                                        v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{
+                                formatCurrency(dataListSPCT.giaBan) }}</p>
+                                    <p class="text-red-500" v-else-if="formatCurrency(dataListSPCT.giaBan) !== ''">{{
+                                formatCurrency(dataListSPCT.giaBan) }}</p>
                                     <p class="text-red-500" v-else>Hết hàng</p>
                                 </h2>
                                 <p style="color: red; font-size: 25px" v-else>Hết hàng</p>
                                 <div style="margin-left: 1rem; margin-top: 5px">
-                                    <h2 style="color: red" v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{ formatCurrency(dataListSPCT.giaSauGiam) }}</h2>
-                                    <Tag v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined" severity="danger" style="width: 70px; height: 20px; margin-left: 1rem">Giảm {{ dataListSPCT.giaTriGiam }}%</Tag>
+                                    <h2 style="color: red"
+                                        v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined">{{
+                                formatCurrency(dataListSPCT.giaSauGiam) }}</h2>
+                                    <Tag v-if="dataListSPCT.tenKM !== null && dataListSPCT.tenKM !== undefined"
+                                        severity="danger" style="width: 70px; height: 20px; margin-left: 1rem">Giảm {{
+                                dataListSPCT.giaTriGiam }}%</Tag>
                                 </div>
                             </div>
 
                             <label class="text-xl font-normal text-gray-950">Trọng lượng</label>
                             <br />
                             <div class="flex gap-4">
-                                <div
-                                    v-for="(mauSacs, index) in dataMauSac"
-                                    :key="index"
+                                <div v-for="(mauSacs, index) in dataMauSac" :key="index"
                                     class="items-center justify-center px-7 py-2 inline-block border-1 border-solid border-gray-300 rounded-2xl text-xl text-black cursor-pointer mt-2 hover:border-red-500 hover:text-red-500"
                                     @click="selectMauSac(mauSacs)"
-                                    :class="{ selected: isMauSacSelected(mauSacs), disabled: isMauSacDisbled(mauSacs) }"
-                                >
+                                    :class="{ selected: isMauSacSelected(mauSacs), disabled: isMauSacDisbled(mauSacs) }">
                                     <div>{{ mauSacs.value }} {{ mauSacs.donVi }}</div>
                                 </div>
                             </div>
 
                             <div class="mt-3 flex gap-4">
-                                <Button
-                                    class="cursor-pointer"
-                                    severity="danger"
-                                    text
-                                    raised
-                                    label="Thêm vào giỏ hàng"
-                                    @click="addToCart"
-                                    icon="pi pi-shopping-cart"
-                                    :disabled="dataListSPCT.giaBan == null || dataListSPCT.soLuongTon <= 0 || quantity <= 0"
-                                />
-                                <Button class="cursor-pointer" severity="danger" label="Mua ngay" @click="muaNgay" :disabled="dataListSPCT.giaBan == null || dataListSPCT.soLuongTon <= 0 || quantity <= 0" />
+                                <Button class="cursor-pointer" severity="danger" text raised label="Thêm vào giỏ hàng"
+                                    @click="addToCart" icon="pi pi-shopping-cart"
+                                    :disabled="dataListSPCT.giaBan == null || dataListSPCT.soLuongTon <= 0 || quantity <= 0" />
+                                <Button class="cursor-pointer" severity="danger" label="Mua ngay" @click="muaNgay"
+                                    :disabled="dataListSPCT.giaBan == null || dataListSPCT.soLuongTon <= 0 || quantity <= 0" />
                             </div>
                             <hr />
-                            <div class="text-gray-600 text-xl">Trả hàng miễn phi trong 30 ngày</div>
+                            <div class="text-gray-600 text-xl">Trả hàng miễn phi trong 7 ngày</div>
                         </div>
                     </div>
 
@@ -598,11 +600,6 @@ const menu = ref();
                                         <span class="text-xl"> {{ dataSanPham.dictionary }} </span>
                                     </div>
                                     <div class="item">
-                                        <label class="text-xl text-gray-500">Số lượng: </label>
-                                        <span class="text-xl"> {{ dataSanPham }} </span>
-                                    </div>
-
-                                    <div class="item">
                                         <label class="text-xl text-gray-500">Đạt chuẩn: </label>
                                         <a class="text-xl text-black">Quốc Gia</a>
                                     </div>
@@ -623,17 +620,30 @@ const menu = ref();
                                 <div class="mt-5">
                                     <div class="text-3xl font-medium">Mô tả sản phẩm</div>
                                     <div class="text-xl text-gray-700 mb-2 mt-2">CHÍNH SÁCH ĐỔI TRẢ:</div>
-                                    <div class="text-xl text-gray-700 mb-2 mt-2">Đổi trả hàng trong 03 ngày với các lý do sau</div>
-                                    <div class="text-xl text-gray-700 mb-2 mt-2">- 1 đổi 1 nếu không ưng ý sản phẩm vì bất cứ lý do gì</div>
-                                    <div class="text-xl text-gray-700 mb-2 mt-2">- 1 đổi 1 hoặc hoàn tiền 100% khi có lỗi từ NBH</div>
-                                    <div class="text-xl text-gray-700 mb-2 mt-2">Tiger Food rất mong được phục vụ quý khách !</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">Đổi trả hàng trong 03 ngày với các lý
+                                        do sau</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">- 1 đổi 1 nếu không ưng ý sản phẩm vì
+                                        bất cứ lý do gì</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">- 1 đổi 1 hoặc hoàn tiền 100% khi có
+                                        lỗi từ NBH</div>
+                                    <div class="text-xl text-gray-700 mb-2 mt-2">Tiger Food rất mong được phục vụ quý
+                                        khách !</div>
                                     <div class="text-xl text-gray-700 mb-2 mt-2">
-                                        ăn vặt, ăn vặt ngon, ăn vặt việt nam, ăn vặt bánh tráng, bánh tráng, bánh tráng phơi sương, bánh tráng trộn, bánh tráng bơ, bánh tráng xi ke, bánh trang long an, bánh tráng phô mai, bánh tráng tây ninh, bánh
-                                        tráng tỏi ớt, bánh tráng sate, bánh tráng me, bánh tráng cuộn, bánh tráng tiger food
+                                        ăn vặt, ăn vặt ngon, ăn vặt việt nam, ăn vặt bánh tráng, bánh tráng, bánh tráng
+                                        phơi sương, bánh
+                                        tráng trộn, bánh tráng bơ, bánh tráng xi ke, bánh trang long an, bánh tráng phô
+                                        mai, bánh tráng tây
+                                        ninh, bánh
+                                        tráng tỏi ớt, bánh tráng sate, bánh tráng me, bánh tráng cuộn, bánh tráng tiger
+                                        food
                                     </div>
                                     <div class="text-xl text-gray-700 mb-2 mt-2">
-                                        #setbanhtrang #banhtrangphoisuong #combobanhtrangphoisuong #anvat#anvatngon#anvatvietnam#anvatbanhtrang#banhtrang#banhtrangphoisuong#banhtrangtron#banhtrangbo#banhtrangxike#banhtranglo #banhtranglongan
-                                        #banhtrangladua #banhtrangxanh #doanvat #banhtrangsate #banhtranglongan #banhtrangcuontom #banhtranglongan #banhtrangbo #banhtranganlien
+                                        #setbanhtrang #banhtrangphoisuong #combobanhtrangphoisuong
+                                        #anvat#anvatngon#anvatvietnam#anvatbanhtrang#banhtrang#banhtrangphoisuong#banhtrangtron#banhtrangbo#banhtrangxike#banhtranglo
+                                        #banhtranglongan
+                                        #banhtrangladua #banhtrangxanh #doanvat #banhtrangsate #banhtranglongan
+                                        #banhtrangcuontom
+                                        #banhtranglongan #banhtrangbo #banhtranganlien
                                     </div>
                                 </div>
                             </TabPanel>
@@ -642,7 +652,9 @@ const menu = ref();
                                 <div class="flex">
                                     <h6 style="margin-right: 10px"><span>1 </span> bình luận</h6>
                                     <label style="margin-left: 675px" for=""></label>
-                                    <Dropdown :options="dataTrangThai" optionLabel="label" placeholder="Tất cả bình luận" class="w-full md:w-14rem" style="margin-left: 20px" />
+                                    <Dropdown :options="dataTrangThai" optionLabel="label"
+                                        placeholder="Tất cả bình luận" class="w-full md:w-14rem"
+                                        style="margin-left: 20px" />
                                 </div>
                                 <div class="">
                                     <Avatar icon="pi pi-user" class="" size="xlarge" />
@@ -655,7 +667,8 @@ const menu = ref();
                                         <Button type="submit" label="Đăng" @click="addComment" />
                                     </div>
                                 </div>
-                                <div class="flex flex-column" v-for="(cm, index) in comments" :key="index" style="margin: 1rem 0">
+                                <div class="flex flex-column" v-for="(cm, index) in comments" :key="index"
+                                    style="margin: 1rem 0">
                                     <div class="flex">
                                         <div class="flex items-center">
                                             <Avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
@@ -667,13 +680,15 @@ const menu = ref();
                                             </div>
                                         </div>
                                         <div class="flex flex-wrap align-items-center gap-3 ml-8">
-                                            <a @click="phanHoi(cm.id)" class="text-gray-700 text-xl cursor-pointer">Phản hồi</a>
+                                            <a @click="phanHoi(cm.id)" class="text-gray-700 text-xl cursor-pointer">Phản
+                                                hồi</a>
                                             <a @click="xoa(cm)" class="text-red-500 text-xl cursor-pointer">Xoá</a>
                                         </div>
                                     </div>
                                     <div>
                                         <!-- Phản hồi -->
-                                        <div v-for="(ph, index) in phanHois.filter((item) => item.idPhanHoi === cm.id)" :key="index" style="margin-top: 15px; margin-left: 30px" class="flex">
+                                        <div v-for="(ph, index) in phanHois.filter((item) => item.idPhanHoi === cm.id)"
+                                            :key="index" style="margin-top: 15px; margin-left: 30px" class="flex">
                                             <div>
                                                 <Avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
                                             </div>
@@ -684,30 +699,41 @@ const menu = ref();
                                                 <span class="text-gray-500 text-lg text-wrap">{{ ph.noiDung }}</span>
                                             </div>
                                             <!-- Nút phản hồi và xoá (bạn có thể di chuyển nó lên nếu muốn) -->
-                                            <div class="flex flex-wrap justify-content-between align-items-center gap-3 mt-3 ml-8">
-                                                <a @click="phanHoi(cm.id)" class="text-gray-700 text-xl cursor-pointer">Phản hồi</a>
-                                                <a @click="xoaPhanHoi(ph)" class="text-red-500 text-xl cursor-pointer">Xoá</a>
+                                            <div
+                                                class="flex flex-wrap justify-content-between align-items-center gap-3 mt-3 ml-8">
+                                                <a @click="phanHoi(cm.id)"
+                                                    class="text-gray-700 text-xl cursor-pointer">Phản hồi</a>
+                                                <a @click="xoaPhanHoi(ph)"
+                                                    class="text-red-500 text-xl cursor-pointer">Xoá</a>
                                             </div>
                                         </div>
-                                        <div class="flex flex-wrap justify-content-between align-items-center gap-3 mt-3" style="margin-left: 660px">
+                                        <div class="flex flex-wrap justify-content-between align-items-center gap-3 mt-3"
+                                            style="margin-left: 660px">
                                             <!-- <Button type="submit" label="Phản hồi" @click="phanHoi(cm.id)" class="ph-button" />
                                             <Button severity="danger" label="Xoá" @click="xoa(cm)" class="small-button" /> -->
 
-                                            <Dialog v-model:visible="phanHoiDialog" modal header="Phản hồi" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                                            <Dialog v-model:visible="phanHoiDialog" modal header="Phản hồi"
+                                                :style="{ width: '50rem' }"
+                                                :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
                                                 <Textarea v-model="traLoi" rows="5" cols="90" />
                                                 <template #footer>
-                                                    <Button label="Ok" icon="pi pi-check" @click="phanHoiComment" autofocus />
+                                                    <Button label="Ok" icon="pi pi-check" @click="phanHoiComment"
+                                                        autofocus />
                                                 </template>
                                             </Dialog>
 
-                                            <Dialog v-model:visible="deleteDialog" :style="{ width: '450px' }" header="Confirm" :modal="true">
+                                            <Dialog v-model:visible="deleteDialog" :style="{ width: '450px' }"
+                                                header="Confirm" :modal="true">
                                                 <div class="flex align-items-center justify-content-center">
-                                                    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
+                                                    <i class="pi pi-exclamation-triangle mr-3"
+                                                        style="font-size: 2rem" />
                                                     <span>Bạn có muốn xoá bình luận ?</span>
                                                 </div>
                                                 <template #footer>
-                                                    <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteDialog = false" />
-                                                    <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteComment" />
+                                                    <Button label="No" icon="pi pi-times" class="p-button-text"
+                                                        @click="deleteDialog = false" />
+                                                    <Button label="Yes" icon="pi pi-check" class="p-button-text"
+                                                        @click="deleteComment" />
                                                 </template>
                                             </Dialog>
                                         </div>
@@ -729,19 +755,27 @@ const menu = ref();
     margin-top: 5px;
     margin-left: 55px;
 }
+
 div.selected {
     border: 2px solid red;
 }
 
 .small-button {
-    width: 80px; /* Đặt chiều rộng mong muốn */
-    height: 30px; /* Đặt chiều cao mong muốn */
-    font-size: 14px; /* Đặt kích thước chữ mong muốn */
+    width: 80px;
+    /* Đặt chiều rộng mong muốn */
+    height: 30px;
+    /* Đặt chiều cao mong muốn */
+    font-size: 14px;
+    /* Đặt kích thước chữ mong muốn */
 }
+
 .ph-button {
-    width: 100px; /* Đặt chiều rộng mong muốn */
-    height: 30px; /* Đặt chiều cao mong muốn */
-    font-size: 14px; /* Đặt kích thước chữ mong muốn */
+    width: 100px;
+    /* Đặt chiều rộng mong muốn */
+    height: 30px;
+    /* Đặt chiều cao mong muốn */
+    font-size: 14px;
+    /* Đặt kích thước chữ mong muốn */
 }
 
 .strikethrough {
