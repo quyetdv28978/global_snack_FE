@@ -607,10 +607,10 @@ const menu = ref();
                                         <label class="text-xl text-gray-500">Vật Liệu: </label>
                                         <span class="text-xl"> {{ dataSanPham.vatLieu }} </span>
                                     </div>
-                                    <div class="item">
+                                    <!-- <div class="item">
                                         <label class="text-xl text-gray-500">Trọng lượng: </label>
                                         <span class="text-xl"> {{ dataSanPham.dictionary }} </span>
-                                    </div>
+                                    </div> -->
 
                                     <div class="item">
                                         <label class="text-xl text-gray-500">Đạt chuẩn: </label>

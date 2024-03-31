@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { SPDaXemStore } from '@/service/KhachHang/SanPhamDaXem.js';
 import ChatButton from './Chat/ChatButton.vue';
+
 const spDaXemService = SPDaXemStore();
 const router = useRouter();
 const useTrangChuService = TrangChuStore();
@@ -154,7 +155,9 @@ const themSPDaXem = async (idSP) => {
 <template>
     <div class="grid">
         <div class="image-container">
-            <h1 style="padding: 1rem; margin: 2rem 12rem">Slide</h1>
+            <div class="image">
+                <img src="https://img.pikbest.com/templates/20210823/bg/99a7707089ae770585d2a7e9dace8079_87675.png!w700wp" alt="slide1" />
+            </div>
         </div>
         <div class="main-sp">
             <!-- SP hot -->
@@ -286,6 +289,15 @@ const themSPDaXem = async (idSP) => {
 </template>
 
 <style scoped>
+.text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.image img {
+    width: 100%;
+}
 .grid {
     margin-top: 70px;
     display: flex;

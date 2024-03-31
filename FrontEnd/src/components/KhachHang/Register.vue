@@ -88,10 +88,11 @@ const onSubmit = handleSubmit(async () => {
     <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
         <Toast />
         <div class="flex flex-column align-items-center justify-content-center">
-            <img src="/src/assets/images/logo.jpg" alt="Sakai logo" class="mb-5 w-6rem flex-shrink-0" />
-            <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
+            <div style="border-radius: 56px; padding: 0.3rem">
                 <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px; margin-bottom: 20px">
                     <div class="text-center mb-5">
+                        <img src="/src/assets/images/logo.jpg" alt="Sakai logo" class="mb-5 w-6rem" />
+
                         <div class="text-900 text-3xl font-medium mb-3">Xin chào!</div>
                         <span class="text-600 font-medium">Đăng ký để tiếp tục</span>
                     </div>
@@ -134,11 +135,11 @@ const onSubmit = handleSubmit(async () => {
                                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Giới tính: </label>
                                     <div class="flex align-items-center">
                                         <RadioButton value="1" v-model="gioiTinh" inputId="ingredient1" name="pizza" />
-                                        <label for="ingredient1" class="ml-2">nam</label>
+                                        <label for="ingredient1" class="ml-2">Nam</label>
                                     </div>
                                     <div class="flex align-items-center">
                                         <RadioButton value="0" v-model="gioiTinh" inputId="ingredient2" name="pizza" />
-                                        <label for="ingredient2" class="ml-2">nữ</label>
+                                        <label for="ingredient2" class="ml-2">Nữ</label>
                                     </div>
                                 </div>
 
