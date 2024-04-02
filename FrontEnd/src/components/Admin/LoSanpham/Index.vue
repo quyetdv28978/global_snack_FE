@@ -68,6 +68,7 @@ const trangThad = (tt) => {
     }else if (tt == 0 ) {
         return "Chưa sử dụng"
     }else if (tt == 5) return "Tạm ngưng sử dụng"
+    else if (tt == 6) return "Sắp hết hạn"
     else if(tt == 4) return "Hết hạn sử dụng"
 }
 

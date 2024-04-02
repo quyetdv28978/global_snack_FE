@@ -41,7 +41,7 @@ const schema = yup.object().shape({
         .required('Giá bán không được để trống')
         .min(5000, 'giá phải lớn hơn hoặc bằng 5.000 đ')
         .max(10000000, 'Giá bán không lớn hơn 10.000.000 đ'),
-        //    trongLuong: yup.string().required('vui lòng chọn trọng lượng sản phẩm'),
+    //    trongLuong: yup.string().required('vui lòng chọn trọng lượng sản phẩm'),
     // trangThai: yup.number().required('vui lòng chọn trạng thái ')
 });
 
@@ -98,8 +98,7 @@ const dataLoSanPham = ref([]);
 const loadDataLoSanPham = async () => {
     await loSanPhamStore.fetchDataBySPCT(props.myProp.id);
     dataLoSanPham.value = loSanPhamStore.dataByStatus1;
-    console.log(props.myProp.id);
-    console.log(loSanPhamStore.dataByStatus1);
+
 };
 // mở form
 const openNew = () => {
@@ -109,9 +108,9 @@ const openNew = () => {
     anh.value = props.myProp.anh;
     soluong.value = props.myProp.soLuongTon;
     GiaBan.value = props.myProp.giaBan;
-  //  GiaNhap.value = props.myProp.giaNhap;
+    //  GiaNhap.value = props.myProp.giaNhap;
     TrangThai.value = props.myProp.trangThai.toString();
-   
+
 };
 
 const anhs = ref(null);
@@ -206,10 +205,14 @@ const getStatusLabel = (trangThai) => {
         case 2:
             return '- Tồn kho';
 
-            case 3:
-            return '- Hết hàng  '; 
-             case 4:
+        case 3:
+            return '- Hết hàng  ';
+        case 4:
             return '- Hết hạn sử dụng  ';
+        case 5:
+            return '- Tạm ngưng sử dụng  ';
+        case 6:
+            return '- Sắp hết hạn sử dụng  ';
 
         default:
             return '';
@@ -226,36 +229,43 @@ const formatDate = (dateTime) => {
 <template>
     <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="openNew" />
 
-    <Dialog v-model:visible="productDialog" :style="{ width: '700px' }" header="Thêm lô sản phẩm" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="productDialog" :style="{ width: '700px' }" header="Thêm lô sản phẩm" :modal="true"
+        class="p-fluid">
         <div class="card">
             <form @submit="onSubmit">
                 <div class="p-fluid formgrid grid">
                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                         <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                             <span class="p-float-label">
-                                <InputNumber id="soluong" name = "soluong" v-model="soluong"  :class="{ 'p-invalid': soLuongError }"> </InputNumber>
+                                <InputNumber id="soluong" name="soluong" v-model="soluong"
+                                    :class="{ 'p-invalid': soLuongError }"> </InputNumber>
                                 <label for="SoLuongTon">Số lượng tồn</label>
                             </span>
                             <small class="p-error">{{ soLuongError }}</small>
                         </div>
 
-                    
+
                         <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                             <span class="p-float-label">
-                                <InputNumber id="number-input" name="GiaBan" v-model="GiaBan" :class="{ 'p-invalid': giaBanError }" readonly></InputNumber>
+                                <InputNumber id="number-input" name="GiaBan" v-model="GiaBan"
+                                    :class="{ 'p-invalid': giaBanError }" readonly></InputNumber>
                                 <label for="Field">Giá bán</label>
                             </span>
                             <small class="p-error">{{ giaBanError }}</small>
                         </div>
-                       
+
                     </div>
                     <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                        <div class="Field col-12 md:col-12" style="margin-bottom: 30px; margin-left: 0px; height: 200px; margin-top: 60px; display: inline-flex; justify-content: center; align-items: center; display: block">
-                            <div class="t" style="border: 1px solid black; border-radius: 10px; width: 230px; height: 190px; margin-top: -60px">
-                                <img :src="anhs == null ? anh : anhs" alt="" style="width: 200px; height: 170px; top: 50%; left: 50%; transform: translate(4%, 2%)" />
+                        <div class="Field col-12 md:col-12"
+                            style="margin-bottom: 30px; margin-left: 0px; height: 200px; margin-top: 60px; display: inline-flex; justify-content: center; align-items: center; display: block">
+                            <div class="t"
+                                style="border: 1px solid black; border-radius: 10px; width: 230px; height: 190px; margin-top: -60px">
+                                <img :src="anhs == null ? anh : anhs" alt=""
+                                    style="width: 200px; height: 170px; top: 50%; left: 50%; transform: translate(4%, 2%)" />
                             </div>
                             <div class="buton" style="margin-top: 10px">
-                                <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @input="onFileInputImage" style="display: flex; width: 200px; margin-left: 20px" />
+                                <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000"
+                                    @input="onFileInputImage" style="display: flex; width: 200px; margin-left: 20px" />
                             </div>
                             <small class="p-error">{{ anhError }}</small>
                         </div>
@@ -266,14 +276,17 @@ const formatDate = (dateTime) => {
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
                                         <Dropdown id="dropdown" :options="dataLoSanPham" v-model="selectedLoSanPham"
-                                        :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan}  ${getStatusLabel(option.trangThai)}`"                                          :class="{ 'p-invalid': trongLuongError }" @change="onLoSanPhamChange"> </Dropdown>
+                                            :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan}  ${getStatusLabel(option.trangThai)}`"
+                                            :class="{ 'p-invalid': trongLuongError }" @change="onLoSanPhamChange">
+                                        </Dropdown>
                                         <label for="dropdown">Lô Sản phẩm</label>
                                     </span>
-                                    <DataTableLoSanPham :tableId="'TableLoSanPham'" :rightGhId="'right_ghLoSanPham'" :tableClass="'TableLoSanPham'" :rightGhClass="'right_ghLoSanPham'" />
+                                    <DataTableLoSanPham :tableId="'TableLoSanPham'" :rightGhId="'right_ghLoSanPham'"
+                                        :tableClass="'TableLoSanPham'" :rightGhClass="'right_ghLoSanPham'" />
                                 </div>
                                 <small class="p-error">{{ LoSanPhamError }}</small>
                             </div>
-                          
+
                             <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
@@ -287,7 +300,8 @@ const formatDate = (dateTime) => {
                     </div>
 
                     <div style="width: 1000px; text-align: center; display: flex; margin-left: 170px">
-                        <Button type="submit" class="p-button-outlined" style="width: 100px; height: auto; margin: 10px 60px 10px 60px" label="Lưu"></Button>
+                        <Button type="submit" class="p-button-outlined"
+                            style="width: 100px; height: auto; margin: 10px 60px 10px 60px" label="Lưu"></Button>
                     </div>
                 </div>
             </form>

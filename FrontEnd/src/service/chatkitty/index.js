@@ -53,6 +53,7 @@ export const fetchMessages = async (room) => {
 
 export const fetchRooms = async () => {
     const user = chatkitty.currentUser;
+    console.log(chatkitty.currentUser);
     if (!user) {
         return [];
     }

@@ -40,7 +40,7 @@ const props = defineProps({
 });
 
 const fetchMessages = async (event) => {
-  //console.log("log");
+  console.log(event);
   await store.fetchMessages(event);
 }
 
@@ -65,28 +65,45 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <vue-advanced-chat :height="height"
-                     :current-user-id="currentUsername"
-                     theme="light"
-                     :styles="JSON.stringify(customTheme)"
-                     :text-messages="JSON.stringify(customTextMessage)"
-                     :loading-rooms="loadingRooms"
-                     :rooms-loaded="roomsLoaded"
-                     :messages-loaded="messagesLoaded"
-                     :single-room="singleRoom"
-                     :show-search="false"
-                     :show-add-room="false"
-                     :show-files="false"
-                     :show-audio="false"
-                      :show-emojis="false"
-                     :show-reaction-emojis="false"
-                   
-                     .messages="messages"  .rooms="rooms"
-                    
-                     @fetch-messages="fetchMessages($event.detail[0])"
-                     @send-message="sendMessages($event.detail[0])"/>
+<vue-advanced-chat
+  :height="height"
+  :current-user-id="currentUsername"
+  theme="light"
+  :styles="JSON.stringify(customTheme)"
+  :text-messages="JSON.stringify(customTextMessage)"
+  :loading-rooms="loadingRooms"
+  :rooms-loaded="roomsLoaded"
+  :messages-loaded="messagesLoaded"
+  :single-room="singleRoom"
+  :show-search="false"
+  :show-add-room="false"
+  :show-files="false"
+  :show-audio="false"
+  :show-emojis="false"
+  :show-reaction-emojis="true"
+  :messages="messages"
+  :rooms="rooms"
+  class="chat-container"
+  @fetch-messages="fetchMessages($event.detail[0])"
+  @send-message="sendMessages($event.detail[0])"
+/>
 </template>
 
 
 <!--    -->
-<style scoped></style>
+<style scoped>
+.chat-container.message {
+  width: 10px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.chat-container.message.self {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.chat-container.message.other {
+  margin-left: 0;
+  margin-right: auto;
+}</style>

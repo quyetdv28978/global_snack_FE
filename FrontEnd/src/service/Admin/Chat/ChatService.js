@@ -50,7 +50,7 @@ export const useChatStore = defineStore('chat', () => {
         loadingRooms.value = true;
         rooms.value = await chatService.fetchRooms();
         loadingRooms.value = false;
-        roomsLoaded.value = true;
+        roomsLoaded.value = true;s
     };
 
     const fetchMessages = async ({ room, options = {} }) => {

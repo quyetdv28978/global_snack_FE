@@ -8,7 +8,8 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
         data: [],
         dataByStatus1: [],
         check: 0,
-        dataLoSanPhamByMount: []
+        dataLoSanPhamByMount: [],
+        dataCheckLoSanPham: []
     }),
     actions: {
         //load tất cả data
@@ -100,6 +101,12 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
+        }
+        ,
+        async chooseLoSanPham(idctsp) {
+            const response = await axios.get(`${apiLoSanPham}/choose-lo/${idctsp}`);
+            console.log(response.data);
+            this.dataCheckLoSanPham = response.data;
         }
     }
 });
