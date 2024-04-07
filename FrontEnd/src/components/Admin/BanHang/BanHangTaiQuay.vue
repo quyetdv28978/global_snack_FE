@@ -8,7 +8,6 @@ import {useToast} from 'primevue/usetoast';
 import {BHTQHoaDonModel} from '@/model/BHTQHoaDonModel';
 import {FilterMatchMode} from 'primevue/api';
 import EmptyCartLottie from '@/assets/animation/empty-cart.json';
-// import AnimatedLogo from '@/assets/animation/animated-logo-2.json';
 import {LottieAnimation} from 'lottie-web-vue';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
@@ -789,31 +788,7 @@ const confirmHuyHD = (event, data) => {
                         @click="slotProps.filterCallback()"/>
               </template>
             </Column>
-            <!-- <Column header="Size" filterField="size.ten" :showFilterMatchModes="false"
-                    :filterMenuStyle="{ width: '14rem' }">
-              <template #body="{ data }">
-                <div class="flex align-items-center gap-2">
-                  <span>{{ data.size ==null?"Không có":data.size.ten}}</span>
-                </div>
-              </template>
-              <template #filter="{ filterModel }">
-                <Dropdown v-model="filterModel.value" :options="dsSize" placeholder="Tất cả" class="p-column-filter">
-                  <template #option="slotProps">
-                    <div class="flex align-items-center gap-2">
-                      <span>{{ slotProps.option }}</span>
-                    </div>
-                  </template>
-                </Dropdown>
-              </template>
-              <template #filterapply="slotProps">
-                <Button size="small" icon="pi pi-check" label="Lọc" severity="success" rounded
-                        @click="slotProps.filterCallback()"/>
-              </template>
-              <template #filterclear="slotProps">
-                <Button size="small" label="Huỷ" icon="pi pi-times" severity="danger" rounded
-                        @click="slotProps.filterCallback()"/>
-              </template>
-            </Column> -->
+           
             <Column filterField="sanPham.loai.ten" header="Loại" :showFilterMatchModes="false"
                     :filterMenuStyle="{ width: '14rem' }">
               <template #body="{ data }">

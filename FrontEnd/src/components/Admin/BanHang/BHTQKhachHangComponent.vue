@@ -34,7 +34,6 @@ const onRowEditInit = (event) => {
 const tenError = ref('');
 const sdtError = ref('');
 const onRowEditSave = async (event) => {
-  console.log(event);
   if (event.data.ten == null || event.data.ten == '') {
     tenError.value = 'tên không được để trống';
     tableKHEditingRows.value = [store.dsKH[event.index]];

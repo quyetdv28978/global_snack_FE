@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import AppMenuItem from './AppMenuItem.vue';
 
 const model = ref([
-{
+    {
         label: 'Bán Hàng tại quầy',
         items: [{ label: 'Bán Hàng', icon: 'pi pi-fw pi-home', to: { name: 'ban-hang' } }]
     },
@@ -23,7 +23,8 @@ const model = ref([
                         label: 'Sản Phẩm',
                         icon: 'pi pi-fw pi-circle-off',
                         to: { name: 'quan-ly-san-pham' }
-                    }, {
+                    },
+                    {
                         label: 'Thương Hiệu',
                         icon: 'pi pi-fw pi-circle-off',
                         to: { name: 'thuong-hieu' }
@@ -43,50 +44,77 @@ const model = ref([
                         icon: 'pi pi-fw pi-circle-off',
                         to: { name: 'trong-luong' }
                     },
+                    {
+                        label: 'Thông tin sản phẩm sắp hết hạn',
+                        icon: '',
+                        items: [
+                            {
+                                label: 'Trong 6 tháng tới',
+                                icon: 'pi pi-fw pi-circle-off',
+                                to: { name: 'han-su-dung', params: { time: '180' } }
+                            },
+                            {
+                                label: 'Trong 3 tháng tới',
+                                icon: 'pi pi-fw pi-circle-off',
+                                to: { name: 'han-su-dung', params: { time: '90' } }
+                            },
+                            {
+                                label: 'Trong 1 tháng tới',
+                                icon: 'pi pi-fw pi-circle-off',
+                                to: { name: 'han-su-dung', params: { time: '30' } }
+                            }
+                        ]
+                    }
                 ]
-            },
+            }
         ]
     },
     {
         label: 'Vocher - Khuyễn Mại',
-        items: [{
-            label: 'Quản lý Khuyến Mại',
-            icon: 'pi pi-fw pi-circle-off',
-            to: { name: 'khuyen-mai' }
-        },
-        {
-            label: 'Quản lý Voucher',
-            icon: 'pi pi-fw pi-circle-off',
-            to: { name: 'voucher' }
-        },]
+        items: [
+            {
+                label: 'Quản lý Khuyến Mại',
+                icon: 'pi pi-fw pi-circle-off',
+                to: { name: 'khuyen-mai' }
+            },
+            {
+                label: 'Quản lý Voucher',
+                icon: 'pi pi-fw pi-circle-off',
+                to: { name: 'voucher' }
+            }
+        ]
     },
     {
         label: 'User',
-        items: [{
-            label: 'Quản lý User',
-            icon: 'pi pi-fw pi-circle-off',
-            to: { name: 'user' }
-        },]
+        items: [
+            {
+                label: 'Quản lý User',
+                icon: 'pi pi-fw pi-circle-off',
+                to: { name: 'user' }
+            }
+        ]
     },
     {
         label: 'Quản lý Hóa Đơn',
-        items: [{
-            label: 'Hóa Đơn',
-            icon: 'pi pi-fw pi-circle-off',
-            to: { name: 'hoa-don' }
-        },]
+        items: [
+            {
+                label: 'Hóa Đơn',
+                icon: 'pi pi-fw pi-circle-off',
+                to: { name: 'hoa-don' }
+            }
+        ]
     },
 
-    // {
-    //     label: 'Chat',
-    //     items: [{
-    //         label: 'Chat',
-    //         icon: 'pi pi-fw pi-circle-off',
-    //         to: { name: 'chat-admin' }
-    //     },]
-    // },
-
-
+    {
+        label: 'Chat',
+        items: [
+            {
+                label: 'Chat',
+                icon: 'pi pi-fw pi-circle-off',
+                to: { name: 'chat-admin' }
+            }
+        ]
+    }
 ]);
 </script>
 

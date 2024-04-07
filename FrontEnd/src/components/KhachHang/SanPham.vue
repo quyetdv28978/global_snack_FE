@@ -20,7 +20,7 @@ const loadData = async () => {
     await SanPhamService.fetchAll();
     dataSP.value = SanPhamService.dataSP;
     // console.log(SanPhamService.dataSP);
-    // console.log(dataSP.value);
+    console.log(dataSP.value);
 };
 
 const uniqueTenLoai = computed(() => {
@@ -76,6 +76,7 @@ const uniqueTenThuongHieu = computed(() => {
 
 const filteredAndSortedProducts = computed(() => {
     let filteredProducts = dataSP.value;
+    console.log(dataSP.value);
 
     // Filter by name
     if (searchTerm.value) {
@@ -149,7 +150,7 @@ const filteredAndSortedProducts = computed(() => {
                             <div class="p-4 border-1 surface-border surface-card border-round">
                                 <div class="flex flex-column gap-3">
                                     <img class="product-image" :src="sp.anh" :alt="sp.tenSP" />
-                                    <div class="text-xl font-medium product-name">{{ sp.tenSP }}</div>
+                                    <div class="text-xl font-medium product-name">{{ sp.tenSP}}</div>
                                     <div class="category-product">{{ sp.tenLoai }}</div>
                                 </div>
                                 <div class="flex sm:flex-column gap-3 sm:gap-2">

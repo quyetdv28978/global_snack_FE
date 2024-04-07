@@ -28,6 +28,7 @@ const loadData = async () => {
 const loadDataHangMoi = async () => {
     await useTrangChuService.fetchDataHangMoi();
     dataHangMoi.value = useTrangChuService.dataHangMoi;
+    console.log(useTrangChuService.dataHangMoi);
 };
 
 //load data sp bán chạy

@@ -17,6 +17,7 @@ const props = defineProps({
     myProp: {}
 });
 
+console.log(props.myProp);
 const productStore = ProductStore();
 const confirm = useConfirm();
 const toast = useToast();
