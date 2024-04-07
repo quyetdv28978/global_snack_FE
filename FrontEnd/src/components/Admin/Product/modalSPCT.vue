@@ -48,7 +48,7 @@ const getStatusLabel = (soLuong) => {
     } else if (soLuong == 1) {
         return { text: 'Còn hàng', severity: 'success' };
     }
-    else if (soLuong == 6) {
+    else if (soLuong == 3) {
         return { text: 'Sắp hết hạn sử dụng', severity: 'danger' };
     } else {
         return { text: 'Tồn kho', severity: 'war' };

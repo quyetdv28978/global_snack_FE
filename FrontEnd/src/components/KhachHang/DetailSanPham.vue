@@ -1,5 +1,4 @@
 <script setup>
-import Breadcrumb from 'primevue/breadcrumb';
 import { ref, onMounted, computed, watch } from 'vue';
 import TabView from 'primevue/tabview';
 import { useToast } from 'primevue/usetoast';
@@ -78,10 +77,13 @@ watch([getSize, idMau], async ([newGetSize, newIdMau]) => {
         await productStore.fetchIdSPCT(idProduct, idMau.value);
         dataListSPCT.value = productStore.products;
         idSanPhamChiTiet.value = dataListSPCT.value.id;
+        console.log(dataListSPCT);
+
     } else {
         await productStore.fetchIdSPCT(idProduct, idMau.value);
         dataListSPCT.value = productStore.products;
         idSanPhamChiTiet.value = dataListSPCT.value.id;
+        console.log(dataListSPCT);
         quantity.value = 1;
         // await productStore.getMauSacBySize(idProduct, getSize.value);
         // dataMauSac.value = productStore.mauSacs;
@@ -109,8 +111,8 @@ watch([dataSize, dataMauSac], async ([newDataSize, newDataMau]) => {
 
 const loaddataListSPCT = async () => {
     await productStore.fetchSPCTByIdSP(idProduct);
-    dataListSPCT.value = productStore.products;
-    console.log(dataListSPCT.value);
+    // dataListSPCT.value = productStore.products;
+    // console.log(dataListSPCT.value);
 };
 
 const getSLTonTong = async (idctsp) => {
@@ -568,6 +570,7 @@ const menu = ref();
                                     <div>{{ mauSacs.value }} {{ mauSacs.donVi }}</div>
                                 </div>
                             </div>
+                            <label class="text-xl font-normal text-gray-950">Ngày hết hạn: {{ dataListSPCT.ngayHetHan }}</label>
 
                             <div class="mt-3 flex gap-4">
                                 <Button class="cursor-pointer" severity="danger" text raised label="Thêm vào giỏ hàng"
@@ -595,6 +598,7 @@ const menu = ref();
                                         <label class="text-xl text-gray-500">Vật Liệu: </label>
                                         <span class="text-xl"> {{ dataSanPham.vatLieu }} </span>
                                     </div>
+                                    
                                     <div class="item">
                                         <label class="text-xl text-gray-500">Trọng lượng: </label>
                                         <span class="text-xl"> {{ dataSanPham.dictionary }} </span>

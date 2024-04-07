@@ -67,9 +67,11 @@ const trangThad = (tt) => {
         return "Đang sử dụng"
     }else if (tt == 0 ) {
         return "Chưa sử dụng"
-    }else if (tt == 5) return "Tạm ngưng sử dụng"
-    else if (tt == 6) return "Sắp hết hạn"
-    else if(tt == 4) return "Hết hạn sử dụng"
+    }else if (tt == 5) return "Ngừng sử dụng"
+    else if (tt == 6) return "Hết hạn sử dụng"
+    else if(tt == 4) return "Tồn kho"
+    else if(tt == 3) return "Gần hết hạn sử dụng"
+    else if(tt == 2) return "Hết hàng"
 }
 
 const exportCSV = () => {

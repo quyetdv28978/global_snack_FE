@@ -46,7 +46,7 @@ const onLoSanPhamChange = () => {
     if (selectedLoSanPham.value) {
         console.log(selectedColumns.value);
         tenLo.value = selectedLoSanPham.value.id;
-        trangThai.value = selectedLoSanPham.value.trangThai 
+        trangThai.value = selectedLoSanPham.value.trangThai
         //    console.log(TrongLuong.value)
     } else {
         tenLo.value = null;
@@ -90,12 +90,16 @@ const getStatusLabel = (trangThai) => {
         case 0:
             return '- Chưa sử dụng';
 
-        case 2:
+        case 4:
             return '- Tồn kho';
 
         case 3:
-            return '- Hết hạn  ';
-            case 4:
+            return '- Gần hết hạn sử dụng ';
+        case 2:
+            return '- Hết hàng ';
+        case 5:
+            return '- Dừng sử dụng ';
+        case 6:
             return '- Hết hạn sử dụng ';
 
         default:
@@ -132,18 +136,18 @@ const { handleSubmit, resetForm } = useForm({
 });
 const onSubmit = handleSubmit(async (values) => {
     console.log(trangThai.value);
-    if(trangThai.value !== 4) {
+    if (trangThai.value !== 4) {
         try {
             await loSanPhamStore.updateLoSanPham(tenLo.value, props.myProp.id);
             toast.add({ severity: 'success', summary: 'Success Message', detail: 'update thành công', life: 3000 });
             productDialog.value = false;
             // dataLoSanPham.value = loSanPhamStore.dataByStatus1;
-                        // reset();
-    } catch (error) {
-        console.error('Lỗi xử lý dữ liệu:', error);
-    }
-    }else
-    toast.add({ severity: 'error', summary: 'Error', detail: 'Lô sản phẩm đã hết hạn sử dụng không thể xử lí', life: 3000 });
+            // reset();
+        } catch (error) {
+            console.error('Lỗi xử lý dữ liệu:', error);
+        }
+    } else
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Lô sản phẩm đã hết hạn sử dụng không thể xử lí', life: 3000 });
 })
 
 </script>
@@ -159,28 +163,26 @@ const onSubmit = handleSubmit(async (values) => {
                 <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                     <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                         <span class="p-float-label">
-                            <InputText id="name" name="name" type="text" v-model="name" :class="{ 'p-invalid': nameError }"
-                                disabled>
+                            <InputText id="name" name="name" type="text" v-model="name"
+                                :class="{ 'p-invalid': nameError }" disabled>
                             </InputText>
                             <label for="username">Tên sản phẩm</label>
                         </span>
                         <small class="p-error">{{ nameError }}</small>
                     </div>
-<div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                <div style="display: flex">
-                                    <span class="p-float-label" style="width: 239px">
-                                        <Dropdown id="dropdown" :options="dataLoSanPham" v-model="selectedLoSanPham"
-                                        :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan}  ${getStatusLabel(option.trangThai)} - ${option.soLuong} `"
-                                        @change="onLoSanPhamChange" 
-                                        >
-                                        </Dropdown>
-                                        <label for="dropdown">Lô sản phẩm</label>
-                                    </span>
-                                    <DataTableLoSanPham :tableId="'TableLoSanPham'" :rightGhId="'right_ghLoSanPham'"
-                                        :tableClass="'TableLoSanPham'" :rightGhClass="'right_ghLoSanPham'" />
-                                </div>
+                    <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
+                        <div style="display: flex">
+                            <span class="p-float-label" style="width: 239px">
+                                <Dropdown id="dropdown" :options="dataLoSanPham" v-model="selectedLoSanPham"
+                                    :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan}  ${getStatusLabel(option.trangThai)} - ${option.soLuong} `"
+                                    @change="onLoSanPhamChange">
+                                </Dropdown>
+                                <label for="dropdown">Lô sản phẩm</label>
+                            </span>
 
-                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                     <div class="p-fluid formgrid grid">
@@ -207,8 +209,8 @@ const onSubmit = handleSubmit(async (values) => {
                     <Button class="p-button-outlined" outlined severity="secondary"
                         style="width: 200px; height: auto; margin: 10px;" @click="hideDialog()" label="Đóng">
                     </Button>
-                    <Button type="submit" class="p-button-outlined"
-                                    style="width: 200px; height: auto; margin: 10px" label="Lưu"></Button>
+                    <Button type="submit" class="p-button-outlined" style="width: 200px; height: auto; margin: 10px"
+                        label="Lưu"></Button>
                 </div>
 
             </div>

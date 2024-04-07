@@ -166,7 +166,20 @@ const getStatusLabel = (soLuong) => {
         return { text: 'hết Hàng', severity: 'danger' };
     } else if (soLuong == 1) {
         return { text: 'Còn hàng', severity: 'success' };
-    } else {
+    }
+    else if (soLuong == 3) {
+        return { text: 'Gần hết hạn sử dụng', serverity: 'danger' }
+    }   
+    else if (soLuong == 2) {
+        return { text: 'Hết hàng', serverity: 'danger' }
+    }
+    else if (soLuong == 5) {
+        return { text: 'Ngừng sử dụng', serverity: 'danger' }
+    }
+    else if (soLuong == 6) {
+        return { text: 'Hết hạn sử dụng', serverity: 'danger' }
+    }
+    else {
         return { text: 'Tồn kho', severity: 'war' };
     }
 
@@ -238,7 +251,7 @@ const loadDataTrangThai = () => {
         lstChiTietSP.value = lstChiTietSP.value.filter(item => item.tenKM != null);
         return lstChiTietSP.value;
     }
-    
+
 }
 </script>
 <template>
@@ -251,8 +264,8 @@ const loadDataTrangThai = () => {
                 <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                     <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                         <span class="p-float-label">
-                            <InputText id="name" name="name" type="text" v-model="name" :class="{ 'p-invalid': nameError }"
-                                disabled>
+                            <InputText id="name" name="name" type="text" v-model="name"
+                                :class="{ 'p-invalid': nameError }" disabled>
                             </InputText>
                             <label for="username">Tên sản phẩm</label>
                         </span>
@@ -276,7 +289,7 @@ const loadDataTrangThai = () => {
                         </div>
                         <small class="p-error">{{ TrangThaiSacError }}</small>
                     </div>
-                  
+
                 </div>
                 <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                     <div class="p-fluid formgrid grid">
@@ -299,8 +312,7 @@ const loadDataTrangThai = () => {
 
                 <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                     <DataTable ref="dt" :value="lstChiTietSP" v-model:selection="selectedProducts" dataKey="id"
-                    v-if="visibledatatable"
-                        :paginator="true" :rows="5" :filters="filters"
+                        v-if="visibledatatable" :paginator="true" :rows="5" :filters="filters"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                         :rowsPerPageOptions="[5, 10, 25]"
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
@@ -308,7 +320,7 @@ const loadDataTrangThai = () => {
                         <template #header>
 
                             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                                
+
                                 <div style="display: flex;">
                                     <h5 class="m-0" style="margin-right: 0px;">Chi Tiết Lô Sản Phẩm </h5>
                                 </div>
@@ -319,8 +331,8 @@ const loadDataTrangThai = () => {
 
                                 </span>
                                 <Dropdown v-model="trangThaiselect" :options="dataTrangThai" optionLabel="label"
-                                    :optionLabel="(option) => option.label" placeholder="Tất cả" class="w-full md:w-14rem"
-                                    style="margin-left: 20px" @change="loadDataTrangThai()">
+                                    :optionLabel="(option) => option.label" placeholder="Tất cả"
+                                    class="w-full md:w-14rem" style="margin-left: 20px" @change="loadDataTrangThai()">
 
                                 </Dropdown>
 
@@ -329,7 +341,8 @@ const loadDataTrangThai = () => {
                         </template>
 
                         <template #empty>
-                            <div class="flex flex-column justify-content-center align-items-center" style="height: 300px">
+                            <div class="flex flex-column justify-content-center align-items-center"
+                                style="height: 300px">
                                 <svg width="100px" height="100px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
                                     fill="#000000" class="bi bi-file-earmark-x">
                                     <path
@@ -365,13 +378,14 @@ const loadDataTrangThai = () => {
                             </template>
                         </Column>
 
-                        <Column field="ngayHetHan" header="ngày hết hạn" :sortable="true" headerStyle="width:14%; min-width:5rem;">
+                        <Column field="ngayHetHan" header="ngày hết hạn" :sortable="true"
+                            headerStyle="width:14%; min-width:5rem;">
                             <template #body="slotProps">
                                 <span class="p-column-title">ngày hết hạn</span>
                                 {{ slotProps.data.ngayHetHan }}
                             </template>
                         </Column>
-                      
+
                         <Column field="soLuongTon" header="Số Lượng" :sortable="true"
                             headerStyle="width:14%; min-width:8rem;">
                             <template #body="slotProps">
@@ -379,8 +393,9 @@ const loadDataTrangThai = () => {
                                 {{ slotProps.data.soLuongTon }}
                             </template>
                         </Column>
-                        
-                        <Column field="giaBan" header="Giá Bán" :sortable="true" headerStyle="width:14%; min-width:8rem;">
+
+                        <Column field="giaBan" header="Giá Bán" :sortable="true"
+                            headerStyle="width:14%; min-width:8rem;">
                             <template #body="slotProps">
                                 <span class="p-column-title">Số Lượng</span>
                                 {{ formatCurrency(slotProps.data.giaBan) }}
@@ -396,7 +411,8 @@ const loadDataTrangThai = () => {
                                 {{ slotProps.data.trongLuong }}
                             </template>
                         </Column>
-                        <Column field="trangThai" header="Trạng Thái" sortable headerStyle="width: 4%; min-width: 5rem;">
+                        <Column field="trangThai" header="Trạng Thái" sortable
+                            headerStyle="width: 4%; min-width: 5rem;">
                             <template #body="slotProps">
                                 <Tag :value="getStatusLabel(slotProps.data.trangThai).text"
                                     v-if="slotProps.data.tenKM === null || slotProps.data.tenKM == ''"
@@ -410,7 +426,7 @@ const loadDataTrangThai = () => {
                         <Column header="Action" headerStyle="min-width:10rem;">
                             <template #body="slotProps">
                                 <ChooseLoSanPham :my-prop="slotProps.data"></ChooseLoSanPham>
-                              
+
                             </template>
                         </Column>
                     </DataTable>

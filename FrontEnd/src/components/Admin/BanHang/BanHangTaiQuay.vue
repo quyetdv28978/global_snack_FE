@@ -104,7 +104,8 @@ const themSPVaoHDCT = async () => {
     return;
   }
   soLuongError.value = '';
-  await store.themSPVaoHDCT(selectedHoaDon.value.id, dataOverlay.value.id, soLuong.value,selectedLoSanPham.value == null ? selectedLoSanPham.value.tenLo : null);
+  console.log(selectedLoSanPham.value);
+  await store.themSPVaoHDCT(selectedHoaDon.value.id, dataOverlay.value.id, soLuong.value,selectedLoSanPham.value != null ? selectedLoSanPham.value.tenLo : null);
   op.value.hide();
   soLuong.value = null;
   selectedLoSanPham.value = null;
@@ -462,7 +463,8 @@ const confirmHuyHD = (event, data) => {
 const options = ['Tùy chọn 1', 'Tùy chọn 2', 'Tùy chọn 3'];
 const trangThai = (tt) => {
 if(tt == 1) return 'còn hàng';
-else if (tt == 1) return 'Tồn kho'
+else if (tt == 4) return 'Tồn kho'
+else if (tt == 3) return 'Gần hết hạn sử dụng'
 
 }
 </script>

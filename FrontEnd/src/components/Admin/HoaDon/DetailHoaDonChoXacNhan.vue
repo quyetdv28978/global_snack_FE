@@ -3,12 +3,10 @@ import { ref, onMounted, watch } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import Divider from 'primevue/divider';
 import { useForm, useField } from 'vee-validate';
-import { da } from 'date-fns/locale';
 import { HDStore } from '@/service/Admin/HoaDon/HoaDonService';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Client } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
 
 const toast = useToast();
 const useHD = HDStore();
@@ -26,6 +24,7 @@ const rong = ref(null);
 const cao = ref(null);
 // confirm xác nhận
 const addProductDialog = ref(false);
+const { value: GiaBan, errorMessage: giaBanError } = useField('giaBan');
 
 //hiện confirm
 const confirmAddProduct = (id) => {
@@ -57,11 +56,14 @@ const ngayThanhToan = ref('');
 const ngayGiao = ref('');
 const ngayNhan = ref('');
 
+const tienShipSauGiam = ref('');
 watch(ship, (newVal) => {
     if (ship.value === 'nguoiGui') {
         tienShip.value = 0;
+        tienShipSauGiam.value = -props.myProp.tienShip;
         tongTienThanhToan.value = props.myProp.idVoucher === null ? parseInt(props.myProp.tongTien) : parseInt(props.myProp.tienSauKhiGiam) - parseInt(props.myProp.tienShip);
     } else {
+        tienShipSauGiam.value = props.myProp.tienShip;
         tienShip.value = props.myProp.tienShip;
         tongTienThanhToan.value = props.myProp.idVoucher === null ? parseInt(props.myProp.tongTien) + parseInt(props.myProp.tienShip == null ? 0 : props.myProp.tienShip) : props.myProp.tienSauKhiGiam;
     }
@@ -78,6 +80,10 @@ watch(productDialog, (newVal) => {
 });
 
 onMounted(() => {
+    // loadDataHDCT(props.myProp.idHD);
+    // console.log(dataHDCT);
+    // GiaBan.value = props.myProp.giaBan;
+    // console.log(GiaBan.value);
     openSocketConnection();
 });
 
@@ -102,6 +108,13 @@ const sendMessage = () => {
     });
 };
 
+const slSP = ref();
+
+const changeNumber = (item) => {
+    console.log(item);
+    // slSP.value = item
+}
+
 const btnXacNhan = async () => {
     const formGHN = {
         trongLuong: inputKhoiLuong.value,
@@ -112,39 +125,42 @@ const btnXacNhan = async () => {
     };
     const ngayHienTai = new Date();
     const ngayChon = new Date(ngayDuKienGiao.value);
-    if (formGHN.trongLuong == null || formGHN.trongLuong.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Khối lượng không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.trongLuong <= 0 || formGHN.trongLuong < khoiLuong.value) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Vui lòng nhập khối lượng phù hợp', life: 3000 });
-        addProductDialog.value = false;
-    } else if (ngayDuKienGiao.value == null || ngayDuKienGiao.value.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Ngày dự kiến giao không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (ngayChon < ngayHienTai) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Ngày dự kiến giao không được nhỏ hơn ngày hiện tại', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.dai == null || formGHN.dai.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Chiều dài không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.rong == null || formGHN.rong.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Chiều rộng không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.cao == null || formGHN.cao.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Chiều cao không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.cao <= 0 || formGHN.rong <= 0 || formGHN.dai <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Các kích thước phải lớn hơn 0', life: 3000 });
-        addProductDialog.value = false;
-    } else {
-        const responeDCB = await useHD.dangChuanBi(idHD.value, ngayDuKienGiao.value, tongTienThanhToan.value, tienShip.value);
+    // if (formGHN.trongLuong == null || formGHN.trongLuong.length <= 0) {
+    //     toast.add({ severity: 'error', summary: 'error', detail: 'Khối lượng không được trống', life: 3000 });
+    //     addProductDialog.value = false;
+    // } else if (formGHN.trongLuong <= 0 || formGHN.trongLuong < khoiLuong.value) {
+    //     toast.add({ severity: 'error', summary: 'error', detail: 'Vui lòng nhập khối lượng phù hợp', life: 3000 });
+    //     addProductDialog.value = false;
+    // } 
+    // else if (ngayDuKienGiao.value == null || ngayDuKienGiao.value.length <= 0) {
+    //     toast.add({ severity: 'error', summary: 'error', detail: 'Ngày dự kiến giao không được trống', life: 3000 });
+    //     addProductDialog.value = false;
+    // } else if (ngayChon < ngayHienTai) {
+    //     toast.add({ severity: 'error', summary: 'error', detail: 'Ngày dự kiến giao không được nhỏ hơn ngày hiện tại', life: 3000 });
+    //     addProductDialog.value = false;
+    // } else if (formGHN.dai == null || formGHN.dai.length <= 0) {
+    //     toast.add({ severity: 'error', summary: 'error', detail: 'Chiều dài không được trống', life: 3000 });
+    //     addProductDialog.value = false;
+    // } else if (formGHN.rong == null || formGHN.rong.length <= 0) {
+    //     toast.add({ severity: 'error', summary: 'error', detail: 'Chiều rộng không được trống', life: 3000 });
+    //     addProductDialog.value = false;
+    // } else if (formGHN.cao == null || formGHN.cao.length <= 0) {
+    //     toast.add({ severity: 'error', summary: 'error', detail: 'Chiều cao không được trống', life: 3000 });
+    //     addProductDialog.value = false;
+    // } else if (formGHN.cao <= 0 || formGHN.rong <= 0 || formGHN.dai <= 0) {
+    //     toast.add({ severity: 'error', summary: 'error', detail: 'Các kích thước phải lớn hơn 0', life: 3000 });
+    //     addProductDialog.value = false;
+    // } else {
+        console.log(tienShipSauGiam.value);
+        console.log(tienShip.value);
+        const responeDCB = await useHD.dangChuanBi(idHD.value, ngayDuKienGiao.value, tongTienThanhToan.value, tienShipSauGiam.value);
         sendMessage();
-        // console.log(responeDCB);
+        console.log(responeDCB);
         giaoHangNhanh(idHD.value, responeDCB, formGHN);
         toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Xác nhận thành công', life: 3000 });
         addProductDialog.value = false;
         productDialog.value = false;
-    }
+    // }
 };
 
 const events = ref([
@@ -275,7 +291,12 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                             <td style="width: 20%"><img :src="item.anh" style="width: 50%" alt="HoaDon Image" /></td>
                                             <td>{{ item.tenSP }}</td>
                                             <td>{{ item.trongLuong }}</td>
-                                            <td>{{ item.soLuong }}</td>
+                                            <td>
+                                                <!-- <InputNumber id="number-input" name="GiaBan" v-model="item.soLuong"
+                                                @change="changeNumber($event.target.value)"
+                                    :class="{ 'p-invalid': giaBanError }"></InputNumber> -->
+                                {{ item.soLuong }}               
+                                </td>
                                             <td>{{ formatCurrency(item.donGia) }}</td>
                                             <td>{{ formatCurrency(item.soLuong * item.donGia) }}</td>
                                         </tr>
@@ -312,11 +333,11 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="p-inputgroup flex-1">
+                            <!-- <div class="p-inputgroup flex-1">
                                 <p>Ngày dự kiến giao:</p>
                                 <input type="datetime-local" v-model="ngayDuKienGiao" style="width: 170px; height: 25px; margin-left: 10px" />
-                            </div>
-                            <div>
+                            </div> -->
+                            <!-- <div>
                                 <p style="float: left; margin-right: 20px; margin-top: 5px">Khối lượng:</p>
                                 <InputText id="ten" name="ten" type="number" v-model.trim="inputKhoiLuong" :class="{ 'p-invalid': tenError }" required="true" style="width: 80px; height: 30px" />
                             </div>
@@ -328,7 +349,7 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                 <p style="float: left; margin-right: 5px; margin-top: 5px">Rộng</p>
                                 <InputText id="ten" name="ten" type="number" v-model.trim="cao" :class="{ 'p-invalid': tenError }" required="true" style="width: 60px; height: 30px; float: left; margin-right: 5px" />
                                 <p style="float: left; margin-right: 5px; margin-top: 5px">Cao</p>
-                            </div>
+                            </div> -->
                             <div>
                                 <p style="float: left; margin-right: 15px; margin-top: 5px">Phí giao hàng:</p>
                                 <div class="flex align-items-center" style="margin-top: 5px">

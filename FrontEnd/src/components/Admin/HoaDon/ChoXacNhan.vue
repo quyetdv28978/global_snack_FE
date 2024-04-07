@@ -365,7 +365,7 @@ watch(phuongThucThanhToan, (newVal) => {
                 {{ slotProps.data.tenPTTT }}
             </template>
         </Column>
-        <Column field="trangThai" header="Trạng thái" :sortable="false" headerStyle="width:14%; min-width:10rem;">
+        <Column field="trangThai" header="Trạng thái"  :sortable="false" headerStyle="width:14%; min-width:10rem;">
             <template #body="slotProps">
                 <span class="p-column-title">trangThai</span>
                 <Tag :value="hienThiTrangThai(slotProps.data.trangThai).text" :severity="hienThiTrangThai(slotProps.data.trangThai).severity" />
