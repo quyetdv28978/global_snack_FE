@@ -58,7 +58,7 @@ const onSubmit = handleSubmit(async (values) => {
                         <router-link class="font-medium ml-2 text-right" :to="{ name: 'login' }">Quay lại đăng nhập</router-link>
                     </div>
 
-                    <Button type="submit" label="Xác nhận" icon="pi pi-user" class="w-full"></Button>
+                    <Button type="submit" label="Xác nhận" class="w-full"></Button>
                 </div>
             </form>
         </div>

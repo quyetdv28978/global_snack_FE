@@ -124,7 +124,6 @@ const loadData = async () => {
     await productStore.fetchProductById(idProduct);
     console.log('productStore.product', productStore.product);
     dataSanPham.value = productStore.product;
-
 };
 
 // const loadProducts = async () => {
@@ -535,7 +534,6 @@ const menu = ref();
                                     <span class="text-xl font-normal text-gray-400">200 </span>
                                     <span class="text-xl font-normal text-gray-950">Đã bán</span>
                                 </div>
-
                             </div>
                             <h1 class="text-lg text-gray-600">Số lượng còn lại: {{ dataListSPCT.soLuongTon }}</h1>
 
@@ -570,7 +568,6 @@ const menu = ref();
                                     <div>{{ mauSacs.value }} {{ mauSacs.donVi }}</div>
                                 </div>
                             </div>
-                            <label class="text-xl font-normal text-gray-950">Ngày hết hạn: {{ dataListSPCT.ngayHetHan }}</label>
 
                             <div class="mt-3 flex gap-4">
                                 <Button class="cursor-pointer" severity="danger" text raised label="Thêm vào giỏ hàng"
@@ -600,9 +597,12 @@ const menu = ref();
                                     </div>
                                     
                                     <div class="item">
+                                    <!-- <div class="item">
                                         <label class="text-xl text-gray-500">Trọng lượng: </label>
                                         <span class="text-xl"> {{ dataSanPham.dictionary }} </span>
-                                    </div>
+                                    </div>-->
+                                    </div> 
+
                                     <div class="item">
                                         <label class="text-xl text-gray-500">Đạt chuẩn: </label>
                                         <a class="text-xl text-black">Quốc Gia</a>

@@ -150,10 +150,10 @@ const dangKy = () => {
     <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
         <Toast />
         <div class="flex flex-column align-items-center justify-content-center">
-            <img src="/src/assets/images/logo.jpg" alt="Sakai logo" class="mb-5 w-6rem flex-shrink-0" />
-            <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
+            <div style="border-radius: 56px; padding: 0.3rem">
                 <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px; margin-bottom: 20px">
                     <div class="text-center mb-5">
+                        <img src="/src/assets/images/logo.jpg" alt="Sakai logo" class="mb-5 w-6rem" />
                         <div class="text-900 text-3xl font-medium mb-3">Xin chào!</div>
                         <span class="text-600 font-medium">Đăng nhập để tiếp tục</span>
                     </div>
@@ -186,7 +186,7 @@ const dangKy = () => {
                             <Button label="Đăng nhập" class="w-5 p-3 text-xl" @click="dangNhapa"></Button>
                         </div>
 
-                        <div style="margin-top: 20px; margin-left: 50px">
+                        <!-- <div style="margin-top: 20px; margin-left: 50px">
                             <GoogleLogin :callback="callback" style="opacity: 00; width: 20px"> </GoogleLogin>
                             <button class="btn google" style="width: 290px; margin-left: -20px; margin-top: -30px">
                                 <svg
@@ -229,7 +229,7 @@ const dangKy = () => {
 
                                 Google
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
