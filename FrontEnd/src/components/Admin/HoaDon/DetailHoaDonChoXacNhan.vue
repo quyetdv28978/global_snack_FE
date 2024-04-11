@@ -350,7 +350,7 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                 <InputText id="ten" name="ten" type="number" v-model.trim="cao" :class="{ 'p-invalid': tenError }" required="true" style="width: 60px; height: 30px; float: left; margin-right: 5px" />
                                 <p style="float: left; margin-right: 5px; margin-top: 5px">Cao</p>
                             </div> -->
-                            <div>
+                            <!-- <div>
                                 <p style="float: left; margin-right: 15px; margin-top: 5px">Phí giao hàng:</p>
                                 <div class="flex align-items-center" style="margin-top: 5px">
                                     <RadioButton v-model="ship" inputId="aaaaaaa" name="pizza" value="nguoiGui" />
@@ -358,16 +358,16 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                     <RadioButton v-model="ship" inputId="aaaaaaa" name="pizza" value="nguoiNhan" />
                                     <label for="ingredient2" class="ml-2">Người nhận</label>
                                 </div>
-                            </div>
+                            </div> -->
                             <p>Tổng tiền các sản phẩm: {{ formatCurrency(props.myProp.tongTien) }}</p>
                             <p>Phí vận chuyển: {{ formatCurrency(tienShip) }}</p>
-                            <p>
+                            <!-- <p>
                                 Tiền giảm:
                                 <span v-if="props.myProp.idVoucher != null" style="color: red"
                                     >- {{ formatCurrency(parseInt(props.myProp.tongTien) + parseInt(props.myProp.tienShip == null ? 0 : props.myProp.tienShip) - parseInt(props.myProp.tienSauKhiGiam)) }}</span
                                 >
                                 <span v-else style="color: red"> 0</span>
-                            </p>
+                            </p> -->
                             <p>
                                 Tổng tiền: <span style="color: #ff3333; font-size: 20px; font-weight: bold">{{ formatCurrency(tongTienThanhToan) }}</span>
                             </p>

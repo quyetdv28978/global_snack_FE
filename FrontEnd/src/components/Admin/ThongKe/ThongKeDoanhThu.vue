@@ -92,7 +92,7 @@ const loadData = async () => {
     lstAdminThongKeThangResponses.value = thongKeStore.lstAdminThongKeThangResponses;
     lstAdminThongKeThuongHieuResponses.value = thongKeStore.lstAdminThongKeThuongHieuResponses;
     lstAdminThongKeThangNamResponses.value = thongKeStore.lstAdminThongKeThangNamResponses;
-
+    console.log(tongChietKhau.value)
     chartData.value = setChartData();
     chartOptions.value = setChartOptions();
     chartLoai.value = setChartLoai();

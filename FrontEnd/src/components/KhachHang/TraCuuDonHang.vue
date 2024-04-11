@@ -69,7 +69,7 @@ const events = ref([
     { status: 'Ngày đã thanh toán', date: ngayThanhToan, icon: 'pi pi-money-bill', color: '#673AB7' },
     { status: 'Đã giao cho ĐVVC', date: ngayGiao, icon: 'pi pi-car', color: '#FF9800' },
     { status: 'Đã nhận được hàng', date: ngayNhan, icon: 'pi pi-box', color: '#607D8B' },
-    { status: 'Đánh giá', date: '17/10/2020', icon: 'pi pi-star', color: '#F55C3B' }
+    { status: 'Đánh giá', date: '01/05/2020', icon: 'pi pi-star', color: '#F55C3B' }
 ]);
 
 const tinhTongTien = (tienShip, tongTien, tienSauGiam, idVoucher) => {
