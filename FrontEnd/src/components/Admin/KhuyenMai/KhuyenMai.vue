@@ -11,6 +11,7 @@ import DeleteKhuyenMai from './DeleteKhuyenMai.vue';
 import ApplyKM from './ApplyKM.vue';
 import ProgressSpinner from 'primevue/progressspinner';
 import ExcelJS from 'exceljs';
+import AddKhuyenMaiLoSanPham from './addKhuyenMaiLoSanPham.vue';
 
 const toast = useToast();
 const filters = ref({});
@@ -193,7 +194,7 @@ const generateExcel = () => {
                         </div>
                     </template>
 
-
+                  
                 </Toolbar>
 
                 <DataTable
@@ -250,6 +251,7 @@ const generateExcel = () => {
                     <Column headerStyle="min-width:15rem;">
                         <template #body="slotProps">
                             <UpdateKhuyenMai :my-prop="slotProps.data" />
+                            <AddKhuyenMaiLoSanPham :my-prop="slotProps.data"/>
                             <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2" @click="confirmDeleteKhuyenMai(slotProps.data)" />
                             <ApplyKM :my-prop="slotProps.data" />
                         </template>

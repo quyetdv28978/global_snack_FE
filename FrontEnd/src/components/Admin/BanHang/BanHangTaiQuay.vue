@@ -104,8 +104,7 @@ const themSPVaoHDCT = async () => {
     return;
   }
   soLuongError.value = '';
-  console.log(selectedLoSanPham.value);
-  await store.themSPVaoHDCT(selectedHoaDon.value.id, dataOverlay.value.id, soLuong.value,selectedLoSanPham.value != null ? selectedLoSanPham.value.tenLo : null);
+  await store.themSPVaoHDCT(selectedHoaDon.value.id, dataOverlay.value.id, soLuong.value,selectedLoSanPham.value == null ? selectedLoSanPham.value.tenLo : null);
   op.value.hide();
   soLuong.value = null;
   selectedLoSanPham.value = null;
@@ -413,8 +412,6 @@ watch(userDiaChi, async (newVal) => {
 
   if (diaChiMacDinh == '' || diaChiMacDinh == null) {
     phiShip.value = 0;
-    // idDiaChi.value = diaChiMacDinh.id;
-    // idDiaChi.value = userDiaChi.value[0].id;
   } else {
     idDiaChi.value = diaChiMacDinh.id;
     await phiGiaoHangService.phiShip(diaChiMacDinh);

@@ -29,8 +29,6 @@
                 </template>
                 <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
                 <Column field="tenSP" header="Sản Phẩm"></Column>
-                <Column field="tenMauSac" header="Màu Sắc"></Column>
-                <Column field="tenSize" header="Size"></Column>
                 <Column field="giaBan" header="Giá Bán"></Column>
             </DataTable>
         </div>

@@ -47,11 +47,11 @@ const getStatusLabel = (soLuong) => {
         return { text: 'hết Hàng', severity: 'danger' };
     } else if (soLuong == 1) {
         return { text: 'Còn hàng', severity: 'success' };
-    }
-    else if (soLuong == 3) {
-        return { text: 'Sắp hết hạn sử dụng', severity: 'danger' };
-    } else {
-        return { text: 'Tồn kho', severity: 'war' };
+    } 
+    else if (soLuong == 2) {
+        return { text: 'Sắp hết hàng', severity: 'success' };
+    }else {
+        return { text: 'hết Hàng', severity: 'war' };
     }
 
 };

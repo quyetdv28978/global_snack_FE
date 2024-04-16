@@ -29,8 +29,8 @@ export const phiShipStore = defineStore('phiShip', {
                     const response = await axios.post('https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee', form, {
                         headers: {
                             // Thêm headers vào yêu cầu POST ở đây
-                            token: '62a3cbdc-4e13-11ee-96dc-de6f804954c9',
-                            ShopId: '4523827'
+                            token: '1541d891-b707-11ee-8529-6a2e06bbae55',
+                            ShopId: '4859593'
                         }
                     });
                   

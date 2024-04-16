@@ -18,7 +18,6 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
             try {
                 const response = await axios.get(apiLoSanPham);
                 this.data = response.data;
-                console.log("jsdlfkasjldkf");
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
@@ -42,9 +41,8 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
             this.check = 1;
             try {
                 const response = await axios.get(apiLoSanPham + '/by-san-pham-ct/' + status);
-                console.log(response.data);
-                    this.dataByStatus1 = response.data;
-                
+                this.dataByStatus1 = response.data;
+
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
@@ -54,12 +52,30 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
             this.check = 1;
             try {
                 const response = await axios.get(apiLoSanPham + '/by-san-pham-ct-not-null/' + status);
-                console.log(response.data);
-                    this.dataByStatus1 = response.data;
-                
+                this.dataByStatus1 = response.data;
+
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
+        },
+        async showLoSanPhamByMount(mount) {
+            this.check = 0;
+            try {
+                const response = await axios.get(apiLoSanPham + `/lo-san-pham-het-han-by-mount/${mount}`);
+                this.dataLoSanPhamByMount = response.data;
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        },
+        async chooseLoSanPham(idctsp) {
+            const response = await axios.get(`${apiLoSanPham}/choose-lo/${idctsp}`);
+            this.dataCheckLoSanPham = response.data;
+        }
+        ,
+        async showLoSanPhamSapHethan(idctsp) {
+            const response = await axios.get(`${apiLoSanPham}/sap_het_han`);
+            this.data = response.data;
+            console.log(response.data);
         },
         async createMauSac(form) {
             axios.post(apiLoSanPham + '/add-lo', form).then((response) => {
@@ -81,15 +97,6 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
                     this.dataByStatus1[index] = newProductData;
                 }
             });
-        },
-        async showLoSanPhamByMount(mount) {
-            this.check = 0;
-            try {
-                const response = await axios.get(apiLoSanPham + `/lo-san-pham-het-han-by-mount/${mount}`);
-                this.dataLoSanPhamByMount = response.data;
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
         }
         ,
         async updateLoSanPhamTT(maLo) {
@@ -102,11 +109,6 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
                 console.error('Error fetching users:', error);
             }
         }
-        ,
-        async chooseLoSanPham(idctsp) {
-            const response = await axios.get(`${apiLoSanPham}/choose-lo/${idctsp}`);
-            console.log(response.data);
-            this.dataCheckLoSanPham = response.data;
-        }
+
     }
 });
