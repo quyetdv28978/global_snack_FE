@@ -40,7 +40,7 @@ const confirmDeleteProduct = async (maLo) => {
 const deleteProduct = async () => {
     console.log(idDelete.value);
     await loSanPhamService.updateLoSanPhamTT(idDelete.value);
-    dataTrongLuong = loSanPhamService.data
+    dataTrongLuong.value = loSanPhamService.data
     toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Xoá thành công', life: 3000 });
     deleteProductDialog.value = false;
 
