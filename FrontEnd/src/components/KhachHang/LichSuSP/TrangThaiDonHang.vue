@@ -71,9 +71,9 @@ const events = ref([
     { status: 'Đánh giá', date: '17/10/2020', icon: 'pi pi-star', color: '#F55C3B' }
 ]);
 
-const tinhTongTien = (tienShip, tongTien, tienSauGiam, idVoucher) => {
+const tinhTongTien = (tongTien, tienSauGiam, idVoucher) => {
     if (idVoucher === '' || idVoucher === null) {
-        return parseInt(tongTien) + parseInt(tienShip);
+        return parseInt(tongTien);
     } else {
         return parseInt(tienSauGiam);
     }
@@ -379,7 +379,7 @@ const checks = (trangThai, soLuong) => {
                         <p>{{ formatCurrency(dataHD.tienShip) }}</p>
                         <p style="color: red" v-if="dataHD.idVoucher !== null">- {{ formatCurrency(parseInt(dataHD.tongTien) + parseInt(dataHD.tienShip) - parseInt(dataHD.tienSauKhiGiam)) }}</p>
                         <p style="color: red" v-else>0</p>
-                        <p style="font-weight: bold; color: red">{{ formatCurrency(tinhTongTien(dataHD.tongTien, dataHD.tienShip, dataHD.tienSauKhiGiam, dataHD.idVoucher)) }}</p>
+                        <p style="font-weight: bold; color: red">{{ formatCurrency(tinhTongTien(dataHD.tongTien, dataHD.tienSauKhiGiam, dataHD.idVoucher)) }}</p>
                     </div>
                 </div>
             </div>

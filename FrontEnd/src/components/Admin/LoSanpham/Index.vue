@@ -24,7 +24,6 @@ const dataTrongLuong = ref([]);
 const loaddataTrongLuong = async () => {
     await loSanPhamService.fetchData();
     dataTrongLuong.value = loSanPhamService.data;
-    console.log("dataTrongLuong.value");
 };
 
 const loaddataTrongLuongByTrangThai = async () => {
