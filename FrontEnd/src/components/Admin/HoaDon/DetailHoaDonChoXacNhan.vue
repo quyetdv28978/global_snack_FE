@@ -112,39 +112,14 @@ const btnXacNhan = async () => {
     };
     const ngayHienTai = new Date();
     const ngayChon = new Date(ngayDuKienGiao.value);
-    if (formGHN.trongLuong == null || formGHN.trongLuong.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Khối lượng không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.trongLuong <= 0 || formGHN.trongLuong < khoiLuong.value) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Vui lòng nhập khối lượng phù hợp', life: 3000 });
-        addProductDialog.value = false;
-    } else if (ngayDuKienGiao.value == null || ngayDuKienGiao.value.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Ngày dự kiến giao không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (ngayChon < ngayHienTai) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Ngày dự kiến giao không được nhỏ hơn ngày hiện tại', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.dai == null || formGHN.dai.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Chiều dài không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.rong == null || formGHN.rong.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Chiều rộng không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.cao == null || formGHN.cao.length <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Chiều cao không được trống', life: 3000 });
-        addProductDialog.value = false;
-    } else if (formGHN.cao <= 0 || formGHN.rong <= 0 || formGHN.dai <= 0) {
-        toast.add({ severity: 'error', summary: 'error', detail: 'Các kích thước phải lớn hơn 0', life: 3000 });
-        addProductDialog.value = false;
-    } else {
+  
         const responeDCB = await useHD.dangChuanBi(idHD.value, ngayDuKienGiao.value, tongTienThanhToan.value, tienShip.value);
         sendMessage();
-        // console.log(responeDCB);
         giaoHangNhanh(idHD.value, responeDCB, formGHN);
         toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Xác nhận thành công', life: 3000 });
         addProductDialog.value = false;
         productDialog.value = false;
-    }
+    // }
 };
 
 const events = ref([
@@ -156,6 +131,7 @@ const events = ref([
 ]);
 
 const loadDataHDCT = async (idHD) => {
+    console.log(props.myProp);
     const respone = await useHD.findHdctByIdHd(idHD);
     dataHDCT.value = respone;
     for (let i = 0; i < dataHDCT.value.length; i++) {
@@ -312,8 +288,8 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="p-inputgroup flex-1">
-                                <p>Ngày dự kiến giao:</p>
+                            <!-- <div class="p-inputgroup flex-1">
+                                <p>fNgày dự kiến giao:</p>
                                 <input type="datetime-local" v-model="ngayDuKienGiao" style="width: 170px; height: 25px; margin-left: 10px" />
                             </div>
                             <div>
@@ -337,7 +313,7 @@ const tinhTongTien = (tienShip, tongTien, tienSauGiam) => {
                                     <RadioButton v-model="ship" inputId="aaaaaaa" name="pizza" value="nguoiNhan" />
                                     <label for="ingredient2" class="ml-2">Người nhận</label>
                                 </div>
-                            </div>
+                            </div> -->
                             <p>Tổng tiền các sản phẩm: {{ formatCurrency(props.myProp.tongTien) }}</p>
                             <p>Phí vận chuyển: {{ formatCurrency(tienShip) }}</p>
                             <p>

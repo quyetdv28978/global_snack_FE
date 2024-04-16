@@ -70,9 +70,9 @@ const loadDataHDCT = async (idHD) => {
     dataHDCT.value = respone;
 };
 
-const tinhTongTien = (tienShip, tongTien, tienSauGiam,idVoucher) => {
+const tinhTongTien = (tongTien, tienSauGiam,idVoucher) => {
     if (idVoucher === '' || idVoucher === null) {
-        return parseInt(tongTien) + parseInt(tienShip);
+        return parseInt(tongTien);
     } else {
         return parseInt(tienSauGiam);
     }
@@ -479,7 +479,7 @@ const btnXacNhanHuyGH = () => {
                                     </p>
                                     <p>
                                         Tổng tiền: <span style="color: #ff3333; font-size: 20px; font-weight: bold">{{
-                                            formatCurrency(tinhTongTien(props.myProp.tienShip,
+                                            formatCurrency(tinhTongTien(
                                                 props.myProp.tongTien, tienGiam ,props.myProp.idVoucher )) }}</span>        
                                     </p>
                                 </div>

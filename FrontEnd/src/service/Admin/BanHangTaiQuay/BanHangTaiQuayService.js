@@ -57,8 +57,8 @@ export const useBanHangTaiQuayStore = defineStore('banHangTaiQuay', () => {
         dsPTTT.value = response.data;
     };
 
-    const themSPVaoHDCT = async (idHoaDon, idCTSP, soLuong) => {
-        const response = await axios.post(`${API_ENDPOINT}/hoa-don-chi-tiet`, {idCTSP, soLuong}, {
+    const themSPVaoHDCT = async (idHoaDon, idCTSP, soLuong, idLsp) => {
+        const response = await axios.post(`${API_ENDPOINT}/hoa-don-chi-tiet/${idLsp}`, {idCTSP, soLuong}, {
             params: {
                 id_hd: idHoaDon
             }

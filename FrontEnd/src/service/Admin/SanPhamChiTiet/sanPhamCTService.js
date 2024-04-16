@@ -15,7 +15,8 @@ export const ctspStore = defineStore('ctsp', {
            
             try {
                 const response = await axios.get(apiCTSP+`?idsp=${idsp}`);
-                this.data = response.data;            
+                this.data = response.data;           
+                console.log(this.data); 
             } catch (error) {
                 console.error('Error fetching users:', error);
             }

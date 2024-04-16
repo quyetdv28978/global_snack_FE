@@ -711,7 +711,7 @@ const setChartOptionsSpThap = () => {
                     </div>
                 </Panel>
             </div>
-            <div class="Field col-12 md:col-2" style="height: 30px">
+            <!-- <div class="Field col-12 md:col-2" style="height: 30px">
                 <Panel header="Tổng Hoàn tiền" style="width: 170px; height: 40px">
                     <div style="display: flex">
                         <div style="margin-right: 20px; text-align: center">
@@ -720,7 +720,7 @@ const setChartOptionsSpThap = () => {
                         <div></div>
                     </div>
                 </Panel>
-            </div>
+            </div> -->
             <div class="Field col-12 md:col-2" style="height: 30px">
                 <Panel header="Tổng Chiết khấu" style="width: 170px; height: 40px">
                     <div style="display: flex">

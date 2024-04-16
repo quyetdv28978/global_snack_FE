@@ -184,8 +184,6 @@ const thanhtoan = async () => {
     };
     const formString = JSON.stringify(form);
 
-    console.log(phuongThucThanhToan.value);
-
     if (parseInt(phuongThucThanhToan.value) == 2) {
         const data = {
             vnp_Ammount: tongThanhToan.value,

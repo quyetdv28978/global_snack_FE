@@ -118,8 +118,7 @@
                 </template>
                 <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
                 <Column field="tenSP" header="Sản Phẩm"></Column>
-                <Column field="tenMauSac" header="Màu Sắc"></Column>
-                <Column field="tenSize" header="Size"></Column>
+                <Column field="trongLuong" header="Trọng lượng"></Column>
                 <Column field="giaBan" header="Giá Bán"></Column>
             </DataTable>
         </div>
@@ -139,6 +138,7 @@ import { ProductStore } from '@/service/Admin/product/product.api';
 import SelectCTSP from './SelectCTSP.vue';
 import { ctspStore } from '@/service/Admin/SanPhamChiTiet/sanPhamCTService';
 import { useToast } from 'primevue/usetoast';
+import { log } from 'pdfmake/build/pdfmake';
 
 const toast = useToast();
 const ctspService = ctspStore();
@@ -147,7 +147,6 @@ const thuonghieuService =  useCounterStore();
 const loaiStore = useLoaiService();
 const products = ref([]);
 const showSpinner = ref(false);
-// const productService = productStore();
 const selectedProductDialog = ref(false);
 const dataLoai = ref([]);
 const dataThuongHieu = ref([]);
@@ -219,6 +218,7 @@ const loadProducts = async () => {
     showSpinner.value = true;
     await productStore.fetchAll(); // Gọi hàm fetchAll từ Store
     products.value = productStore.products;
+    console.log(products.value)
 };
 
 const selectedLoai = ref(null);
