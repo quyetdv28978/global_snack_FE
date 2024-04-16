@@ -63,9 +63,9 @@ const applyKhuyenMai = () => {
 
     // duyệt qua mảng danh sách các CTSP được chọn
     selectedProduct.value.forEach((product) => {
-        const productId = product.id;
+        const tenLsp = product.tenLo;
         // cập nhật lại giá tiền và id khuyến mại
-        ctspService.updateCTSP(productId, idkm);
+        ctspService.addKhuyenMaiLoSanphamSapHethan(productId, idkm);
     });
 
     // localStorage.removeItem('idkm');

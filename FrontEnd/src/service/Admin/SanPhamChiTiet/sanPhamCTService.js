@@ -2,8 +2,7 @@ import { defineStore } from 'pinia';
 //  import axios from 'axios';
 import axios from '@/service/Authentication/http.js';
 const apiCTSP = `${import.meta.env.VITE_BASE_API_ENDPOINT}/admin/ctsp`;
-
-
+const apiLoSanPham = `${import.meta.env.VITE_BASE_API_ENDPOINT}/admin/lo-san-pham`;
 
 export const ctspStore = defineStore('ctsp', {
     state: () => ({
@@ -32,8 +31,13 @@ export const ctspStore = defineStore('ctsp', {
                 }
                 this.data.splice(index, 1);
             });
+        },
+        addKhuyenMaiLoSanphamSapHethan(idlsp, idkm) {
+            axios.post(apiLoSanPham`/lo-san-pham/${idkm}/${idlsp}`).then((response) => {
+                // this.data = response.data;           
+                // console.log(this.data); 
+            });
         }
-        
     }
 })
 
