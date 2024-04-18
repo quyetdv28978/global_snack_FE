@@ -38,8 +38,7 @@ const selectedLoSanPham = ref(null);
 const dataLoSanPham = ref([]);
 const loadDataLoSanPham = async () => {
     await loSanPhamStore.fetchDataBySPCTNotNull(props.myProp.id);
-    console.log(loSanPhamStore.dataByStatus1);
-    dataLoSanPham.value = loSanPhamStore.dataByStatus1;
+    dataLoSanPham.value = loSanPhamStore.data;
 };
 
 const onLoSanPhamChange = () => {

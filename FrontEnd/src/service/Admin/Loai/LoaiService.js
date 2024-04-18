@@ -38,7 +38,10 @@ export const useLoaiService = defineStore('loai', {
         createLoai(form) {
             axios.post(apiLoai + '/add', form).then((response) => {
                 if (this.check == 0) {
+                    // console.log(this.dataByStatus1);
                     this.data.unshift(response.data.data);
+                    // console.log(this.data);
+
                     if (response.data.data.trangThai == 1) this.dataByStatus1.unshift(response.data.data);
                 } else {
                     if (this.data[0].trangThai == response.data.data.trangThai) this.data.unshift(response.data.data);

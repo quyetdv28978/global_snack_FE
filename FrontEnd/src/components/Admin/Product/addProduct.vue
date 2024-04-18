@@ -81,37 +81,7 @@ const onSubmit = handleSubmit(async (values) => {
             // Hiển thị thông báo lỗi hoặc xử lý theo nhu cầu của bạn
             toast.add({ severity: 'error', summary: 'Error', detail: 'sản phẩm đã tồn tại', life: 3000 });
         } else {
-            // for (let i = 0; i < values.giaBan.length; i++) {
-            //     let giaBan = values.giaBan[i];
-            //     //   let giaNhap = values.giaNhap[i];
-            //     let soLuong = values.soLuongSize[i];
-            //     // if (soLuong <= 0) {
-            //     //     toast.add({ severity: 'error', summary: 'Error', detail: 'Số lượng sản phẩm phải lớn hơn 0', life: 3000 });
-            //     //     return;
-            //     // }
-            //     // if (isNaN(soLuong)) {
-            //     //     toast.add({ severity: 'error', summary: 'Error', detail: 'Giá trị phải là một số', life: 3000 });
-            //     //     return;
-            //     // }
-            //     // if (giaBan <= 0) {
-            //     //     toast.add({ severity: 'error', summary: 'Error', detail: 'Giá bán sản phẩm phải lớn hơn 0', life: 3000 });
-            //     //     return;
-            //     // }
-            //     // if (isNaN(giaBan)) {
-            //     //     toast.add({ severity: 'error', summary: 'Error', detail: 'Giá bán phải là một số', life: 3000 });
-            //     //     return;
-            //     // }
-            //     // if (Number(giaBan) < 50000) {
-            //     //     toast.add({ severity: 'error', summary: 'Error', detail: 'giá bán phải lớn hơn 50.000 đ' + giaBan, life: 3000 });
-            //     //     return;
-            //     // }
-            //     // if (giaBan > 10000000) {
-            //     //     toast.add({ severity: 'error', summary: 'Error', detail: 'Giá bán không lớn hơn 10.000.000 đ', life: 3000 });
-            //     //     return;
-            //     // }
 
-            // }
-            console.log(values);
             await productStore.add(values);
             toast.add({ severity: 'success', summary: 'Success Message', detail: 'Thêm thành công', life: 3000 });
             productDialog.value = false;
@@ -148,8 +118,7 @@ const loadDataThuongHieu = async () => {
 const dataLoai = ref([]);
 const loadDataLoai = async () => {
     await loaiStore.fetchDataByStatus(1);
-    dataLoai.value = loaiStore.dataByStatus1;
-    //  console.log( loaiStore.data)
+    dataLoai.value = loaiStore.data;
 };
 
 const dataTrongLuong = ref([]);

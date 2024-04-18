@@ -23,7 +23,6 @@ const trangThai = ref();
 const idDelete = ref();
 const dataLoai = ref([]);
 
-//load data màu sắc tất cả
 const loadDataLoai = async () => {
     await LoaiService.fetchData();
     dataLoai.value = LoaiService.data;
@@ -41,7 +40,6 @@ watch(trangThai, (newVal) => {
         loadDataLoai();
     }
 });
-
 onBeforeMount(() => {
     initFilters();
 });

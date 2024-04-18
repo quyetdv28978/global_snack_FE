@@ -27,3 +27,6 @@ npm run build
 ```sh
 npm run lint
 ```
+
+-- xoa cache module
+npm cache clean --force

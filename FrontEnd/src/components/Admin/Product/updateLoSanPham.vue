@@ -21,6 +21,7 @@ const toast = useToast();
 const product = ref({});
 const submitted = ref(false);
 const productDialog = ref(false);
+// const filters = ref({});
 const props = defineProps({
     myProp: {},
     idProduct: Number
@@ -74,7 +75,6 @@ const onSubmit = handleSubmit(async (values) => {
         trangThai: values.trangThai,
         tenLo: values.tenLo
     };
-    console.log(form);
     let data = await productStore.addLoSanPhamSPCT(form, props.myProp.id);
     emit('update:myProp', data);
 
@@ -98,7 +98,6 @@ const dataLoSanPham = ref([]);
 const loadDataLoSanPham = async () => {
     await loSanPhamStore.fetchDataBySPCT(props.myProp.id);
     dataLoSanPham.value = loSanPhamStore.dataByStatus1;
-
 };
 // mở form
 const openNew = () => {
@@ -112,7 +111,14 @@ const openNew = () => {
     TrangThai.value = props.myProp.trangThai.toString();
 
 };
-
+// onBeforeMount(() => {
+//     initFilters();
+// });
+// const initFilters = () => {
+//     filters.value = {
+//         global: { value: null, matchMode: FilterMatchMode.CONTAINS }
+//     };
+// };
 const anhs = ref(null);
 function onFileInputImage(event) {
     const files = event.target.files;
@@ -148,7 +154,7 @@ const onLoSanPhamChange = () => {
 };
 
 
-onBeforeMount(() => {
+onMounted(() => {
     loadDataTrongLuong();
     loadDataKhuyenmai();
     loadDataLoSanPham();

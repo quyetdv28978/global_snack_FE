@@ -1,6 +1,7 @@
 
 import { defineStore } from 'pinia';
 import axios from '@/service/Authentication/http.js';
+import { log } from 'pdfmake/build/pdfmake';
 
 const apiKhuyenMai = `${import.meta.env.VITE_BASE_API_ENDPOINT}/admin/khuyenMai`;
 
@@ -16,11 +17,18 @@ export const khuyenMaiStore = defineStore('khuyenmai', {
             const newProductData = response.data;
             this.excels = newProductData; 
         },
-
         async getKhuyenMai() {
             try {
                 const response = await axios.get(apiKhuyenMai + '/getAll');
                 this.data = response.data;
+            } catch (error) {
+            }
+        },
+        async getKhuyenMaiApSanPhamLoSp(idkm) {
+            try {
+                const response = await axios.get(apiKhuyenMai + `/ap-khuyen-mai/${idkm}`);
+                this.data = response.data;
+                console.log(this.data);
             } catch (error) {
             }
         },

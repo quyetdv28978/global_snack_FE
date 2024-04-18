@@ -22,37 +22,22 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
                 console.error('Error fetching users:', error);
             }
         },
-        //load data size theo trạng thái
-        async fetchDataByStatus(status) {
-            this.check = 1;
-            try {
-                const response = await axios.get(apiLoSanPham + '/' + status);
-                // console.log(response.data);
-                if (status === 1) {
-                    this.dataByStatus1 = response.data;
-                }
-                this.data = response.data;
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        },
         //load data lo san pham theo san pham chi tiet hoặc lô rổng
         async fetchDataBySPCT(status) {
-            this.check = 1;
+            this.check = 0;
             try {
                 const response = await axios.get(apiLoSanPham + '/by-san-pham-ct/' + status);
                 this.dataByStatus1 = response.data;
-
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
         },
         // load data lo san pham theo san pham chi tiet
         async fetchDataBySPCTNotNull(status) {
-            this.check = 1;
+            this.check = 0;
             try {
                 const response = await axios.get(apiLoSanPham + '/by-san-pham-ct-not-null/' + status);
-                this.dataByStatus1 = response.data;
+                this.data = response.data;
 
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -75,17 +60,19 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
         async showLoSanPhamSapHethan(idctsp) {
             const response = await axios.get(`${apiLoSanPham}/sap_het_han`);
             this.data = response.data;
-            console.log(response.data);
         },
         async createMauSac(form) {
             axios.post(apiLoSanPham + '/add-lo', form).then((response) => {
-                if (this.check == 0) {
-                    this.data.unshift(response.data);
-                    if (response.data.trangThai == 1) this.dataByStatus1.unshift(response.data);
-                } else {
-                    if (this.data[0].trangThai == response.data.trangThai) this.data.unshift(response.data);
-                    if (response.data.trangThai == 1) this.dataByStatus1.unshift(response.data);
-                }
+                // if (this.check == 0) {
+                    // this.data.unshift(response.data);
+                    console.log(this.dataByStatus1);
+                    this.dataByStatus1.unshift(response.data);
+                    console.log(this.dataByStatus1);
+
+                // } else {
+                //     if (this.data[0].trangThai == response.data.trangThai) this.data.unshift(response.data);
+                //     if (response.data.trangThai == 1) this.dataByStatus1.unshift(response.data);
+                // }
             });
         },
         async updateLoSanPham(idlsp, idctsp) {
@@ -104,7 +91,6 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
             try {
                 const response = await axios.put(apiLoSanPham + `/update-lo-san-pham/${maLo}`);
                 this.data = response.data;
-                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching users:', error);
             }

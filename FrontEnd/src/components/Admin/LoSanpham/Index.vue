@@ -26,11 +26,6 @@ const loaddataTrongLuong = async () => {
     dataTrongLuong.value = loSanPhamService.data;
 };
 
-const loaddataTrongLuongByTrangThai = async () => {
-    await loSanPhamService.fetchDataByStatus(trangThai.value.value);
-    dataTrongLuong.value = loSanPhamService.data;
-};
-
 const confirmDeleteProduct = async (maLo) => {
     idDelete.value = maLo
     deleteProductDialog.value = true;

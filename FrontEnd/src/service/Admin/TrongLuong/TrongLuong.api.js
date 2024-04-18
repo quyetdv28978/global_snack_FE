@@ -40,7 +40,6 @@ export const TrongLuongStore = defineStore('trongLuong', {
                     if (this.data[0].trangThai == response.data.data.trangThai) this.data.unshift(response.data.data);
                     if (response.data.data.trangThai == 1) this.dataByStatus1.unshift(response.data.data);
                 }
-                // console.log(response.data.data);
             });
         },
         updateTrongLuong(id, form) {

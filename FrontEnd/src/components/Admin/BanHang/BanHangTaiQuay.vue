@@ -104,7 +104,7 @@ const themSPVaoHDCT = async () => {
     return;
   }
   soLuongError.value = '';
-  await store.themSPVaoHDCT(selectedHoaDon.value.id, dataOverlay.value.id, soLuong.value,selectedLoSanPham.value == null ? selectedLoSanPham.value.tenLo : null);
+  await store.themSPVaoHDCT(selectedHoaDon.value.id, dataOverlay.value.id, soLuong.value,selectedLoSanPham.value == null ? null : selectedLoSanPham.value.tenLo);
   op.value.hide();
   soLuong.value = null;
   selectedLoSanPham.value = null;
@@ -566,7 +566,7 @@ else if (tt == 3) return 'Gần hết hạn sử dụng'
       <strong style="margin-left: 30.5rem; margin-top: 3rem;">{{ selectedHoaDon ? selectedHoaDon.nguoiTao.ten : null
         }}</strong>
     </div>
-    <i style="text-align: center; margin-top: 2rem;">Cảm ơn quý khách đã mua hàng tại VNK, hẹn gặp lại quý khách!</i>
+    <i style="text-align: center; margin-top: 2rem;">Cảm ơn quý khách đã mua hàng tại GL, hẹn gặp lại quý khách!</i>
   </div>
   <!-- End In hóa đơn -->
 

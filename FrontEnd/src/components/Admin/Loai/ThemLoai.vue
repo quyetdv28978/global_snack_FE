@@ -58,7 +58,7 @@ const addProduct = () => {
     } else {
         const add = loaiService.createLoai(form);
         productDialog.value = false;
-        toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Thêm thành công', life: 3000 });
+        // toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Thêm thành công', life: 3000 });
         clearForm();
     }
     addProductDialog.value = false;
