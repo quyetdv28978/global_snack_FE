@@ -16,8 +16,7 @@ import UpdateChiTietSanPham from "./UpdateChiTietSanPham.vue";
 const props = defineProps({
     myProp: {}
 });
-
-console.log(props.myProp);
+const emit = defineEmits(['update-sanPham'])
 const productStore = ProductStore();
 const confirm = useConfirm();
 const toast = useToast();
@@ -87,6 +86,7 @@ const loadDataTrangThai = () => {
 
 const updateMyProp = (newData) => {
     const index = lstChiTietSP.value.findIndex(element => element.id === newData.id);
+    emit('update-sanPham', 1);
     if (index !== -1) {
         lstChiTietSP.value[index] = newData;
     }
@@ -196,9 +196,7 @@ const khoiPhucSPCT = async (idSPCT, soLuong) => {
 
 
 const addimgMyProp = (newData) => {
-    console.log(arrayImage.value);
     arrayImage.value.unshift(newData);
-    console.log(arrayImage.value)
 }
 
 const updateimgMyProp = (newData) => {

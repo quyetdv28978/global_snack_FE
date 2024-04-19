@@ -79,7 +79,6 @@ const loadProducts = async () => {
     visibledatatable.value = false;
     await productStore.fetchAll(); // Gọi hàm fetchAll từ Store
     products.value = productStore.products;
-    console.log(productStore.products);
     showSpinner.value = false;
     visibledatatable.value = true;
 };
@@ -109,6 +108,12 @@ const columns = ref([
     { field: 'ngayTao', header: 'Ngày tạo' },
     { field: 'moTa', header: 'Mô Tả' }
 ]);
+
+const updateSanPhamTheoLo = async (newData) => {
+    console.log("day la update hteo lo ", newData);
+    await productStore.fetchAll(); // Gọi hàm fetchAll từ Store
+    products.value = productStore.products;
+}
 
 // hàm để tắt/mở cột
 const selectedColumns = ref(columns.value.soLuongTon);
@@ -410,7 +415,7 @@ const formatDate = (dateTime) => {
                             <template #body="slotProps">
                                 <Detail :my-prop="slotProps.data"></Detail>
                                 <UpdateProduct :my-prop="slotProps.data"></UpdateProduct>
-                                <ModalSPCT :my-prop="slotProps.data"></ModalSPCT>
+                                <ModalSPCT :my-prop="slotProps.data" @update-sanPham = "updateSanPhamTheoLo"></ModalSPCT>
                                 <detailLoSanPham :my-prop="slotProps.data"></detailLoSanPham>
                                 <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2"
                                     @click="confirmDeleteProduct(slotProps.data.id)"

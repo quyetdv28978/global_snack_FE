@@ -77,24 +77,20 @@ const onSubmit = handleSubmit(async (values) => {
     if (values.idKhuyenMai == null || values.idKhuyenMai == '') {
         values.idKhuyenMai = '';
     }
-    console.log(values);
     const form = {
         idSP: props.idProduct,
         anh: values.anh,
         soLuongTon: values.soLuongTon,
         giaBan: values.giaBan,
-        // giaNhap: values.giaNhap,
         trongLuong: values.trongLuong,
         idKhuyenMai: values.idKhuyenMai,
         trangThai: values.trangThai,
         tenLo: values.tenLo
     }
     const check = await productStore.checkDuplicateSPCT(form.trongLuong, props.idProduct);
-    // const check = false;
     if (check) {
         toast.add({ severity: 'error', summary: 'Error', detail: 'sản phẩm đã tồn tại', life: 3000 });
     } else {
-        console.log(form);
         const data = await productStore.addSPCT(form);
         emit('add:myProp', data)
         toast.add({ severity: 'success', summary: 'Success Message', detail: 'update thành công', life: 3000 });
@@ -103,12 +99,6 @@ const onSubmit = handleSubmit(async (values) => {
     }
 });
 
-// const selectedLoSanPham = ref(null);
-// const dataLoSanPham = ref([]);
-// const loadDataLoSanPham = async () => {
-//     await loSanPhamStore.fetchDataByStatus(1);
-//     dataLoSanPham.value = loSanPhamStore.dataByStatus1;
-// };
 const reset = () => {
     resetForm();
     selectedKhuyenMai.value = null;
@@ -266,7 +256,7 @@ const getStatusLabel = (trangThai) => {
                                 <div style="display: flex">
                                     <span class="p-float-label" style="width: 239px">
                                         <Dropdown id="dropdown" :options="dataTrongLuong" v-model="selectedTrongLuong"
-                                            optionLabel="value" :class="{ 'p-invalid': trongLuongError }"
+                                        :optionLabel="(option) => `${option.value}  ${option.donVi}`" :class="{ 'p-invalid': trongLuongError }"
                                             @change="onTrongLuongChange">
                                         </Dropdown>
                                         <label for="dropdown">Trọng Lượng</label>

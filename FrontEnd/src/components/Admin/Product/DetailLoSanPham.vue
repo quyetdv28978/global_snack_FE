@@ -131,8 +131,6 @@ onBeforeMount(() => {
     loadDataLoai();
     loadDataTrongLuong();
     loadDataVatLieu();
-    console.log('list update: ', props);
-
 });
 
 const arrayImageMauSac = ref([]);
@@ -155,7 +153,6 @@ const editProduct = () => {
     }
 
     lstChiTietSP.value = props.myProp.sanPhamChiTiet;
-    console.log(props.myProp)
     product.value = { ...editProduct };
 
     productDialog.value = true;

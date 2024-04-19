@@ -165,14 +165,8 @@ const getStatusLabel = (soLuong) => {
         :contentStyle="{ height: '850px' }" class="p-fluid">
         <template #header>
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                <h5 class="m-0 ">Lô sản phẩm sắp hết hạn</h5>
+                <h5 class="m-0 ">Sản phẩm và lô sản phẩm áp ụng khuyến mại</h5>
             </div>
-
-            <!-- <Dropdown id="dropdown" :options="dataLoai" v-model="selectedLoai" optionLabel="ten"  placeholder="Loại" :class="{ 'p-invalid': loaiError }" style="height: 40px"> </Dropdown> -->
-            <!-- <label for="dropdown" style="margin-left: 10px;">Loại</label> -->
-            <!-- <Dropdown v-model="thuongHieu" :options="dataThuongHieu" optionLabel="label" placeholder="Tất cả" class="w-full md:w-14rem" style="margin-left: 20px" /> -->
-            <!-- <Dropdown id="dropdown" :options="dataThuongHieu" v-model="selectedThuongHieu" optionLabel="ten"  placeholder="Thương hiệu" :class="{ 'p-invalid': loaiError }" style="height: 40px"> </Dropdown> -->
-
         </template>
         <div class="card p-fluid">
             <DataTable :value="products" v-model:selection="selectedProduct" paginator :rows="5"

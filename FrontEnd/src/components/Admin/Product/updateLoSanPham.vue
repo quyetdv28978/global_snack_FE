@@ -59,7 +59,7 @@ const { value: TrongLuong, errorMessage: trongLuongError } = useField('trongLuon
 const { value: idKhuyenMai, errorMessage: idKhuyenMaiError } = useField('idKhuyenMai');
 
 
-const emit = defineEmits(['update:myProp']);
+const emit = defineEmits(['update:myProp'])
 const onSubmit = handleSubmit(async (values) => {
     submitted.value = true;
     if (values.idKhuyenMai == null || values.idKhuyenMai == '') {

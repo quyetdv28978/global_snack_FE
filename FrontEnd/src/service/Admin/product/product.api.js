@@ -8,8 +8,6 @@ export const ProductStore = defineStore('product', {
     products: [],
     sanPhamCT: [],
     images: [],
-    sizes: [],
-    mauSacs: [],
     excels: [],
   }),
   actions: {
@@ -180,8 +178,7 @@ export const ProductStore = defineStore('product', {
     async addLoSanPhamSPCT(updatedProduct,id) {
       try {
         const response = await axios.post(apiLoSanPham + `/add-lo-san-pham/${id}`, updatedProduct); // Thay đổi URL và dữ liệu updatedProduct tùy theo API của bạn
-      //  await this.fetchAll();
-      console.log(response.data);
+      this.products = response.data;
         return response.data;
       } catch (error) {
         console.error('Lỗi khi them lo san pham:', error);
