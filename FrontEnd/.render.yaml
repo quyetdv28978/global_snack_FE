@@ -1,0 +1,4 @@
+services:
+  - name: vuejs-app
+    dockerfile_path: Dockerfile
+    env: node

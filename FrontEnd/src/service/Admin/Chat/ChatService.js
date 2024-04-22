@@ -31,7 +31,6 @@ export const useChatStore = defineStore('chat', () => {
             displayName,
             isGuest: false
         });
-        //  console.log(user);
     };
 
     const createDirectChannel = async (username) => {
@@ -39,7 +38,6 @@ export const useChatStore = defineStore('chat', () => {
             type: 'DIRECT',
             members: [{ username }, { username: 'cskh@gmail.com' }]
         });
-        //    console.log(channel);
     };
 
     const setup = async (username, id) => {
@@ -47,11 +45,10 @@ export const useChatStore = defineStore('chat', () => {
         loadingRooms.value = true;
         rooms.value = await chatService.fetchRooms();
         loadingRooms.value = false;
-        roomsLoaded.value = true;s
+        roomsLoaded.value = true;
     };
 
     const fetchMessages = async ({ room, options = {} }) => {
-        //  console.log("fetching messages");
         if (options.reset) {
             chatService.exitRoom(room);
             messages.value = [];
