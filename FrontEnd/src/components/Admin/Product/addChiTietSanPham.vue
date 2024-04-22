@@ -118,6 +118,7 @@ const openNew = () => {
 const anhs = ref(null);
 function onFileInputImage(event) {
     const files = event.target.files;
+    console.log(files);
     // Lặp qua từng tệp trong mảng files
     for (const file of files) {
         const objectURL = URL.createObjectURL(file);
