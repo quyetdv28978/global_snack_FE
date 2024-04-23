@@ -10,9 +10,7 @@ export const checkoutStore = defineStore('checkOut', {
     actions: {
          async checkout(form){
             const response = await axios.post(api, form)
-            console.log("la sao lan thu 1");
-            console.log("asfdl");
-            console.log(response.data);
+
             this.checkOut =  response.data;
          }
        
