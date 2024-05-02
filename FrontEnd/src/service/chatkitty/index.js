@@ -1,7 +1,7 @@
 import { ChatKitty } from "@chatkitty/core";
 import { parseTimestamp } from "@/service/common/DateTimeUtils";
 
-export const chatkitty = ChatKitty.getInstance(import.meta.env.VITE_CHATKITTY_APIKEY);
+export const chatkitty = ChatKitty.getInstance('64e0cf4e-ebe2-45e3-a4d2-7803d1e1f7f4');
 
 export const enterRoom = async ({
     room,
@@ -67,7 +67,6 @@ export const fetchRooms = async () => {
 };
 
 export const login = async (usernames, userIds) => {
-
     const form = {
         username: usernames,
         authParams: {
@@ -76,7 +75,7 @@ export const login = async (usernames, userIds) => {
     };
  
     const session = await chatkitty.startSession(form);
-//   console.log(session);
+  console.log(session);
 };
 
 export const logout = async () => {

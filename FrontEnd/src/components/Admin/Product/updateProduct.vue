@@ -167,7 +167,7 @@ function onFileInputImageProduct(event) {
 
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const basePath = "D:\\imgDATN\\"; // Đường dẫn cố định
+        const basePath = "D:/images/"; // Đường dẫn cố định
         const fileName = basePath + file.name;
         imageUrls.value.push(fileName);
 
@@ -265,7 +265,7 @@ function onFileInputImage(event) {
         const objectURL = URL.createObjectURL(file);
         anh.value = objectURL;
         // Gán giá trị cho phần tử có id là 'imagesChinh' (thay đổi id nếu cần)
-        const basePath = "D:\\imgDATN\\"; // Đường dẫn cố định
+        const basePath = "D:/images/"; // Đường dẫn cố định
         const fileName = basePath + file.name;
         imagesChinh.value = fileName;
     }

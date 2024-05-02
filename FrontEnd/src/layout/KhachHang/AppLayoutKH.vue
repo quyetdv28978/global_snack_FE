@@ -64,6 +64,7 @@ onBeforeMount(async () => {
     const token = localStorage.getItem('token');
     if (token) {
         const payloadData = await verifyJwt(token);
+        console.log(payloadData , "day la test chatkity");
         await chatService.login(payloadData.sub, payloadData.id);
         if (payloadData.role === 'USER') await chatStore.createDirectChannel(payloadData.sub);
     }

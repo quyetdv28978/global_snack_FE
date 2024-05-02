@@ -54,7 +54,6 @@ onBeforeMount(async () => {
   const payloadData = await verifyJwt(token);
   currentUsername.value = payloadData.sub;
   await store.setup(payloadData.sub, payloadData.id);
-
 }
  
 });

@@ -76,11 +76,12 @@ const onSubmit = handleSubmit(async (values) => {
         tenLo: values.tenLo
     };
     let data = await productStore.addLoSanPhamSPCT(form, props.myProp.id);
-    emit('update:myProp', data);
+    emit('update:myProp', data, props.myProp.id);
 
     toast.add({ severity: 'success', summary: 'Success Message', detail: 'update thành công', life: 3000 });
     reset();
     productDialog.value = false;
+    loadDataLoSanPham();
 });
 
 const reset = () => {
@@ -127,7 +128,7 @@ function onFileInputImage(event) {
         const objectURL = URL.createObjectURL(file);
         anhs.value = objectURL;
         // Gán giá trị cho phần tử có id là 'imagesChinh' (thay đổi id nếu cần)
-        const basePath = 'D:\\imgDATN\\'; // Đường dẫn cố định
+        const basePath = "D:/images/"; // Đường dẫn cố định
         const fileName = basePath + file.name;
         anh.value = fileName;
     }
@@ -147,7 +148,6 @@ const saveProduct = () => {
 const onLoSanPhamChange = () => {
     if (selectedLoSanPham.value) {
         tenLo.value = selectedLoSanPham.value.id;
-        //    console.log(TrongLuong.value)
     } else {
         tenLo.value = null;
     }
@@ -293,15 +293,7 @@ const formatDate = (dateTime) => {
                                 <small class="p-error">{{ LoSanPhamError }}</small>
                             </div>
 
-                            <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                <div style="display: flex">
-                                    <span class="p-float-label" style="width: 239px">
-                                        <Dropdown id="dropdown" :options="khuyenmais" v-model="selectedKhuyenMai" :optionLabel="(option) => `${option.ten}  ${getStatusLabel(option.trangThai)}`" @change="onTrongLuongKhuyenMai"> </Dropdown>
-                                        <label for="dropdown">Khuyến Mại</label>
-                                    </span>
-                                    <TableKhuyenMai :tableId="'TableTrongLuong'" :rightGhId="'right_ghTrongLuong'" :tableClass="'TableTrongLuong'" :rightGhClass="'right_ghTrongLuong'" />
-                                </div>
-                            </div> -->
+                           
                         </div>
                     </div>
 
@@ -317,3 +309,5 @@ const formatDate = (dateTime) => {
         </div>
     </div> -->
 </template>
+
+

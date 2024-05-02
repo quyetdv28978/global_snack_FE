@@ -220,7 +220,7 @@ function onFileInputImageMauSac(event) {
 
         const file = files[i];
         const objectURL = URL.createObjectURL(file);
-        const basePath = ""; // Đường dẫn cố định
+        const basePath = "D:/images/"; // Đường dẫn cố định
         const fileName = basePath + file.name;
         arrayImgMauSac.value.push(fileName);
     }
@@ -236,7 +236,7 @@ function onFileInputImage(event) {
     for (const file of files) {
         const objectURL = URL.createObjectURL(file);
         // Gán giá trị cho phần tử có id là 'imagesChinh' (thay đổi id nếu cần)
-        const basePath = ""; // Đường dẫn cố định
+        const basePath = "D:/images/"; // Đường dẫn cố định
         const fileName = basePath + file.name;
         imagesChinh.value = fileName;
         anh.value = objectURL;
@@ -251,7 +251,7 @@ function onFileInputImageProduct(event) {
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const objectURL = URL.createObjectURL(file);
-        const basePath = ""; // Đường dẫn cố định
+        const basePath = "D:/images/"; // Đường dẫn cố định
         const fileName = basePath + file.name;
         imageUrls.value.push(fileName);
 

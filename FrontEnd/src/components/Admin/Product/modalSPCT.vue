@@ -9,14 +9,17 @@ import { FilterMatchMode } from 'primevue/api';
 import AddImage from '@/components/Admin/Image/AddImage.vue';
 import UpdateImage from '@/components/Admin/Image/UpdateImage.vue';
 import updateLoSanPham from './updateLoSanPham.vue';
+import { useLoSanPhamService } from '@/service/Admin/LoSanPham/LoSanPhamServiceAPI';
 
 import { format } from 'date-fns';
 import UpdateChiTietSanPham from "./UpdateChiTietSanPham.vue";
+import { log } from "pdfmake/build/pdfmake";
 
 const props = defineProps({
     myProp: {}
 });
 const emit = defineEmits(['update-sanPham'])
+const loSanPhamStore = useLoSanPhamService();
 const productStore = ProductStore();
 const confirm = useConfirm();
 const toast = useToast();
@@ -84,12 +87,14 @@ const loadDataTrangThai = () => {
     }
 }
 
-const updateMyProp = (newData) => {
+const updateMyProp = (newData, idproduct) => {
     const index = lstChiTietSP.value.findIndex(element => element.id === newData.id);
     emit('update-sanPham', 1);
     if (index !== -1) {
         lstChiTietSP.value[index] = newData;
     }
+     loSanPhamStore.fetchDataBySPCT(idproduct);
+    // dataLoSanPham.value = loSanPhamStore.dataByStatus1;
 }
 
 const addMyProp = (newData) => {
@@ -403,8 +408,6 @@ const formatDate = (dateTime) => {
                         <ConfirmPopup></ConfirmPopup>
                         <Button icon="pi pi-trash" class="p-button-rounded p-button-warning mt-2"
                             @click="confirm2($event, slotProps.data.id)" v-if="slotProps.data.trangThai !== 0" />
-
-
                         <Button icon="pi pi-refresh" class="p-button-rounded p-button-warning mt-2"
                             @click="confirm3($event, slotProps.data.id, slotProps.data.soLuongTon)"
                             v-if="slotProps.data.trangThai == 0 && slotProps.data.soLuongTon > 0" />

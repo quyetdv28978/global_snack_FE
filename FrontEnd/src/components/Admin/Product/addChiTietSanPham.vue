@@ -118,13 +118,12 @@ const openNew = () => {
 const anhs = ref(null);
 function onFileInputImage(event) {
     const files = event.target.files;
-    console.log(files);
     // Lặp qua từng tệp trong mảng files
     for (const file of files) {
         const objectURL = URL.createObjectURL(file);
         anhs.value = objectURL;
         // Gán giá trị cho phần tử có id là 'imagesChinh' (thay đổi id nếu cần)
-        const basePath = ""; // Đường dẫn cố định
+        const basePath = "D:/images/"; // Đường dẫn cố định
         const fileName = basePath + file.name;
         anh.value = fileName;
     }
@@ -285,21 +284,7 @@ const getStatusLabel = (trangThai) => {
 
                             </div>
 
-                            <!-- <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
-                                <div style="display: flex">
-                                    <span class="p-float-label" style="width: 239px">
-                                        <Dropdown id="dropdown" :options="dataLoSanPham" v-model="selectedLoSanPham"
-                                        :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan}  ${getStatusLabel(option.trangThai)}`"
-                                        @change="onLoSanPhamChange" 
-                                        >
-                                        </Dropdown>
-                                        <label for="dropdown">Lô sản phẩm</label>
-                                    </span>
-                                    <DataTableLoSanPham :tableId="'TableLoSanPham'" :rightGhId="'right_ghLoSanPham'"
-                                        :tableClass="'TableLoSanPham'" :rightGhClass="'right_ghLoSanPham'" />
-                                </div>
-
-                            </div> -->
+                            
                         </div>
                     </div>
 
@@ -316,7 +301,4 @@ const getStatusLabel = (trangThai) => {
         </div>
 
     </Dialog>
-    <!-- </div>
-        </div>
-    </div> -->
 </template>

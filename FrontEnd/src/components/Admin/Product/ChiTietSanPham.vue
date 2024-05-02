@@ -250,7 +250,6 @@ const handImportExcel = async (event) => {
             loadProducts();
         }
     } catch (error) {
-        console.log(excel.value.responseList);
         toast.add({ severity: 'error', summary: 'Error', detail: 'lỗi ', life: 10000 });
         showProgressSpinner.value = false;
         dis.value = true;
@@ -260,9 +259,7 @@ const trangThai = ref();
 const dataTrangThai = ref([
     { label: 'Tất cả', value: 'tatCa' },
     { label: 'Còn Hàng', value: 'conHang' },
-    { label: 'hết hàng', value: 'hetHang' },
-    { label: 'Tồn kho', value: 'tonKho' },
-    { label: 'Đang khuyến mại', value: 'dangKhuyenMai' }
+    { label: 'hết hàng', value: 'hetHang' }
 ]);
 
 const loadDataByTrangThai = async () => {
@@ -272,7 +269,6 @@ const loadDataByTrangThai = async () => {
     products.value = productStore.products;
     const productList = productStore.products; // Lấy dữ liệu từ Store và gán vào biến products
     products.value = productList;
-
     showSpinner.value = false;
     visibledatatable.value = true;
 };

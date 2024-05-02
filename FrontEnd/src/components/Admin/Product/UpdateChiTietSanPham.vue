@@ -134,7 +134,7 @@ function onFileInputImage(event) {
         const objectURL = URL.createObjectURL(file);
         anhs.value = objectURL;
         // Gán giá trị cho phần tử có id là 'imagesChinh' (thay đổi id nếu cần)
-        const basePath = 'D:\\imgDATN\\'; // Đường dẫn cố định
+        const basePath = "D:/images/"; // Đường dẫn cố định
         const fileName = basePath + file.name;
         anh.value = fileName;
     }

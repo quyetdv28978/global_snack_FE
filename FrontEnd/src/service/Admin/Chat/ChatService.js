@@ -30,13 +30,14 @@ export const useChatStore = defineStore('chat', () => {
             name,
             displayName,
             isGuest: false
-        });
+       });
+       console.log(user);
     };
 
     const createDirectChannel = async (username) => {
         const channel = await chatkitty.Channels.createChannel({
             type: 'DIRECT',
-            members: [{ username }, { username: 'cskh@gmail.com' }]
+            members: [{ username }, { username: 'quyetdvph28978@fpt.edu.vn' }]
         });
     };
 
