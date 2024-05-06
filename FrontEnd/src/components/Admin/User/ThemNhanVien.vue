@@ -90,7 +90,7 @@ const addProduct = async () => {
         userName: userName.value,
         password: password.value,
         email: email.value,
-        role: "USER",
+        role: "NHANVIEN",
         sdt: sdt.value,
         ngaySinh: ngaySinh.value,
         gioiTinh: gioiTinh.value,
@@ -101,10 +101,8 @@ const addProduct = async () => {
 
     try {
         await schema.validate(form);
-
         // Dữ liệu hợp lệ, thực hiện thêm sản phẩm
         const addedUser = await userService.createUser(form);
-
         // Gửi email với userName và password
         const mailData = {
             ten: form.ten,
@@ -114,7 +112,6 @@ const addProduct = async () => {
         };
 
         await userService.sendMail(mailData); 
-
         productDialog.value = false;
         toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Thêm thành công', life: 3000 });
         reset();

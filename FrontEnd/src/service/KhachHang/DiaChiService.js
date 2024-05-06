@@ -116,10 +116,10 @@ export const useDiaChi = defineStore('diaChi', {
                 const response = await axios.get(baseUrl + 'province', { headers });
                 // console.log('API Response:', response.data);
                 this.tinhThanhList = response.data.data;
-                return this.tinhThanhList;
+                return this.tinhThanhList; K
             } catch (error) {
                 console.error('Lỗi khi lấy danh sách tỉnh/thành phố:', error);
-            }
+            }K,
         },
 
         async fetchQuanHuyen(tinhThanhId) {
