@@ -192,7 +192,7 @@ const thanhtoan = async () => {
             vnp_TxnRef: '123456',
             hdct: forms
         };
-
+console.log(phuongThucThanhToan);
         localStorage.setItem('myForm', formString);
         await vnpayService.thanhToanVnPay(data);
         stringVNpay.value = vnpayService.vnpay;
@@ -240,6 +240,10 @@ const loadDataVoucher = async () => {
     // dataVoucher.value = voucherService.data;
     // console.log(dataVoucher.value);
 };
+
+const check = () => {
+    console.log("quyet");
+}
 
 const formatDate = (dateTime) => {
     return format(new Date(dateTime), 'yyyy/MM/dd');
@@ -487,16 +491,17 @@ const showError = computed(() => {
                                     <h6 style="height: 20px; width: 80px; margin-left: 1rem" class="text-red-600 text-xl">{{ formatCurrency(tongThanhToan) }}</h6>
                                 </div>
                             </div>
+                           
                             <Divider style="margin-top: -10px" />
                             <span style="font-weight: 500; font-size: 1rem">
-                                <input type="radio" id="chuyenkhoan" value="2" v-model="phuongThucThanhToan" />
+                                <RadioButton type="radio" id="chuyenkhoan" value="2" name="quyett" v-model="phuongThucThanhToan" />
                                 Visa / Master Card</span
                             >
                             <br />
 
                             <Divider style="margin-top: -10px" />
                             <span style="font-weight: 500; font-size: 1rem">
-                                <input type="radio" id="tienmat" value="1" v-model="phuongThucThanhToan" />
+                                <RadioButton type="radio" id="tienmat" value="1" name="quyett" v-model="phuongThucThanhToan" />
                                 Thanh toán khi nhận hàng</span
                             >
                             <br />

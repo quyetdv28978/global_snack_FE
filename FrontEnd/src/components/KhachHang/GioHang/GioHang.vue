@@ -693,8 +693,8 @@ const tinhTongTienChoTungSanPham = (soLuong, giaSauGiam, giaBan) => {
                                 <Button label="Trở lại" icon="pi pi-times" class="p-button-text" @click="hideDialog" />
                                 <Button type="submit" label="Xác nhận" icon="pi pi-check" class="p-button-text" @click="updateMauSacSize(ghct.idGHCT)" :disabled="datagh == '' || idMau == '' || idMau == null" />
                             </template>
-                        </Dialog> -->
-                    </div>
+                        </Dialog>-->
+                    </div> 
                 </div>
 
                 <div class="Field col-12 md:col-3">
