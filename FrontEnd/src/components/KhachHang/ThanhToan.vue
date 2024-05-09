@@ -489,14 +489,14 @@ const showError = computed(() => {
                             </div>
                             <Divider style="margin-top: -10px" />
                             <span style="font-weight: 500; font-size: 1rem">
-                                <input type="radio" id="chuyenkhoan" value="2" v-model="phuongThucThanhToan" />
+                                <RadioButton type="radio" id="chuyenkhoan" value="2" v-model="phuongThucThanhToan" />
                                 Visa / Master Card</span
                             >
                             <br />
 
                             <Divider style="margin-top: -10px" />
                             <span style="font-weight: 500; font-size: 1rem">
-                                <input type="radio" id="tienmat" value="1" v-model="phuongThucThanhToan" />
+                                <RadioButton type="radio" id="tienmat" value="1" v-model="phuongThucThanhToan" />
                                 Thanh toán khi nhận hàng</span
                             >
                             <br />
