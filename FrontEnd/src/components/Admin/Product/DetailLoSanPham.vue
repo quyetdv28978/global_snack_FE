@@ -153,6 +153,7 @@ const editProduct = () => {
     }
 
     lstChiTietSP.value = props.myProp.sanPhamChiTiet;
+    console.log(props.myProp.sanPhamChiTiet);
     product.value = { ...editProduct };
 
     productDialog.value = true;

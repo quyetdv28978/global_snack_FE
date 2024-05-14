@@ -1,11 +1,12 @@
 <script setup>
 import { FilterMatchMode } from 'primevue/api';
 import { ref, onMounted, onBeforeMount, watch } from 'vue';
-import { useLoSanPhamService } from '@/service/Admin/LoSanPham/LoSanPhamServiceAPI';
+import { useNCCService } from '@/service/Admin/NhaCungCap/NhaCungCapService';
 import { useToast } from 'primevue/usetoast';
-import ThemLoSanPham from './ThemLoSanPham.vue';
+import ThemNCC from './ThemNCC.vue';
+// import ThemLoSanPham from './ThemLoSanPham.vue';
 
-const loSanPhamService = useLoSanPhamService();
+const loSanPhamService = useNCCService();
 const toast = useToast();
 const deleteProductDialog = ref(false);
 const product = ref({});
@@ -23,7 +24,7 @@ const dataTrongLuong = ref([]);
 
 const loaddataTrongLuong = async () => {
     await loSanPhamService.fetchData();
-    dataTrongLuong.value = loSanPhamService.data;
+    dataTrongLuong.value = loSanPhamService.data.nhaCungCaps;
     console.log(dataTrongLuong.value);
 };
 
@@ -87,7 +88,7 @@ const initFilters = () => {
                 <Toolbar class="mb-4">
                     <template v-slot:start>
                         <div class="my-2">
-                            <ThemLoSanPham></ThemLoSanPham>
+                            <ThemNCC></ThemNCC>
                         </div>
                     </template>
 
@@ -115,51 +116,27 @@ const initFilters = () => {
                             </span>
                         </div>
                     </template>
-                    <Column field="maLo" header="Mã" :sortable="true" headerStyle="width:14%; min-width:10rem;">
-                        <template #body="slotProps">
-                            <span class="p-column-title">ma</span>
-                            {{ slotProps.data.maLo }}
-                        </template>
-                    </Column>
-                    <Column field="tenLo" header="Tên lô" :sortable="true" headerStyle="width:14%; min-width:10rem;">
+                    
+                    <Column field="tenLo" header="Địa chỉ nhà cung cấp" :sortable="true" headerStyle="width:14%; min-width:10rem;">
                         <template #body="slotProps">
                             <span class="p-column-title">ten lo</span>
-                            {{ slotProps.data.tenLo }}
+                            {{ slotProps.data.diaChiNhaCung }}
                         </template>
                     </Column>
-                    <Column field="ngayHetHan" header="Ngày Hết hạn" :sortable="true" headerStyle="width:14%; min-width:8rem;">
+                    <Column field="ngayHetHan" header="Tên nhà cung cấp" :sortable="true" headerStyle="width:14%; min-width:8rem;">
                         <template #body="slotProps">
                             <span class="p-column-title">Ngày Hết hạn</span>
-                            {{ slotProps.data.ngayHetHan }}
+                            {{ slotProps.data.tenNhaCungCap }}
                         </template>
                     </Column>
-                    <Column field="trangThai" header="Trạng thái" :sortable="true" headerStyle="width:14%; min-width:10rem;">
+                    <Column field="trangThai" header="Số điện thoại" :sortable="true" headerStyle="width:14%; min-width:10rem;">
                         <template #body="slotProps">
                             <span class="p-column-title">Category</span>
-                                {{ trangThad(slotProps.data.trangThai) }}
+                                {{ slotProps.data.sdt }}
                         </template>
                     </Column>
 
-                    <Column field="tenNCC" header="Tên nhà cung cấp" :sortable="true" headerStyle="width:14%; min-width:10rem;">
-                        <template #body="slotProps">
-                            <span class="p-column-title">Category</span>
-                                {{ slotProps.data.nhaCungCap.tenNhaCungCap }}
-                        </template>
-                    </Column>
-
-                    <Column field="diaChiNCC" header="Địa chỉ nhà cung cấp" :sortable="true" headerStyle="width:14%; min-width:10rem;">
-                        <template #body="slotProps">
-                            <span class="p-column-title">Category</span>
-                                {{ slotProps.data.nhaCungCap.diaChiNhaCung }}
-                        </template>
-                    </Column>
-
-                    <Column field="SDTNCC" header="SDT nhà cung cấp" :sortable="true" headerStyle="width:14%; min-width:10rem;">
-                        <template #body="slotProps">
-                            <span class="p-column-title">Category</span>
-                                {{ slotProps.data.nhaCungCap.sdt }}
-                        </template>
-                    </Column>
+                  
 
                     <Column header="Hành động" headerStyle="min-width:10rem;">
                         <template #body="slotProps">

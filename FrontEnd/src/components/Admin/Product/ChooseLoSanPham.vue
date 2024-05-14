@@ -32,8 +32,6 @@ const hideDialog = () => {
     productDialog.value = false;
 };
 
-
-
 const selectedLoSanPham = ref(null);
 const dataLoSanPham = ref([]);
 const loadDataLoSanPham = async () => {
@@ -162,10 +160,7 @@ const onSubmit = handleSubmit(async (values) => {
                 <div class="Field col-12 md:col-6" style="margin-bottom: 30px">
                     <div class="Field col-12 md:col-12" style="margin-bottom: 30px">
                         <span class="p-float-label">
-                            <InputText id="name" name="name" type="text" v-model="name"
-                                :class="{ 'p-invalid': nameError }" disabled>
-                            </InputText>
-                            <label for="username">Tên sản phẩm</label>
+                            <label for="username">{{ props.myProp.ten }}</label>
                         </span>
                         <small class="p-error">{{ nameError }}</small>
                     </div>

@@ -21,6 +21,17 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
+        }, async fetchData2() {
+            try {
+               
+                const response = await axios.get("http://localhost:8080/ncc").then(data => {
+                    console.log(data.data._embedded);
+                    return data.data._embedded
+                });
+                this.data = response;
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
         },
         //load data lo san pham theo san pham chi tiet hoặc lô rổng
         async fetchDataBySPCT(status) {

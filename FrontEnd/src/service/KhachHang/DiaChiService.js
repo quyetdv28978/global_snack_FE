@@ -119,7 +119,7 @@ export const useDiaChi = defineStore('diaChi', {
                 return this.tinhThanhList; K
             } catch (error) {
                 console.error('Lỗi khi lấy danh sách tỉnh/thành phố:', error);
-            }K,
+            }
         },
 
         async fetchQuanHuyen(tinhThanhId) {

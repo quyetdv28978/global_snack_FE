@@ -1,15 +1,11 @@
 <script setup>
 import { useToast } from 'primevue/usetoast';
-import { onMounted } from 'vue';
 import { useForm, useField } from 'vee-validate';
 import { ref } from 'vue';
 import * as yup from 'yup';
-import { useLoSanPhamService } from '@/service/Admin/LoSanPham/LoSanPhamServiceAPI';
 import { useNCCService } from '@/service/Admin/NhaCungCap/NhaCungCapService';
-import DataTableNhaCungCap from '../Product/DataTableNhaCungCap.vue';
 
-const loSanPhamService = useLoSanPhamService();
-const NhaCungCapService = useNCCService();
+const loSanPhamService = useNCCService();
 const product = ref({});
 const toast = useToast();
 const submitted = ref(false);
@@ -27,10 +23,10 @@ const schema = yup.object().shape({
 const { handleSubmit, resetForm } = useForm({
     validationSchema: schema
 });
-const { value: ten, errorMessage: tenError } = useField('ten');
-const { value: ma, errorMessage: maError } = useField('ma');
-const { value: ngayHetHan, errorMessage: ngayHetHanError } = useField('ngayHetHan');
-const { value: ncc, errorMessage: nccError } = useField('NhaCungCap');
+const { value: tenNCC, errorMessage: tenError } = useField('tenNCC');
+const { value: diaChiNCC, errorMessage: dcError } = useField('diaChiNCC');
+const { value: SDT, errorMessage: sdtError } = useField('SDT');
+const { value: email, errorMessage: emailError } = useField('Email');
 const onSubmit = handleSubmit(async (values) => {
     try {
     } catch (error) {
@@ -47,49 +43,21 @@ const isTenTooLong = (ten) => {
 const addProduct = () => {
     submitted.value = true;
     const form = {
-        tenLo: ten.value,
-        maLo: ma.value,
-        ngayHetHan: ngayHetHan.value,
-        tenNCC : selectedNcc.value.tenNhaCungCap
+        tenNhaCungCap: tenNCC.value,
+        diaChiNhaCung: diaChiNCC.value,
+        sdt: SDT.value,
     };
+    console.log(form);
+
     // Kiểm tra trường "ten" có trống (null hoặc chuỗi rỗng) hoặc có chứa ký tự đặc biệt không
-    if (form.tenLo == null || form.tenLo.length <=0 ) {
-        ten.value = '';
-        toast.add({ severity: 'error', summary: 'Thông báo', detail: 'Thêm thất bại', life: 3000 });
-    } else if (containsSpecialCharacters(form.tenLo)) {
-        toast.add({ severity: 'error', summary: 'Thông báo', detail: 'Thêm thất bại', life: 3000 });
-    } else if (isTenTooLong(form.tenLo)) {
-        toast.add({ severity: 'error', summary: 'Thông báo', detail: 'Thêm thất bại', life: 3000 });
-    }
-    else if (form.maLo == null || form.maLo.length <=0 ) {
-        ma.value = '';
-        toast.add({ severity: 'error', summary: 'Thông báo', detail: 'Thêm thất bại', life: 3000 });
-    } else if (containsSpecialCharacters(form.mmaLoa)) {
-        toast.add({ severity: 'error', summary: 'Thông báo', detail: 'Thêm thất bại', life: 3000 });
-    } else if (isTenTooLong(form.maLo)) {
-        toast.add({ severity: 'error', summary: 'Thông báo', detail: 'Thêm thất bại', life: 3000 });
-    }
-    else if (form.ngayHetHan == null || form.ngayHetHan.length <=0 ) {
-        ngayHetHan.value = '';
-        toast.add({ severity: 'error', summary: 'Thông báo', detail: 'Thêm thất bại', life: 3000 });
-    } else if (containsSpecialCharacters(form.ngayHetHan)) {
-        toast.add({ severity: 'error', summary: 'Thông báo', detail: 'Thêm thất bại', life: 3000 });
-    } else if (isTenTooLong(form.ngayHetHan)) {
-        toast.add({ severity: 'error', summary: 'Thông báo', detail: 'Thêm thất bại', life: 3000 });
-    } else {
-        const add = loSanPhamService.createMauSac(form);
+    
+        const add = loSanPhamService.createNCC(form);
         productDialog.value = false;
         toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Thêm thành công', life: 3000 });
         clearForm();
-    }
+    
     addProductDialog.value = false;
 };
-
-const dataNCC = ref([]);
-const loadDataNhaCungCap = async () => {
-    await NhaCungCapService.fetchData();
-    dataNCC.value = NhaCungCapService.data.nhaCungCaps;
-}
 
 const clearForm = () => {
     ten.value = '';
@@ -99,13 +67,6 @@ const reset = () => {
     resetForm();
     array.value = null;
 };
-
-const selectedNcc = ref(null)
-
-onMounted(() => {
-    loadDataNhaCungCap()
-});
-
 
 // mở form
 const openNew = () => {
@@ -124,28 +85,17 @@ const hideDialog = () => {
 const saveProduct = () => {
     addProductDialog.value = true;
 };
-
 </script>
 <template>
     <Button label="Thêm mới" icon="pi pi-plus" class="p-button-success mr-2" @click="openNew" />
-    <Dialog v-model:visible="productDialog" :style="{ width: '600px' }" header="Thêm lô sản phẩm" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="productDialog" :style="{ width: '600px' }" header="Thêm Mới nhà cung cấp" :modal="true" class="p-fluid">
         <div class="card">
             <form @submit="onSubmit">
                 <div class="p-fluid formgrid grid">
                     <div class="Field col-12" style="margin-bottom: 30px">
                         <span class="p-float-label">
-                            <InputText id="ma" name="ma" type="text" v-model.trim="ma" :class="{ 'p-invalid': maError }" required="true" autofocus />
-                            <label for="username">Mã lô</label>
-                        </span>
-                        <small class="p-error">{{ maError }}</small>
-                    </div>
-                </div>
-
-                <div class="p-fluid formgrid grid">
-                    <div class="Field col-12" style="margin-bottom: 30px">
-                        <span class="p-float-label">
-                            <InputText id="ten" name="ten" type="text" v-model="ten" :class="{ 'p-invalid': tenError }" required="true" autofocus />
-                            <label for="username">Tên lô</label>
+                            <InputText id="tenNCC" name="tenNCC" type="text" v-model="tenNCC" :class="{ 'p-invalid': tenError }" required="true" autofocus />
+                            <label for="username">Tên nhà cung cấp</label>
                         </span>
                         <small class="p-error">{{ tenError }}</small>
                     </div>
@@ -153,23 +103,26 @@ const saveProduct = () => {
 
                 <div class="p-fluid formgrid grid">
                     <div class="Field col-12" style="margin-bottom: 30px">
-                        <label >Ngày hết hạn</label>
                         <span class="p-float-label">
-                            <InputText id="ngayHetHan" name="ngayHetHan" type="date" v-model.trim="ngayHetHan" :class="{ 'p-invalid': ngayHetHanError }" required="true" autofocus />
+                            <InputText id="diaChiNCC" name="diaChiNCC" type="text" v-model="diaChiNCC" :class="{ 'p-invalid': dcError }" required="true" autofocus />
+                            <label for="username">Địa chỉ nhà cung cấp</label>
                         </span>
-                        <small class="p-error">{{ ngayHetHanError }}</small>
+                        <small class="p-error">{{ dcError }}</small>
                     </div>
                 </div>
-             
+
                 <div class="p-fluid formgrid grid">
-                    <div class="Field col-12" style="margin-bottom: 20px">
-                        <label >Nhà cung cấp</label>
+                    <div class="Field col-12" style="margin-bottom: 30px">
+                        <label >SĐT</label>
                         <span class="p-float-label">
-                            <Dropdown :optionLabel="(option) => `${option.tenNhaCungCap}`" v-model="selectedNcc" :options="dataNCC" class="w-full md:w-14rem"/>
+                            <InputText id="SDT" name="SDT" type="text" v-model.trim="SDT" :class="{ 'p-invalid': sdtError }" required="true" autofocus />
                         </span>
-                        <DataTableNhaCungCap :tableId="'tableNCC'" :rightGhId="'right_ghNCC'"
-                                                :tableClass="'tableNCC'" :rightGhClass="'right_ghNCC'" />                    </div>
+                        <small class="p-error">{{ sdtError }}</small>
+                    </div>
                 </div>
+
+             
+             
             </form>
         </div>
         <Dialog v-model:visible="addProductDialog" :style="{ width: '450px' }" header="Confirm" :modal="true">
