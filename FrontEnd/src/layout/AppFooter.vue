@@ -11,9 +11,6 @@ const logoUrl = computed(() => {
 
 <template>
     <div class="layout-footer">
-        <img src="/src/assets/images/logo.jpg" alt="Logo" height="20" class="mr-2" />
-
-        <span class="font-medium ml-2">GL: Dự án tốt nghiệp</span>
     </div>
 </template>
 <style lang="scss" scoped></style>

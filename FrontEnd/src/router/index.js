@@ -124,7 +124,7 @@ const router = createRouter({
                 {
                     path: '',
                     name: 'admin',
-                    component: () => import('@/components/Admin/ViewPlaceholder/AdminViewPlaceholder.vue')
+                    component: () => import('@/components/Admin/ThongKe/index.vue')
                 },
                 {
                     path: 'san-pham',
