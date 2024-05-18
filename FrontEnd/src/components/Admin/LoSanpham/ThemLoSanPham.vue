@@ -88,7 +88,7 @@ const addProduct = () => {
 const dataNCC = ref([]);
 const loadDataNhaCungCap = async () => {
     await NhaCungCapService.fetchData();
-    dataNCC.value = NhaCungCapService.data.nhaCungCaps;
+    dataNCC.value = NhaCungCapService.data;
 }
 
 const clearForm = () => {
@@ -124,6 +124,10 @@ const hideDialog = () => {
 const saveProduct = () => {
     addProductDialog.value = true;
 };
+
+const quyet = () => {
+    loadDataNhaCungCap()
+}
 
 </script>
 <template>
@@ -165,7 +169,7 @@ const saveProduct = () => {
                     <div class="Field col-12" style="margin-bottom: 20px">
                         <label >Nhà cung cấp</label>
                         <span class="p-float-label">
-                            <Dropdown :optionLabel="(option) => `${option.tenNhaCungCap}`" v-model="selectedNcc" :options="dataNCC" class="w-full md:w-14rem"/>
+                            <Dropdown :onClick = "quyet" :optionLabel="(option) => `${option.tenNhaCungCap}`" v-model="selectedNcc" :options="dataNCC" class="w-full md:w-14rem"/>
                         </span>
                         <DataTableNhaCungCap :tableId="'tableNCC'" :rightGhId="'right_ghNCC'"
                                                 :tableClass="'tableNCC'" :rightGhClass="'right_ghNCC'" />                    </div>

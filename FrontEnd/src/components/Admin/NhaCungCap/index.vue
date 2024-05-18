@@ -24,8 +24,7 @@ const dataTrongLuong = ref([]);
 
 const loaddataTrongLuong = async () => {
     await loSanPhamService.fetchData();
-    dataTrongLuong.value = loSanPhamService.data.nhaCungCaps;
-    console.log(dataTrongLuong.value);
+    dataTrongLuong.value = loSanPhamService.data;
 };
 
 const confirmDeleteProduct = async (maLo) => {

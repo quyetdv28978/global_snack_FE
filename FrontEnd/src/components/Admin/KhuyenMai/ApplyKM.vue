@@ -171,7 +171,7 @@ onMounted(() => {
     loadProducts();
     loadDataLoai();
     loadDataThuongHieu();
-    
+    console.log(props.myProp);
 });
 
 const idSP = ref(null);

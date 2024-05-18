@@ -44,7 +44,6 @@ export const useBanHangTaiQuayStore = defineStore('banHangTaiQuay', () => {
 
     const loadSP = async () => {
         const response = await axios.get(`${API_ENDPOINT}/san-pham`);
-        console.log(response.data);
         dsSP.value = response.data;
     };
 

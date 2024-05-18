@@ -28,7 +28,6 @@ export const khuyenMaiStore = defineStore('khuyenmai', {
             try {
                 const response = await axios.get(apiKhuyenMai + `/ap-khuyen-mai/${idkm}`);
                 this.data = response.data;
-                console.log(this.data);
             } catch (error) {
             }
         },

@@ -209,16 +209,16 @@ const getStatusLabel = (trangThai) => {
             return '- Chưa sử dụng';
 
         case 2:
-            return '- Tồn kho';
+            return '- hết hàng';
 
         case 3:
             return '- Sắp hết hạn sử dụng  ';
         case 4:
-            return '- Hết hàng  ';
+            return '- Tồn Kho';
         case 5:
             return '- Ngừng sử dụng  ';
         case 6:
-            return '- Hạn sử dụng  ';
+            return '- Hết Hạn sử dụng  ';
 
         default:
             return '';

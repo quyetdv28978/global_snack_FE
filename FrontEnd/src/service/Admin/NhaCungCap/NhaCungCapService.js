@@ -13,10 +13,9 @@ export const useNCCService = defineStore('nha-cung-cap', {
             try {
                
                 const response = await axios.get(apiNCC).then(data => {
-                    console.log(data.data._embedded);
                     return data.data._embedded
                 });
-                this.data = response;
+                this.data = response.nhaCungCaps;
             } catch (error) {
                 console.error('Error fetching users:', error);
             }

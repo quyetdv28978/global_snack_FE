@@ -26,7 +26,7 @@ const selectedProduct = ref([]);
 const listSPCT = ref(null);
 const showProduct = (id) => {
     console.log(selectedProduct);
-    localStorage.setItem('idkm', props.myProp.id);
+    // localStorage.setItem('idkm', props.myProp.id);
     //    loadDataProduct(id);
     //     selectedDialog.value = true;
 };
@@ -43,7 +43,6 @@ onMounted(() => {
     loadProducts();
     loadDataLoai();
     loadDataThuongHieu();
-
 });
 
 const idSP = ref(null);
@@ -58,9 +57,10 @@ const applyKhuyenMai = () => {
     // console.log("applyKhuyenMai");
     // đây là số lượng SPCT được chọn để áp dụng khuyến mại
     const sl = selectedProduct.value.length;
+        localStorage.setItem('idkm', props.myProp.id);
     // đây là IdKM dùng để áp dụng được truyền từ component cha
     const idkm = localStorage.getItem('idkm');
-
+        console.log(props.myProp.id);
     // duyệt qua mảng danh sách các CTSP được chọn
     selectedProduct.value.forEach((product) => {
         const tenLsp = product.tenLo;
@@ -68,7 +68,6 @@ const applyKhuyenMai = () => {
         ctspService.addKhuyenMaiLoSanphamSapHethan(tenLsp, idkm);
     });
 
-    // localStorage.removeItem('idkm');
     selectedProduct.value = [];
     selectedDialog.value = false;
     loadDataProduct(idSP.value);
@@ -90,7 +89,7 @@ const loadProducts = async () => {
     showSpinner.value = true;
     await loSanPhamService.showLoSanPhamSapHethan(); // Gọi hàm fetchAll từ Store
     products.value = loSanPhamService.data;
-    console.log(products.value)
+
 };
 
 const selectedLoai = ref(null);

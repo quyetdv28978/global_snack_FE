@@ -104,10 +104,47 @@ const themSPVaoHDCT = async () => {
     return;
   }
   soLuongError.value = '';
-  await store.themSPVaoHDCT(selectedHoaDon.value.id, dataOverlay.value.id, soLuong.value,selectedLoSanPham.value == null ? null : selectedLoSanPham.value.tenLo);
-  op.value.hide();
-  soLuong.value = null;
-  selectedLoSanPham.value = null;
+  const sp = checkLoSanPham.value.filter(i => i.tenLo === selectedLoSanPham.value.tenLo)
+  const sp2 = dsHDCT.value.filter(i => i.sanPhamChiTiet.id === dataOverlay.value.id)
+  let check = true
+  console.log("sp" , sp);
+  console.log("sp2", sp2);
+  console.log("list san pham: ", dsSP);
+if(sp2.length !== 0) {
+  if (sp2[0].loSanPhamApDung !== selectedLoSanPham.value.tenLo) {
+    check = false
+    toast.add({
+      severity: 'error',
+      summary: 'Không thể thực hiện',
+      detail: 'Chỉ được thêm 1 lô của 1 sản phẩm',
+      life: 3000
+    });
+  }else if (sp[0].soLuong < soLuong.value) {
+    check = false
+    toast.add({
+      severity: 'error',
+      summary: 'Không thể thực hiện',
+      detail: 'Số lượng vượt quá số lượng cho phép',
+      life: 3000
+    });
+  }
+}
+if (sp[0].soLuong < soLuong.value && check) {
+    check = false
+    toast.add({
+      severity: 'error',
+      summary: 'Không thể thực hiện',
+      detail: 'Số lượng vượt quá số lượng cho phép',
+      life: 3000
+    });
+  } 
+else if(check){
+    await store.themSPVaoHDCT(selectedHoaDon.value.id, dataOverlay.value.id, soLuong.value,selectedLoSanPham.value == null ? null : selectedLoSanPham.value.tenLo);
+    op.value.hide();
+    soLuong.value = null;
+    selectedLoSanPham.value = null;
+}
+ 
 };
 
 const xoaHDCT = async (hdct) => {
@@ -187,8 +224,6 @@ const themSpQR = async () => {
 const checkLoSP = async (id) => {
   await loSanPhamService.chooseLoSanPham(id);
   checkLoSanPham.value = loSanPhamService.dataCheckLoSanPham;
-  console.log(loSanPhamService.dataCheckLoSanPham);
-  console.log(dataOverlay)
 }
 
 const selectedLoSanPham = ref(null);
@@ -459,9 +494,28 @@ const confirmHuyHD = (event, data) => {
 };
 const options = ['Tùy chọn 1', 'Tùy chọn 2', 'Tùy chọn 3'];
 const trangThai = (tt) => {
-if(tt == 1) return 'còn hàng';
-else if (tt == 4) return 'Tồn kho'
-else if (tt == 3) return 'Gần hết hạn sử dụng'
+  switch (tt) {
+    case 1:
+      return 'Đang sử dụng';
+
+    case 0:
+      return 'Chưa sử dụng';
+
+    case 2:
+      return 'hết hàng';
+
+    case 3:
+      return 'Sắp hết hạn sử dụng  ';
+    case 4:
+      return 'Tồn Kho';
+    case 5:
+      return 'Ngừng sử dụng  ';
+    case 6:
+      return 'Hết Hạn sử dụng  ';
+
+    default:
+      return '';
+  }
 
 }
 </script>
@@ -731,9 +785,9 @@ else if (tt == 3) return 'Gần hết hạn sử dụng'
             <Column header="Thành tiền">
               <template #body="slotProps">
                 {{
-      formatCurrency((parseInt(slotProps.data.donGia) - parseInt(slotProps.data.chietKhau)) *
-        parseInt(slotProps.data.soLuong))
-    }}
+                  formatCurrency((parseInt(slotProps.data.donGia) - parseInt(slotProps.data.chietKhau)) *
+                    parseInt(slotProps.data.soLuong))
+                }}
               </template>
             </Column>
             <Column style="width: 8%" class="text-center">
@@ -778,7 +832,7 @@ else if (tt == 3) return 'Gần hết hạn sử dụng'
               :filterMenuStyle="{ width: '14rem' }">
               <template #body="{ data }">
                 <div class="flex align-items-center gap-2">
-                  <span>{{ data.trongLuong.value }}</span>
+                  <span>{{ data.trongLuong.value }} {{ data.trongLuong.donVi }}</span>
                 </div>
               </template>
               <template #filter="{ filterModel }">
@@ -859,21 +913,21 @@ else if (tt == 3) return 'Gần hết hạn sử dụng'
                   <div style="display: flex;">
                     <div style="margin-top: 20px; margin-right: 10px;">
                       <span class="p-float-label">
-                        <InputNumber id="number-input" v-model="soLuong" :class="{ 'p-invalid': soLuongError }" :min="1"
-                          :max="dataOverlay.soLuongTon" />
+                        <InputNumber id="number-input" v-model="soLuong" :class="{ 'p-invalid': soLuongError }"
+                          :min="1" />
                         <label for="Field">Số lượng</label>
                       </span>
                       <span class="p-float-label">
-                        <Dropdown v-model="selectedLoSanPham"  :options="checkLoSanPham" placeholder="Tất cả"
-                        :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan} -${option.soLuong}- ${trangThai(option.trangThai)}`"
-                        class="p-column-filter">
+                        <Dropdown v-model="selectedLoSanPham" :options="checkLoSanPham" placeholder="Tất cả"
+                          :optionLabel="(option) => `${option.tenLo} - ${option.ngayHetHan} -${option.soLuong}- ${trangThai(option.trangThai)}`"
+                          class="p-column-filter">
                           <template #option="slotProps">
-                    <div class="flex align-items-center gap-2">
-                      <span>{{ slotProps.option.tenLo + " - " + slotProps.option.ngayHetHan + " - "  + 
-                      + slotProps.option.soLuong + " - " +
-                       trangThai(slotProps.option.trangThai)  }}</span>
-                    </div>
-                  </template>
+                            <div class="flex align-items-center gap-2">
+                              <span>{{ slotProps.option.tenLo + " - " + slotProps.option.ngayHetHan + " - " +
+                                + slotProps.option.soLuong + " - " +
+                                trangThai(slotProps.option.trangThai) }}</span>
+                            </div>
+                          </template>
                         </Dropdown>
                       </span>
 
@@ -976,8 +1030,8 @@ else if (tt == 3) return 'Gần hết hạn sử dụng'
             placeholder="Hình thức giao hàng" class="w-full md:w-14rem" style="margin-left: 85px"
             @change="onHinhThucGiaoHangChange" :class="{ 'p-invalid': hinhThucThanhToanError }" />
           <div style="margin-left: 90px; width: 200px; height: 0px; "><small class=" p-error">{{
-      hinhThucThanhToanError
-    }}</small></div>
+            hinhThucThanhToanError
+          }}</small></div>
         </div>
       </div>
       <div class="card" v-if="diaChiDialog == true" style="overflow-y: scroll; width:95%; height: 200px;">
@@ -1004,8 +1058,8 @@ else if (tt == 3) return 'Gần hết hạn sử dụng'
                 <span style="margin-right: 10px"> | </span>
                 <label for="" style="color: rgb(0, 0, 0)"> {{ hd?.user?.sdt }}</label>
                 <label for="" style="color: rgb(255, 0, 0); margin-left: 10px"> {{
-      hd.trangThai == 1 ? 'Mặc định' : ''
-    }}</label>
+                  hd.trangThai == 1 ? 'Mặc định' : ''
+                }}</label>
               </div>
               <div style="margin-top: 10px">
                 <label for="" style="margin-right: 10px">

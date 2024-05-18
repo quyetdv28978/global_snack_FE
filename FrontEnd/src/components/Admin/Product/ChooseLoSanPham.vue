@@ -133,7 +133,7 @@ const { handleSubmit, resetForm } = useForm({
 });
 const onSubmit = handleSubmit(async (values) => {
     console.log(trangThai.value);
-    if (trangThai.value !== 4) {
+    if (trangThai.value !== 6) {
         try {
             await loSanPhamStore.updateLoSanPham(tenLo.value, props.myProp.id);
             toast.add({ severity: 'success', summary: 'Success Message', detail: 'update thành công', life: 3000 });

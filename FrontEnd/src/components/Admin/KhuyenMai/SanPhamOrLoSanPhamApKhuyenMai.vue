@@ -84,8 +84,7 @@ const loadProducts = async () => {
     showSpinner.value = true;
     await khuyenmaiService.getKhuyenMaiApSanPhamLoSp(props.myProp.id); // Gọi hàm fetchAll từ Store
     products.value = khuyenmaiService.data;
-    console.log(props.myProp)
-    console.log(products.value)
+    console.log(products.value);
 };
 
 const selectedLoai = ref(null);
