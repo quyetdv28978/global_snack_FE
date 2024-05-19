@@ -65,7 +65,7 @@ body {
 }
 
 .notfound .notfound-404 h1 {
-  font-family: 'Titillium Web', sans-serif;
+  
   font-size: 186px;
   font-weight: 900;
   margin: 0px;
@@ -77,14 +77,12 @@ body {
 }
 
 .notfound h2 {
-  font-family: 'Titillium Web', sans-serif;
   font-size: 26px;
   font-weight: 700;
   margin: 0;
 }
 
 .notfound p {
-  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 0px;
@@ -92,7 +90,6 @@ body {
 }
 
 .notfound a {
-  font-family: 'Titillium Web', sans-serif;
   display: inline-block;
   text-transform: uppercase;
   color: #fff;

@@ -4,7 +4,7 @@ import {LottieAnimation} from "lottie-web-vue";
 </script>
 
 <template>
-  <LottieAnimation class="w-7 m-auto" :animation-data="AnimatedLogo" :loop="true" :auto-play="true" :speed="0.8"/>
+  Hello
 </template>
 
 <style scoped>
