@@ -16,11 +16,14 @@ const editProduct = () => {
 <template>
     <Button icon="pi pi-eye" class="p-button-rounded p-button-success mr-2" @click="editProduct()" />
 
-    <Dialog v-model:visible="productDialog" :style="{ width: '500px' }" header="Detail user" :modal="true"
+    <Dialog v-model:visible="productDialog" :style="{ width: '30%' }" header="Detail user" :modal="true"
         class="p-fluid">
-        <div class="flex">
+        <div class="flex" style="jus">
             <!-- Cột phải -->
-            <div class="p-col-6">
+            <div class="p-col-12">
+                <div class="col-12">
+                <img :src="myProp.anh" alt="User Image" style="width: 100px;  height : 100px; border-radius : 50%" />
+                </div>
                 <div class="col-12">
                     <label>Mã: <span>{{ myProp.ma }}</span></label>
                 </div>
@@ -31,7 +34,7 @@ const editProduct = () => {
                     <label>Tên: <span>{{ myProp.ten }}</span></label>
                 </div>
                 <div class="col-12">
-                    <label>User name: <span>{{ myProp.userName }}</span></label>
+                    <label>Username: <span>{{ myProp.userName }}</span></label>
                 </div>
                 <div class="col-12">
                     <label>Giới tính: <span>{{ myProp.gioiTinh == 1 ? 'Nam' : 'Nữ' }}</span></label>
@@ -49,14 +52,11 @@ const editProduct = () => {
                     <label>
                         Số lượng hóa đơn: <span>{{ myProp.soLuongHoaDon }}</span></label>
                 </div>
-                <div class="col-12">
-                    <label>Địa chỉ:
-                        <div v-for="i in myProp.diaChi">
-                            <div class="col-6" style="width: 100%">
-                                <p>{{ i.diaChi }}</p>
-                            </div>
-                        </div>
-                    </label>
+                <div class="col-12" style="display : flex">
+                    <label>Địa chỉ: </label>
+                        <span v-for="i in myProp.diaChi">
+                                <span>{{ i.diaChi }}</span>
+                        </span>
                 </div>
                 <!-- <div class="col-12">
                     <label>Địa chỉ: <span>Thôn Đông Mai, xã Trung Nghĩa, huyện Yên Phong, tỉnh Bắc Ninh.</span></label>
@@ -67,12 +67,22 @@ const editProduct = () => {
                 </div>
             </div>
             <!-- cột trái -->
-            <div class="p-col-6">
-                <img :src="myProp.anh" alt="User Image" style="width: 100%" />
-            </div>
+        
         </div>
     </Dialog>
     <!-- </div>
         </div>
     </div> -->
 </template>
+
+<style lang="scss" scoped>
+    label {
+        font-size : 18px;
+        font-weight : 700;
+    }
+
+     span {
+        font-size : 16px;
+        font-weight : 600;
+    }
+</style>

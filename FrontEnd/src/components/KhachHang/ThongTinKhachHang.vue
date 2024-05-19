@@ -174,6 +174,22 @@ const showDoiMatKhau = () => {
                 <form @submit="onSubmit">
                     <div class="flex">
                         <div class="p-col-6">
+                            <div class="col-12">
+                                <div class="Field col-12 md:col-6">
+                                    <div style="display: block">
+                                        <div class="t" style="display: flex;align-items: center;gap: 1rem;">
+                                            <div  style="width: 100px; height: 100px;border-radius : 50% ; border : 1px solid #e1e1e1 ; display : flex ;align-items: center">
+                                            <img :src="image" alt="image" style="width: 100px; height: 100px;border-radius : 50%" />
+                                            </div>
+                                            <div class="buton" style="margin-top: 10px">
+                                            <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @input="onFileInputImage" style="display: flex" />
+                                        </div>
+                                        </div>
+                                        
+                                        <small class="p-error">{{ imageError }}</small>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="item" style="margin-bottom: 30px">
                                 <label class="text-lg font-medium text-gray-800">Tên đăng nhập: </label>
                                 <span>{{ dataUser.userName }}</span>
@@ -219,21 +235,7 @@ const showDoiMatKhau = () => {
                   <Button icon="pi pi-pencil" aria-label="Submit" style="margin-left: 15px" />
               </div> -->
                         </div>
-                        <div class="p-col-6">
-                            <div class="col-12">
-                                <div class="Field col-12 md:col-6" style="margin-bottom: 30px; height: 300px; margin-top: 10px; display: inline-flex; justify-content: center; align-items: center">
-                                    <div style="display: block">
-                                        <div class="t" style="border: 1px solid black; border-radius: 10px; width: 250px; height: 230px; margin-top: -60px">
-                                            <img :src="image" alt="image" style="width: 230px; height: 220px; top: 50%; left: 50%; transform: translate(4%, 2%)" />
-                                        </div>
-                                        <div class="buton" style="margin-top: 10px">
-                                            <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @input="onFileInputImage" style="display: flex" />
-                                        </div>
-                                        <small class="p-error">{{ imageError }}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div>
                         <Button class="px-3 bg-red-600 border-none" label="Sửa" icon="pi pi-check" size="small" @click="updateProduct" />
