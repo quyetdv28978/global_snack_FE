@@ -126,7 +126,7 @@ const getStatusLabel = (soLuong, trangThai) => {
     if (soLuong > 0 && trangThai == 1) {
         return { text: 'Còn Hàng', severity: 'success' };
     } else if (soLuong <= 0 || trangThai == 0) {
-        return { text: 'Hết Hàng', severity: 'danger' };
+        return { text: 'ết Hàng', severity: 'danger' };
     } else {
         return { text: 'Tồn kho', severity: 'info' };
     }
@@ -359,7 +359,7 @@ const formatDate = (dateTime) => {
                             <template #body="slotProps">
                                 <span class="p-column-title">Image</span>
 
-                                <img :src="slotProps.data.anh" :alt="i" class="shadow-2" width="100" />
+                                <img :src="slotProps.data.anh" :alt="i" class="shadow-2" style="width: 100px; height: 100px;    border-radius: 50%;"/>
                             </template>
                         </Column>
                         <Column field="ten" header="Tên" :sortable="true" headerStyle="width:14%; min-width:10rem;">
