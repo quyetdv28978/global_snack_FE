@@ -319,7 +319,7 @@ const formatCurrency = (value) => {
                             <div class="flex align-items-center">
                                 <RadioButton v-model="TrangThai" inputId="ingredient2" name="pizza" value="3"
                                     :class="{ 'p-invalid': TrangThaiSacError }" />
-                                <label for="ingredient2" class="ml-2">tồn kho</label>
+                                <label for="ingredient2" class="ml-2">Tồn kho</label>
                             </div>
                         </div>
                         <small class="p-error">{{ TrangThaiSacError }}</small>

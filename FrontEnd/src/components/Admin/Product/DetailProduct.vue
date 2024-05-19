@@ -217,7 +217,7 @@ const dataTrangThai = ref([
     { label: 'Tất cả', value: -1 },
     { label: 'Hết hàng', value: 0 },
     { label: 'Còn hàng', value: 1 },
-    { label: 'khuyễn mại', value: 2 },
+    { label: 'Khuyễn mại', value: 2 },
     { label: 'Tồn kho', value: 3 },
 ]);
 
