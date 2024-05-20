@@ -8,7 +8,8 @@ const apiKhuyenMai = `${import.meta.env.VITE_BASE_API_ENDPOINT}/admin/khuyenMai`
 export const khuyenMaiStore = defineStore('khuyenmai', {
     state: () => ({
         data: [],
-        excels:[]
+        excels:[],
+        dataLoSanPham:[]
     }),
     actions: {
 
@@ -27,13 +28,17 @@ export const khuyenMaiStore = defineStore('khuyenmai', {
         async getKhuyenMaiApSanPhamLoSp(idkm) {
             try {
                 const response = await axios.get(apiKhuyenMai + `/ap-khuyen-mai/${idkm}`);
-                this.data = response.data;
+                this.dataLoSanPham = response.data;
+                console.log(this.data, " data khuyen mai ap lo san pham");
             } catch (error) {
             }
         },
         createKhuyenMai(form) {
+            console.log(this.data);
             axios.post(apiKhuyenMai + '/add', form).then((response) => {
+                console.log("data khuyen mai, ", response.data.data);
                 this.data.unshift(response.data.data);
+                console.log("data khuyen mai sau add: ", this.data);
             });
         },
         updateKhuyenMai(form, id) {

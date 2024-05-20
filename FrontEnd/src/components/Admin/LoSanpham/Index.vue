@@ -5,6 +5,7 @@ import { useLoSanPhamService } from '@/service/Admin/LoSanPham/LoSanPhamServiceA
 import { useToast } from 'primevue/usetoast';
 import ThemLoSanPham from './ThemLoSanPham.vue';
 
+const emit = defineEmits(['update-index-sanPham'])
 const loSanPhamService = useLoSanPhamService();
 const toast = useToast();
 const deleteProductDialog = ref(false);
@@ -30,15 +31,14 @@ const loaddataTrongLuong = async () => {
 const confirmDeleteProduct = async (maLo) => {
     idDelete.value = maLo
     deleteProductDialog.value = true;
-
 }
 
 const deleteProduct = async () => {
-    console.log(idDelete.value);
-    await loSanPhamService.updateLoSanPhamTT(idDelete.value);
-    dataTrongLuong.value = loSanPhamService.data
-    toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Xoá thành công', life: 3000 });
-    deleteProductDialog.value = false;
+    // await loSanPhamService.updateLoSanPhamTT(idDelete.value);
+    // dataTrongLuong.value = loSanPhamService.data
+    emit("update-index-sanPham")
+    // toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Xoá thành công', life: 3000 });
+    // deleteProductDialog.value = false;
 
 }
 //thay đổi cbb

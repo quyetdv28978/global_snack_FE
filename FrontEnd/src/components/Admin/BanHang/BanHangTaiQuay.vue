@@ -107,11 +107,8 @@ const themSPVaoHDCT = async () => {
   const sp = checkLoSanPham.value.filter(i => i.tenLo === selectedLoSanPham.value.tenLo)
   const sp2 = dsHDCT.value.filter(i => i.sanPhamChiTiet.id === dataOverlay.value.id)
   let check = true
-  console.log("sp" , sp);
-  console.log("sp2", sp2);
-  console.log("list san pham: ", dsSP);
 if(sp2.length !== 0) {
-  if (sp2[0].loSanPhamApDung !== selectedLoSanPham.value.tenLo) {
+  if (sp2[0].loSanPhamApDung.substring(0, sp2[0].loSanPhamApDung.lastIndexOf(",")) !== selectedLoSanPham.value.tenLo) {
     check = false
     toast.add({
       severity: 'error',
@@ -404,6 +401,7 @@ const onInputSLSPCuaHDCT = (event, data) => {
       //   clearTimeout(timer);
       // }
       // timer = setTimeout(() => {
+        console.log(event.value);
       store.updateSLSPCuaHDCT(data.id, event.value);
       // }, 300);
     } else {
@@ -545,17 +543,17 @@ const trangThai = (tt) => {
     <table style="width: 100%; font-size: 0.8rem">
       <tr style="border: 1px solid white">
         <td rowspan="3"><img :src="logoImageSrc" alt="" style="width: 8em;"></td>
-        <td><strong style="text-align: right; margin: 0; font-size: 0.9rem;">Cửa hàng Mũ bảo hiểm VNK</strong></td>
+        <td><strong style="text-align: right; margin: 0; font-size: 0.9rem;">Cửa hàng bán đồ ăn vặt khô Global Snack</strong></td>
       </tr>
       <tr style="border: 1px solid white">
-        <td><span style="text-align: right; margin: 0;">A: 241 Xuân Thuỷ - Cầu Giấy - HN</span></td>
+        <td><span style="text-align: right; margin: 0;">A: 123 đi thi, về nhà, đi ngủ, Quyết quần đùi</span></td>
       </tr>
       <tr style="border: 1px solid white">
-        <td><span style="text-align: right; margin: 0;">P: 0234.456.789 - 0912.345.678</span></td>
+        <td><span style="text-align: right; margin: 0;">P: 0267782202 - 0367782202</span></td>
       </tr>
     </table>
 
-    <span style="text-align: center; font-weight: bold; font-size: 1.3rem">HOÁ ĐƠN BÁN HÀNG 2</span>
+    <span style="text-align: center; font-weight: bold; font-size: 1.3rem">HOÁ ĐƠN BÁN HÀNG</span>
     <span style="text-align: center; font-size: 0.9rem;">Mã: {{ selectedHoaDon ? selectedHoaDon.ma : null }}</span>
     <b style="margin-top: 1rem;">Tên khách hàng: {{ khExportPdf ? khExportPdf.ten : null }}</b>
     <b style="margin-top: 0.5rem;">Số điện thoại: {{ khExportPdf ? khExportPdf.sdt : null }}</b>

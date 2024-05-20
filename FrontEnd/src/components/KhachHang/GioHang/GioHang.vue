@@ -250,6 +250,7 @@ const deleteGioHang = async (idghct) => {
         toast.add({ severity: 'warn', summary: '', detail: 'Xoá thành công', life: 3000 });
     } else {
         await gioHangService.xoaGHCT(idghct, token);
+        checkedValues = checkedValues.filter(i => i.idGHCT !== idghct)
         // dataGHCT.value = gioHangService.data;
         toast.add({ severity: 'warn', summary: '', detail: 'Xoá thành công', life: 3000 });
         loadDataGioHang();
@@ -348,6 +349,7 @@ const onSizeChange = (id, isChecked) => {
     if (isChecked) {
         // Nếu checkbox được chọn, thêm giá trị vào mảng
         checkedValues.push(id);
+        checkedValues.forEach(i => console.log(i, " Sau khi checked"));
         tongTienKhiTruCongSoLuong(checkedValues);
         dem.value = dem.value + 1;
         idSpWhenCheckBox.value = id.idGHCT;
@@ -355,6 +357,8 @@ const onSizeChange = (id, isChecked) => {
     } else {
         // Nếu checkbox bị bỏ chọn, xóa giá trị khỏi mảng
         checkedValues = checkedValues.filter((value) => value.idGHCT !== id.idGHCT);
+        checkedValues.forEach(i => console.log(i, " Sau khi unchecked"));
+
         tongTienKhiTruCongSoLuong(checkedValues);
         ischeckeds.value = isChecked;
     }

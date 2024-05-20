@@ -83,8 +83,7 @@ const hideDialog = () => {
 const loadProducts = async () => {
     showSpinner.value = true;
     await khuyenmaiService.getKhuyenMaiApSanPhamLoSp(props.myProp.id); // Gọi hàm fetchAll từ Store
-    products.value = khuyenmaiService.data;
-    console.log(products.value);
+    products.value = khuyenmaiService.dataLoSanPham;
 };
 
 const selectedLoai = ref(null);

@@ -19,7 +19,7 @@ const schema = yup.object().shape({
         .required('Đơn vị không được để trống!')
         .max(30, 'Đơn vị giới hạn 30 ký tự')
         .matches(/^[a-zA-Z0-9đĐáÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬêÊếẾềỀểỂễỄệỆôÔốỐồỒổỔỗỖộỘỏỎóÓòÒõÕọỌẻẺéÉèÈẽẼẹẸỉỈíÍìÌĩĨịỊơƠớỚờỜởỞỡỠợỢùÙúÚụỤủỦũŨưỨỨửỬữỮựỰýÝỳỲỷỶỹỸỵỴ\s]*$/, 'Tên không được chứa kí tự đặc biệt!'),
-    giaTri: yup.number('Giá trị phải là số').required('Vui lòng nhập giá trị.').min(100, 'Giá trị phải lớn hơn hoặc bằng 100.').max(5000, 'Giá trị phải nhỏ hơn hoặc bằng 5000.')
+    giaTri: yup.number('Giá trị phải là số').required('Vui lòng nhập giá trị.').max(5000, 'Giá trị phải nhỏ hơn hoặc bằng 5000.')
 });
 const { handleSubmit, resetForm } = useForm({
     validationSchema: schema

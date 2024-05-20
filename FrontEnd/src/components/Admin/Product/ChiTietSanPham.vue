@@ -110,7 +110,6 @@ const columns = ref([
 ]);
 
 const updateSanPhamTheoLo = async (newData) => {
-    console.log("day la update hteo lo ", newData);
     await productStore.fetchAll(); // Gọi hàm fetchAll từ Store
     products.value = productStore.products;
 }
@@ -303,10 +302,10 @@ const formatDate = (dateTime) => {
                             </div>
                         </template>
 
-                        <template v-slot:end>
+                        <!-- <template v-slot:end>
                             <Button label="Import excel" icon="pi pi-download" @click="openPosition('top')"
                                 style="min-width: 10rem" severity="secondary" rounded />
-                        </template>
+                        </template> -->
                     </Toolbar>
                     <div style="margin-left: 500px">
                         <ProgressSpinner v-if="showSpinner" />

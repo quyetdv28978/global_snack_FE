@@ -21,7 +21,7 @@ const schema = yup.object().shape({
     ten: yup
         .string()
         .required('Tên không được để trống!')
-        .max(30, 'Tên giới hạn 30 ký tự')
+        .max(3000, 'Tên giới hạn 30 ký tự')
         .matches(/^[a-zA-Z0-9đĐáÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬêÊếẾềỀểỂễỄệỆôÔốỐồỒổỔỗỖộỘỏỎóÓòÒõÕọỌẻẺéÉèÈẽẼẹẸỉỈíÍìÌĩĨịỊơƠớỚờỜởỞỡỠợỢùÙúÚụỤủỦũŨưỨỨửỬữỮựỰýÝỳỲỷỶỹỸỵỴ\s]*$/, 'Tên không được chứa kí tự đặc biệt!'),
 });
 const { handleSubmit, resetForm } = useForm({

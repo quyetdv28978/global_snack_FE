@@ -25,7 +25,6 @@ const selectedDialog = ref(false);
 const selectedProduct = ref([]);
 const listSPCT = ref(null);
 const showProduct = (id) => {
-    console.log(selectedProduct);
     // localStorage.setItem('idkm', props.myProp.id);
     //    loadDataProduct(id);
     //     selectedDialog.value = true;
@@ -47,31 +46,24 @@ onMounted(() => {
 
 const idSP = ref(null);
 
-const loadDataProduct = async (idsp) => {
-    idSP.value = idsp;
-    await loSanPhamService.showLoSanPhamSapHethan(idsp)
-    listSPCT.value = loSanPhamService.data;
-};
 
-const applyKhuyenMai = () => {
+const applyKhuyenMai = async () => {
     // console.log("applyKhuyenMai");
     // đây là số lượng SPCT được chọn để áp dụng khuyến mại
     const sl = selectedProduct.value.length;
         localStorage.setItem('idkm', props.myProp.id);
     // đây là IdKM dùng để áp dụng được truyền từ component cha
     const idkm = localStorage.getItem('idkm');
-        console.log(props.myProp.id);
     // duyệt qua mảng danh sách các CTSP được chọn
-    selectedProduct.value.forEach((product) => {
+    selectedProduct.value.forEach(async(product) => {
         const tenLsp = product.tenLo;
-        // cập nhật lại giá tiền và id khuyến mại
-        ctspService.addKhuyenMaiLoSanphamSapHethan(tenLsp, idkm);
+        await ctspService.addKhuyenMaiLoSanphamSapHethan(tenLsp, idkm);
+        console.log("a");
+        await loadProducts()
     });
-
     selectedProduct.value = [];
     selectedDialog.value = false;
-    loadDataProduct(idSP.value);
-    toast.add({ severity: 'success', summary: 'Successful', detail: 'Áp dụng khuyến mại thành công', life: 3000 });
+        toast.add({ severity: 'success', summary: 'Successful', detail: 'Áp dụng khuyến mại thành công', life: 3000 });
 };
 
 const showProducts = () => {
@@ -89,7 +81,6 @@ const loadProducts = async () => {
     showSpinner.value = true;
     await loSanPhamService.showLoSanPhamSapHethan(); // Gọi hàm fetchAll từ Store
     products.value = loSanPhamService.data;
-
 };
 
 const selectedLoai = ref(null);
@@ -98,6 +89,8 @@ const loadDataLoai = async () => {
     dataLoai.value = loaiStore.dataByStatus1;
 
 };
+
+
 watch(selectedLoai, (newVal, oldVal) => {
     // Kiểm tra nếu giá trị mới khác giá trị cũ
     if (newVal !== oldVal) {

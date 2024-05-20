@@ -31,8 +31,7 @@ export const ctspStore = defineStore('ctsp', {
                 }
                 this.data.splice(index, 1);
             });
-        },
-        addKhuyenMaiLoSanphamSapHethan(idlsp, idkm) {
+        },async addKhuyenMaiLoSanphamSapHethan(idlsp, idkm) {
             axios.post(apiLoSanPham + `/${idkm}/${idlsp}`).then((response) => {
                 // this.data = response.data;           
                 // console.log(this.data); 

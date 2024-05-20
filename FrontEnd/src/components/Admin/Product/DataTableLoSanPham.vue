@@ -7,6 +7,7 @@ import Index from '@/components/Admin/LoSanpham/Index.vue';
 import { useLoSanPhamService } from '@/service/Admin/LoSanPham/LoSanPhamServiceAPI';
 import { useToast } from 'primevue/usetoast';
 
+const emit = defineEmits(['update-sanPham'])
 const toast = useToast();
 const loSanPhamService = useLoSanPhamService();
 const dataMauSac = ref([]);
@@ -36,19 +37,7 @@ const loadDataMauSac = async () => {
 onMounted(() => {
     loadDataMauSac();
 });
-// const deleteProductDialog = ref(false);
-// const idDelete = ref();
-// const confirmDeleteProduct = (id) => {
-//     idDelete.value = id;
-//     deleteProductDialog.value = true;
-// };
 
-// xoá
-// const deleteProduct = () => {
-//     const remove = loSanPhamService.deleteMauSac(idDelete.value);
-//     toast.add({ severity: 'success', summary: 'Thông báo', detail: 'Xoá thành công', life: 3000 });
-//     deleteProductDialog.value = false;
-// };
 
 const chuyenPhanTus = (id) => {
     isRightGhLoaiVisible.value = false;
@@ -80,13 +69,17 @@ const close = () => {
 
 const selectedProduct = ref(null);
 const products = ref(null);
+const updateLoSanPham = () => {
+    console.log("da chay emit o Datatable lo");
+    emit("update-updateLoSanpHam-sanPham")
+}
 </script>
 
 <template>
     <div>
         <Dialog header="Lô sản phẩm" v-model:visible="display" :breakpoints="{ '960px': '75vw' }" :style="{ width: '1000px' }"
             :modal="true">
-            <index></index>
+            <index @update-index-sanPham = "updateLoSanPham"></index>
 
             <template #footer>
 

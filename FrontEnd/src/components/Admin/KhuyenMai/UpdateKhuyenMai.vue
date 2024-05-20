@@ -14,7 +14,7 @@
                 </div>
                 <div class="field col">
                     <label for="email2">Tên</label>
-                    <InputText id="ten" v-model.trim="ten" required="true" autofocus :class="{ 'p-invalid': tenError }" />
+                    <InputText id="ten" v-model="ten" required="true" autofocus :class="{ 'p-invalid': tenError }" />
                     <small class="p-error">{{ tenError }}</small>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="name2">Mô Tả</label>
-                    <Textarea v-model.trim="moTa" :autoResize="true" rows="3" cols="30" :class="{ 'p-invalid': moTaError }" />
+                    <Textarea v-model="moTa" :autoResize="true" rows="3" cols="30" :class="{ 'p-invalid': moTaError }" />
                     <small class="p-error">{{ moTaError }}</small>
                 </div>
                 <div class="field col">

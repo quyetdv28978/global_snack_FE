@@ -67,7 +67,6 @@ const formatCurrency = (value) => {
 };
 
 const loadDataTrangThai = () => {
-    console.log(props.myProp);
     lstChiTietSP.value = props.myProp.sanPhamChiTiet;
     if (trangThaiselect.value.value == -1) {
         lstChiTietSP.value = props.myProp.sanPhamChiTiet;
@@ -88,13 +87,14 @@ const loadDataTrangThai = () => {
 }
 
 const updateMyProp = (newData, idproduct) => {
-    const index = lstChiTietSP.value.findIndex(element => element.id === newData.id);
+        const index = lstChiTietSP.value.findIndex(element => element.id === newData.id);
     emit('update-sanPham', 1);
     if (index !== -1) {
         lstChiTietSP.value[index] = newData;
     }
      loSanPhamStore.fetchDataBySPCT(idproduct);
     // dataLoSanPham.value = loSanPhamStore.dataByStatus1;
+
 }
 
 const addMyProp = (newData) => {
@@ -178,6 +178,7 @@ const deleteSPCT = async (idSPCT) => {
         if (index !== -1) {
             lstChiTietSP.value[index] = repo;
         }
+        emit('update-sanPham', 1);
         toast.add({ severity: 'info', summary: 'Delete', detail: 'xóa thành công', life: 3000 });
     } catch (error) {
     }
@@ -194,6 +195,7 @@ const khoiPhucSPCT = async (idSPCT, soLuong) => {
         if (index !== -1) {
             lstChiTietSP.value[index] = repo;
         }
+        emit('update-sanPham', 1);
         toast.add({ severity: 'info', summary: 'Khôi phục', detail: 'Khôi phục thành công', life: 3000 });
     } catch (error) {
     }

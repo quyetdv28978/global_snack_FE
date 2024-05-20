@@ -71,7 +71,6 @@ const { value: imagesChinh, errorMessage: imagestError } = useField('anh');
 const isOpen = ref(true);
 
 const onSubmit = handleSubmit(async (values) => {
-    console.log(values);
     try {
         values.anh = values.anh.substring(values.anh.lastIndexOf("\\") + 1)
         // values.imgMauSac =  values.imgMauSac.map(value => value.substring(value.lastIndexOf("\\") + 1))

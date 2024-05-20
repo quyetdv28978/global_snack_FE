@@ -71,6 +71,7 @@ export const useLoSanPhamService = defineStore('lo-san-pham', {
         async showLoSanPhamSapHethan(idctsp) {
             const response = await axios.get(`${apiLoSanPham}/sap_het_han`);
             this.data = response.data;
+            console.log("data sau khi them lo san pham: ", response.data);
         },
         async createMauSac(form) {
             axios.post(apiLoSanPham + '/add-lo', form).then((response) => {

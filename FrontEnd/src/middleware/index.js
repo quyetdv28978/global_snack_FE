@@ -26,7 +26,7 @@ export const authMiddleware = {
         if (token) {
             const payloadData = await verifyJwt(token);
             if (payloadData) {
-                if (payloadData.role === "ADMIN") next();
+                if (payloadData.role === "ADMIN" || payloadData.role === "NHANVIEN") next();
                 else next({name: 'unauthorized'});
             } else next({name: 'login-admin'});
         } else next({name: 'login-admin'});

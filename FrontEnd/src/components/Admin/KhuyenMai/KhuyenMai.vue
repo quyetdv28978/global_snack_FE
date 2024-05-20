@@ -41,7 +41,7 @@ const initFilters = () => {
 const loadDataKhuyenmai = async () => {
     await khuyenmaiService.getKhuyenMai();
     khuyenmais.value = khuyenmaiService.data;
-  
+  console.log("data man khuyen mai: ", khuyenmais.value);
 };
 
 // const initFilters1 = () => {

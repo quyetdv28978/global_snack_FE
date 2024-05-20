@@ -231,6 +231,14 @@ const formatDate = (dateTime) => {
         return format(new Date(dateTime), 'yyyy/MM/dd HH:mm:ss');
     }
 };
+
+const updateSanPhamTheoLo = () => {
+    console.log("emit da kich hoat");
+    emit('update:myProp', data, props.myProp.id);
+
+    loadDataLoSanPham()
+}
+
 </script>
 <template>
     <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="openNew" />
@@ -287,7 +295,7 @@ const formatDate = (dateTime) => {
                                         </Dropdown>
                                         <label for="dropdown">Lô Sản phẩm</label>
                                     </span>
-                                    <DataTableLoSanPham :tableId="'TableLoSanPham'" :rightGhId="'right_ghLoSanPham'"
+                                    <DataTableLoSanPham @update-updateLoSanpHam-sanPham = "updateSanPhamTheoLo" :tableId="'TableLoSanPham'" :rightGhId="'right_ghLoSanPham'"
                                         :tableClass="'TableLoSanPham'" :rightGhClass="'right_ghLoSanPham'" />
                                 </div>
                                 <small class="p-error">{{ LoSanPhamError }}</small>
