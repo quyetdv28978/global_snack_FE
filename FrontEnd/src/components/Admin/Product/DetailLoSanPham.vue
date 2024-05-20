@@ -161,7 +161,7 @@ const editProduct = () => {
 
 const getStatusLabel = (soLuong) => {
     if (soLuong == 0) {
-        return { text: 'hết Hàng', severity: 'danger' };
+        return { text: 'Hết Hàng', severity: 'danger' };
     } else if (soLuong == 1) {
         return { text: 'Còn hàng', severity: 'success' };
     }

@@ -761,7 +761,7 @@ const menu = ref();
 }
 
 div.selected {
-    border: 2px solid red;
+    border: 1px solid red !important;
 }
 
 .small-button {

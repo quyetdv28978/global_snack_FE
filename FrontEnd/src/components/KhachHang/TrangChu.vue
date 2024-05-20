@@ -190,7 +190,7 @@ const themSPDaXem = async (idSP) => {
                 <div class="flex-item" v-for="(spct, index) in dataHangMoi" :key="index">
                     <div class="product-top">
                         <a href="" class="product-thumb" @click="goToProductDetail(spct.idSP)">
-                            <img :src="spct.anh" alt="Thumbnail" class="product-image" />
+                            <img :src="spct.anh" alt="Thumbnail" class="product-image"  style="width : 100%"/>
                         </a>
                     </div>
                     <div class="ten-sp">{{ spct.tenSP }}</div>
@@ -233,27 +233,6 @@ const themSPDaXem = async (idSP) => {
             <!-- <div><img src="/src/assets/images/non-tre-em-scaled.jpg" alt="Thumbnail" class="banner2" /></div>
             <div><img src="/src/assets/images/Banner-non-tre-em.png" alt="Thumbnail" class="banner3" /></div> -->
 
-            <div class="flex-container">
-                <div class="flex-item" v-for="(spct, index) in dataTreEm" :key="index">
-                    <div class="product-top">
-                        <a href="" class="product-thumb" @click="goToProductDetail(spct.idSP)">
-                            <img :src="spct.anh" alt="Thumbnail" class="product-image" />
-                        </a>
-                    </div>
-                    <div class="ten-sp">{{ spct.tenSP }}</div>
-                    <div>{{ spct.tenLoai }}</div>
-                    <div>{{ spct.tenThuongHieu }}</div>
-
-                    <div class="gia-sp" v-if="spct.giaBanMin == spct.giaBanMax">{{ formatCurrency(spct.giaBanMax) }}</div>
-                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax != null && spct.giaSauGiamMin != null && spct.giaSauGiamMax != spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMin) }} - {{ formatCurrency(spct.giaSauGiamMax) }}</div>
-                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == null && spct.giaSauGiamMin == null">{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
-                    <div class="gia-sp" v-else-if="spct.giaSauGiamMax == spct.giaSauGiamMin">{{ formatCurrency(spct.giaSauGiamMax) }}</div>
-                    <div class="gia-sp" v-else>{{ formatCurrency(spct.giaBanMin) }} - {{ formatCurrency(spct.giaBanMax) }}</div>
-                    <div class="flex items-center justify-end my-3">
-                        <Button class="w-full" label="Xem chi tiết" raised @click="goToProductDetail(spct.idSP)" severity="success" />
-                    </div>
-                </div>
-            </div>
             <!-- <div class="thong-tin">
                 <p class="tieu-de-to">TẠI SAO NÊN CHỌN NÓN TRÙM?</p>
                 <div class="flex col-12">

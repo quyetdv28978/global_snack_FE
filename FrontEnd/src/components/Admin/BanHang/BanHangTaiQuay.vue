@@ -502,7 +502,7 @@ const trangThai = (tt) => {
       return 'Chưa sử dụng';
 
     case 2:
-      return 'hết hàng';
+      return 'Hết hàng';
 
     case 3:
       return 'Sắp hết hạn sử dụng  ';

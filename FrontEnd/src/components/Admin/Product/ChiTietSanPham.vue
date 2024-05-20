@@ -126,7 +126,7 @@ const getStatusLabel = (soLuong, trangThai) => {
     if (soLuong > 0 && trangThai == 1) {
         return { text: 'Còn Hàng', severity: 'success' };
     } else if (soLuong <= 0 || trangThai == 0) {
-        return { text: 'ết Hàng', severity: 'danger' };
+        return { text: 'Hết Hàng', severity: 'danger' };
     } else {
         return { text: 'Tồn kho', severity: 'info' };
     }
