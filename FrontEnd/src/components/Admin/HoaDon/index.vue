@@ -84,15 +84,7 @@ const formatDate = (value) => {
                         <TabPanel header="Đã hủy">
                             <DaHuyVue> </DaHuyVue>
                         </TabPanel>
-                        <TabPanel header="Trả hàng">
-                            <TraHangHoanTienVue> </TraHangHoanTienVue>
-                        </TabPanel>
-                        <TabPanel header="Xác nhận trả hàng">
-                            <DaHoanTraVue> </DaHoanTraVue>
-                        </TabPanel>
-                        <TabPanel header="Huỷ trả hàng">
-                            <DaHuyTraHang> </DaHuyTraHang>
-                        </TabPanel>
+                        
                     </TabView>
                 </div>
             </div>

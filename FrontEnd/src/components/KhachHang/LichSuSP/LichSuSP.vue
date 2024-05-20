@@ -28,9 +28,7 @@ import HoanTra from './TraHangHoanTien.vue';
                     <TabPanel header="Đã huỷ">
                         <DaHuy></DaHuy>
                     </TabPanel>
-                    <TabPanel header="Hoàn trả">
-                        <HoanTra></HoanTra>
-                    </TabPanel>
+                    
                 </div>
             </TabView>
         </div>
