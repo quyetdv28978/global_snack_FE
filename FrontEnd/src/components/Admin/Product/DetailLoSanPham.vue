@@ -161,7 +161,7 @@ const editProduct = () => {
 
 const getStatusLabel = (soLuong) => {
     if (soLuong == 0) {
-        return { text: 'hết Hàng', severity: 'danger' };
+        return { text: 'Hết Hàng', severity: 'danger' };
     } else if (soLuong == 1) {
         return { text: 'Còn hàng', severity: 'success' };
     }
@@ -225,7 +225,7 @@ const dataTrangThai = ref([
     { label: 'Tất cả', value: -1 },
     { label: 'Hết hàng', value: 0 },
     { label: 'Còn hàng', value: 1 },
-    { label: 'khuyễn mại', value: 2 },
+    { label: 'Khuyễn mại', value: 2 },
     { label: 'Tồn kho', value: 3 },
 ]);
 
@@ -281,7 +281,7 @@ const loadDataTrangThai = () => {
                             <div class="flex align-items-center">
                                 <RadioButton v-model="TrangThai" inputId="ingredient2" name="pizza" value="3"
                                     :class="{ 'p-invalid': TrangThaiSacError }" disabled />
-                                <label for="ingredient2" class="ml-2">tồn kho</label>
+                                <label for="ingredient2" class="ml-2">Tồn kho</label>
                             </div>
 
                         </div>

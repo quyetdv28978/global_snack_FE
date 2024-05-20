@@ -278,7 +278,7 @@ const filters = ref({});
 
 const getStatusLabel = (soLuong) => {
     if (soLuong == 0) {
-        return { text: 'hết Hàng', severity: 'danger' };
+        return { text: 'Hết Hàng', severity: 'danger' };
     } else if (soLuong == 1) {
         return { text: 'Còn hàng', severity: 'success' };
     } else {
@@ -319,7 +319,7 @@ const formatCurrency = (value) => {
                             <div class="flex align-items-center">
                                 <RadioButton v-model="TrangThai" inputId="ingredient2" name="pizza" value="3"
                                     :class="{ 'p-invalid': TrangThaiSacError }" />
-                                <label for="ingredient2" class="ml-2">tồn kho</label>
+                                <label for="ingredient2" class="ml-2">Tồn kho</label>
                             </div>
                         </div>
                         <small class="p-error">{{ TrangThaiSacError }}</small>

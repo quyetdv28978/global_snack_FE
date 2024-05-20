@@ -12,12 +12,12 @@ const logoUrl = computed(() => {
 <template>
     <!-- Remove the container if you want to extend the Footer to full width. -->
     <div style="margin: 120px 0; padding: 0 400px">
-        <div class="flex flex-column justify-center">
+        <div class="flex flex-column ">
             <h1 class="text-center">Contact Us</h1>
             <form class="contact-container">
                 <div class="flex flex-column gap-2 mt-1">
                     <label for="username" class="text-gray-600 text-xl">FirstName</label>
-                    <InputText id="username" v-model="value" aria-describedby="username-help" />
+                    <InputText id="username" v-model="value" aria-describedby="username-help" sty/>
                 </div>
                 <div class="flex flex-column gap-2">
                     <label for="username" class="text-gray-600 text-xl">LastName</label>

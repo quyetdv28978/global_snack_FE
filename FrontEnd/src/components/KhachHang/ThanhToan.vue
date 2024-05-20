@@ -355,7 +355,7 @@ const showError = computed(() => {
                                 <Column field="code" header="Sản phẩm">
                                     <template #body="slotProps">
                                         <div class="flex items-center justify-center">
-                                            <img :src="slotProps.data.anhMau" alt="Ảnh sản phẩm" class="shadow-2" style="width: 100px; border-radius: 10px" />
+                                            <img :src="slotProps.data.anhMau" alt="Ảnh sản phẩm" class="shadow-2" style="width: 100px; border-radius: 50%" />
                                             <span style="margin-left: 10px" class="text-gray-600">{{ slotProps.data.tenSP }}</span>
                                         </div>
                                     </template>
@@ -408,7 +408,7 @@ const showError = computed(() => {
                                     <h6 class="text-gray-800 text-xl">Voucher :</h6>
                                 </div>
                                 <div style="margin-left: 1rem">
-                                    <Button style="color: #fff" @click="selectVoucher"> Voucher</Button>
+                                    <button style="color: #fff ; border-radius: 10px ; border : none ; padding : 2px 10px ; background-color : blue"  @click="selectVoucher"> Voucher</button>
                                 </div>
                             </div>
 
@@ -473,7 +473,7 @@ const showError = computed(() => {
                                     </div>
                                 </div>
                                 <div class="p-col-6">
-                                    <h6 style="height: 20px; width: 80px; margin-left: 1rem">{{ formatCurrency(giamGia) }}</h6>
+                                    <h6 style="margin-left: 1rem ; color : red">{{ formatCurrency(giamGia) }}</h6>
                                 </div>
                             </div>
 
@@ -484,7 +484,7 @@ const showError = computed(() => {
                                     </div>
                                 </div>
                                 <div class="p-col-6">
-                                    <h6 style="height: 20px; width: 80px; margin-left: 1rem" class="text-red-600 text-xl">{{ formatCurrency(tongThanhToan) }}</h6>
+                                    <h6 style="margin-left: 1rem" class="text-red-600 text-xl">{{ formatCurrency(tongThanhToan) }}</h6>
                                 </div>
                             </div>
                             <Divider style="margin-top: -10px" />

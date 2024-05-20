@@ -13,6 +13,7 @@ const props = defineProps({
 const updatevoucherDialog = ref(false);
 const schema = Yup.object().shape({
     ten: Yup.string().min(4, 'Tên sản phẩm phải có ít nhất 4 ký tự'),
+
     moTa: Yup.string().required('Vui lòng điền mô tả voucher').min(10, 'Mô tả voucher phải có ít nhất 10 ký tự'),
     giaTriGiam: Yup.number().required('Bạn cần nhập giá trị giảm của voucher').typeError('Giá trị giảm phải là số nguyên').min(1, 'Giá trị giảm phải lớn hơn hoặc bằng 1').max(100, 'Giá trị phải nhỏ hơn hoặc 100').nullable(),
     soLuong: Yup.number().required('Bạn cần nhập số lượng voucher').typeError('Số lượng voucher phải là một số').min(1, 'Số lượng phải lớn hơn hoặc bằng 1').nullable(),

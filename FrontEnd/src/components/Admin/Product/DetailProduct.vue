@@ -165,7 +165,7 @@ const editProduct = () => {
 
 const getStatusLabel = (soLuong) => {
     if (soLuong == 0) {
-        return { text: 'hết Hàng', severity: 'danger' };
+        return { text: 'Hết Hàng', severity: 'danger' };
     } else if (soLuong == 1) {
         return { text: 'Còn hàng', severity: 'success' };
     } else if (soLuong == 2){
@@ -217,7 +217,7 @@ const dataTrangThai = ref([
     { label: 'Tất cả', value: -1 },
     { label: 'Hết hàng', value: 0 },
     { label: 'Còn hàng', value: 1 },
-    { label: 'khuyễn mại', value: 2 },
+    { label: 'Khuyễn mại', value: 2 },
     { label: 'Tồn kho', value: 3 },
 ]);
 
@@ -416,7 +416,7 @@ const loadDataTrangThai = () => {
                         <Column field="trangThai" header="Trạng Thái" sortable headerStyle="width: 4%; min-width: 5rem;">
                             <template #body="slotProps">
                                 <Tag :value="getStatusLabel(slotProps.data.trangThai).text"
-                                    v-if="getStatusLabel(slotProps.data.trangThai).text === 'hết Hàng'"
+                                    v-if="getStatusLabel(slotProps.data.trangThai).text === 'Hết Hàng'"
                                     :severity="getStatusLabel(slotProps.data.trangThai)"
                                      />
                                      <div v-else-if="getStatusLabel(slotProps.data.trangThai).text === 'Còn hàng'">

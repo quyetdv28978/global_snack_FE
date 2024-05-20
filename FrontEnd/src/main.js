@@ -106,7 +106,7 @@ import BlockViewer from '@/components/BlockViewer.vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import vue3GoogleLogin from 'vue3-google-login';
-import '@/assets/styles.scss';
+import '@/assets/styles.scss';  
 // import 'primevue/resources/themes/aura-light-green/theme.css';
 // import { Client } from 'webstomp-client';
 // import SockJS from 'sockjs-client';

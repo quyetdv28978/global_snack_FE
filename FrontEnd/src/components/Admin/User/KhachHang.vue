@@ -138,7 +138,7 @@ const onToggle = (val) => {
                 <Column header="Ảnh" headerStyle="width:14%; min-width:10rem;">
                     <template #body="slotProps">
                         <span class="p-column-title">anh</span>
-                        <img :src="slotProps.data.anh" :alt="slotProps.data.anh" class="shadow-2" width="100" />
+                        <img :src="slotProps.data.anh" :alt="slotProps.data.anh" class="shadow-2" style="width : 55px ; height : 55px ; border-radius : 50%" />
                     </template>
                 </Column>
                 <Column field="ma" header="Mã" headerStyle="width:14%; min-width:10rem;">

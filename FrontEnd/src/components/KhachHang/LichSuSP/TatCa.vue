@@ -69,10 +69,10 @@ const getStatusLabel = (trangThai) => {
             return { text: 'Còn Hàng', severity: 'success' };
 
         case 2:
-            return { text: 'hết Hàng', severity: 'danger' };
+            return { text: 'Hết Hàng', severity: 'danger' };
 
         case 3:
-            return { text: 'tồn kho', severity: 'danger' };
+            return { text: 'Tồn kho', severity: 'danger' };
 
         default:
             return { text: 'Trạng thái không xác định', severity: 'info' };
