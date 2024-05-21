@@ -204,8 +204,9 @@ const dataOverlay = ref();
 const addChonHoaDonDialog = ref(false);
 const tableHoaDonRowSelected = async (event) => {
   localStorage.setItem("selectedHDId", event.data.id);
-  khExportPdf.value = { ten: event.data.user.ten, sdt: event.data.user.sdt }
-  userID.value = event.data.user.id;
+  khExportPdf.value = { ten: event.data.user !== null ? event.data.user.ten: "khach vang lai" ,
+   sdt: event.data.user !== null ?  event.data.user.sdt : ""}
+  userID.value = event.data.user == null ? null : event.data.user.id;
   store.loadHDCT(event.data.id);
   if (idSPCT.value != null) {
     addChonHoaDonDialog.value = true;

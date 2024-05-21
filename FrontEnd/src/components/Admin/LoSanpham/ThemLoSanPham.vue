@@ -23,7 +23,8 @@ const schema = yup.object().shape({
         .required('Tên không được để trống!')
         .max(3000, 'Tên giới hạn 30 ký tự')
         .matches(/^[a-zA-Z0-9đĐáÁàÀảẢãÃạẠăĂắẮằẰẳẲẵẴặẶâÂấẤầẦẩẨẫẪậẬêÊếẾềỀểỂễỄệỆôÔốỐồỒổỔỗỖộỘỏỎóÓòÒõÕọỌẻẺéÉèÈẽẼẹẸỉỈíÍìÌĩĨịỊơƠớỚờỜởỞỡỠợỢùÙúÚụỤủỦũŨưỨỨửỬữỮựỰýÝỳỲỷỶỹỸỵỴ\s]*$/, 'Tên không được chứa kí tự đặc biệt!'),
-});
+    thoiGianBatDau: yup.date().nullable().required('Thời gian bắt đầu là bắt buộc').typeError('Vui lòng chọn ngày hợp lệ').min(new Date(new Date().setHours(0, 0, 0, 0)), 'Thời gian bắt đầu không thể nhỏ hơn thời gian hiện tại'),
+    });
 const { handleSubmit, resetForm } = useForm({
     validationSchema: schema
 });
@@ -31,6 +32,8 @@ const { value: ten, errorMessage: tenError } = useField('ten');
 const { value: ma, errorMessage: maError } = useField('ma');
 const { value: ngayHetHan, errorMessage: ngayHetHanError } = useField('ngayHetHan');
 const { value: ncc, errorMessage: nccError } = useField('NhaCungCap');
+const { value: thoiGianBatDau, errorMessage: thoiGianBatDauError } = useField('thoiGianBatDau');
+
 const onSubmit = handleSubmit(async (values) => {
     try {
     } catch (error) {
