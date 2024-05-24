@@ -162,9 +162,9 @@ const quyet = () => {
                     <div class="Field col-12" style="margin-bottom: 30px">
                         <label >Ngày hết hạn</label>
                         <span class="p-float-label">
-                            <InputText id="ngayHetHan" name="ngayHetHan" type="date" v-model.trim="ngayHetHan" :class="{ 'p-invalid': ngayHetHanError }" required="true" autofocus />
-                        </span>
-                        <small class="p-error">{{ ngayHetHanError }}</small>
+                    <Calendar id="thoiGianBatDau" v-model="thoiGianBatDau" :class="{ 'p-invalid': thoiGianBatDauError }" dateFormat="yy/mm/dd" showIcon />
+                    <small class="p-error">{{ thoiGianBatDauError }}</small>                        </span>
+                        <!-- <small class="p-error">{{ ngayHetHanError }}</small> -->
                     </div>
                 </div>
              
